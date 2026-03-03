@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Student\Pages\Login;
+use App\Filament\Student\Pages\Register;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -20,15 +22,18 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 
-class AdminPanelProvider extends PanelProvider
+class StudentPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
-            ->login()
+            ->id('student')
+            ->path('student')
+            ->login(Login::class)
+            ->registration(Register::class)
+            ->passwordReset()
+            ->emailVerification()
+            ->emailChangeVerification()
             ->topbar(false)
             ->sidebarWidth('18rem')
             ->sidebarCollapsibleOnDesktop()
@@ -41,14 +46,14 @@ class AdminPanelProvider extends PanelProvider
                 'success' => Color::Teal,
                 'warning' => Color::Orange,
                 'info' => Color::Sky,
-                'gray' => Color::Mauve, // Softer neutral
+                'gray' => Color::Mauve,
             ])
-            ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
-            ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
+            ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\Filament\Student\Resources')
+            ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\Filament\Student\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\Filament\Admin\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Student/Widgets'), for: 'App\Filament\Student\Widgets')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
@@ -69,7 +74,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 // BreezyCore::make()
-                //     ->myProfile(),
+                //     ->myProfile()
+                    // ->enableTwoFactorAuthentication(),
             ]);
     }
 }

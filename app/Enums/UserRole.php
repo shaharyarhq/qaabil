@@ -8,4 +8,5 @@ enum UserRole: string
 
     case STUDENT = 'student';
 
+    case MODERATOR = 'moderator';
 }

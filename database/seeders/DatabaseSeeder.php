@@ -41,6 +41,14 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now()
         ]);
 
+        $user3 = User::create([
+            'name' => 'Moderator',
+            'email' => 'shaharyarahmed557@gmail.com',
+            'password' => 'shaharyarahmed557@gmail.com',
+            'email_verified_at' => now()
+        ]);
+
+
         $superAdminRole = Role::create([
             'name' => UserRole::SUPER_ADMIN
         ]);
@@ -49,8 +57,13 @@ class DatabaseSeeder extends Seeder
             'name' => UserRole::STUDENT
         ]);
 
+        $moderatorRole = Role::create([
+            'name' => UserRole::MODERATOR,
+        ]);
+
         $user->assignRole($superAdminRole);
         $user2->assignRole($studentRole);
+        $user3->assignRole($moderatorRole);
 
         // Create Laravel Course
         $course = Course::create([

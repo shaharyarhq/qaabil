@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Support\PanelConfiguration;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -24,25 +25,12 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        return PanelConfiguration::make($panel)
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
-            ->topbar(false)
-            ->sidebarWidth('18rem')
-            ->sidebarCollapsibleOnDesktop()
-            ->globalSearch(false)
-            ->spa()
             ->profile()
-            ->colors([
-                'primary' => Color::Blue,
-                'danger' => Color::Rose,
-                'success' => Color::Teal,
-                'warning' => Color::Orange,
-                'info' => Color::Sky,
-                'gray' => Color::Mauve, // Softer neutral
-            ])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
             ->pages([

@@ -64,11 +64,17 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->hasRole(UserRole::STUDENT);
     }
 
+    public function isModerator(): bool
+    {
+        return $this->hasRole(UserRole::MODERATOR);
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
             'admin' => $this->isSuperAdmin(),
             'student' => $this->isStudent(),
+            'moderator' => $this->isModerator(),
             default => false,
         };
     }

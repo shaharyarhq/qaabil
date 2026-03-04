@@ -1,0 +1,104 @@
+@import "../../../../vendor/filament/filament/resources/css/theme.css";
+
+@source '../../../../app/Filament/Admin/**/*';
+@source '../../../../resources/views/filament/admin/**/*';
+
+/* wrapper */
+.auth-theme-switcher {
+    @apply fixed top-0 z-50 flex w-full justify-end p-4;
+}
+
+.auth-theme-switcher__box {
+    @apply rounded-lg bg-gray-50 dark:bg-gray-950;
+}
+
+.theme-switcher {
+    @apply grid grid-flow-col gap-x-1;
+}
+
+/* base button */
+.theme-btn {
+    @apply flex justify-center rounded-lg p-2 outline-none transition duration-75;
+    @apply hover:bg-gray-50 focus:bg-gray-50;
+    @apply dark:hover:bg-white/5 dark:focus:bg-white/5;
+}
+
+/* active state */
+.theme-btn--active {
+    @apply bg-gray-50 text-primary-500;
+    @apply dark:bg-white/5 dark:text-primary-400;
+}
+
+/* inactive state */
+.theme-btn--inactive {
+    @apply text-gray-400 hover:text-gray-500 focus:text-gray-500;
+    @apply dark:text-gray-500 dark:hover:text-gray-400 dark:focus:text-gray-400;
+}
+
+/* icon */
+.theme-btn__icon {
+    @apply h-5 w-5;
+}
+
+.global-loading-indicator {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 8px;
+}
+
+.fi-btn.fi-color-primary:is([class*="fi-bg-color-"]) {
+    --bg: var(--color-600) !important;
+    --text: white !important;
+}
+
+.fi-btn.fi-color-primary:hover:is([class*="fi-bg-color-"]) {
+    --hover-bg: var(--color-500) !important;
+    --hover-text: white !important;
+}
+
+@media (min-width: 768px) {
+    ::-webkit-scrollbar {
+        height: 5px;
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #e5e7eb
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #d1d5db
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #c9cbcd
+    }
+
+    .dark ::-webkit-scrollbar-track {
+        background: #101215
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+        background: #1f2126
+    }
+
+    .dark ::-webkit-scrollbar-thumb:hover {
+        background: #1a1d21
+    }
+
+    @supports (-moz-appearance: none) {
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db #e5e7eb;
+        }
+
+        .dark, .dark * {
+            scrollbar-color: #1f2126 #101215;
+        }
+    }
+}
+
+.cp-label {
+    @apply w-full text-center;
+}

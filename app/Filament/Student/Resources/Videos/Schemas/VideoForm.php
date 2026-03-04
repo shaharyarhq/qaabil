@@ -2,8 +2,10 @@
 
 namespace App\Filament\Student\Resources\Videos\Schemas;
 
+use App\Enums\VideoStatus;
 use App\Services\BunnyStreamService;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -12,7 +14,9 @@ use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Operation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 
@@ -47,6 +51,11 @@ class VideoForm
                         fn($query, Get $get) => $query->where('chapter_id', $get('chapter_id')) // filter by selected chapter
                     )
                     ->required(),
+
+                Select::make('status')
+                    ->disabled()
+                    ->visibleOn(Operation::Edit)
+                    ->options(VideoStatus::class),
 
                 Section::make('Video')
                     ->columnSpanFull()
@@ -182,6 +191,7 @@ class VideoForm
                                 })),
 
                     ]),
+
             ]);
     }
 }

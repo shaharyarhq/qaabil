@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\UserRole;
+use App\Enums\UserStatus;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Objective;
@@ -31,7 +32,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => 'admin@gmail.com',
-            'email_verified_at' => now()
+            'email_verified_at' => now(),
+            'status' => UserStatus::APPROVED
         ]);
 
         $user2 = User::create([

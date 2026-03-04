@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('title', 255);
             $table->string('video_url', 1024)->nullable();
             $table->string('thumbnail_url', 1024)->nullable();
+            $table->string('status', 255)->nullable();
+            $table->foreignId('approved_by')->nullable()->constrained('users', 'id');
             $table->userstamps();
             $table->timestamps();
         });

@@ -13,6 +13,7 @@ use Filament\PanelProvider;
 use Filament\Widgets\AccountWidget;
 use App\Filament\Moderator\Pages\Login;
 use App\Filament\Moderator\Pages\Register;
+use App\Http\Middleware\EnsureModeratorIsApproved;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -57,6 +58,7 @@ class ModeratorPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                EnsureModeratorIsApproved::class
             ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\VideoStatus;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Objective;
@@ -19,6 +20,15 @@ class Video extends Model
         'course_id',
         'chapter_id',
         'objective_id',
+        'approved_by'
+    ];
+
+    protected $casts = [
+        'status' => VideoStatus::class
+    ];
+
+    protected $attributes = [
+        'status' => VideoStatus::PENDING,
     ];
 
     public function course()
@@ -34,5 +44,10 @@ class Video extends Model
     public function objective()
     {
         return $this->belongsTo(Objective::class);
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
     }
 }

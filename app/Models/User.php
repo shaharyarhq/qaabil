@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
+use App\Enums\UserStatus;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -31,6 +32,10 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'password',
     ];
 
+    protected $attributes = [
+        'status' => UserStatus::PENDING,
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -51,6 +56,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => UserStatus::class
         ];
     }
 

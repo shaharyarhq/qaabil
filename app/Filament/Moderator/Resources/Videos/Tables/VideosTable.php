@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Filament\Student\Resources\Videos\Tables;
+namespace App\Filament\Moderator\Resources\Videos\Tables;
 
 use App\Enums\VideoStatus;
-use App\Filament\Support\Components\Filters\CreatedAtFilter;
-use App\Filament\Support\Components\Filters\UpdatedAtFilter;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
+use Filament\Support\Enums\Width;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,6 +47,8 @@ class VideosTable
                     ->copyable(),
                 TextColumn::make('objective.name')
                     ->copyable(),
+                TextColumn::make('creator.name')
+                    ->copyable(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn($state): string => match ($state) {
@@ -54,7 +58,6 @@ class VideosTable
                     }),
                 TextColumn::make('approver.name')
                     ->label('Approved By')
-                    ->placeholder('---')
                     ->copyable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -66,19 +69,26 @@ class VideosTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                CreatedAtFilter::make(),
-                UpdatedAtFilter::make(),
-                SelectFilter::make('course')
-                    ->relationship('course', 'name'),
-                SelectFilter::make('chapter')
-                    ->relationship('chapter', 'name'),
-                SelectFilter::make('objective')
-                    ->relationship('objective', 'name'),
+                //
             ])
             ->recordActions([
-                // ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
+                ViewAction::make(),
+                // EditAction::make(),
+                Action::make('update_status')
+                    ->color('success')
+                    ->icon(Heroicon::ArrowUpTray)
+                    ->modalWidth(Width::Small)
+                    ->schema(fn(Model $record) => [
+                        Select::make('status')
+                            ->options(VideoStatus::class)
+                            ->required()
+                            ->default($record->status),
+                    ])
+                    ->action(function (Model $record, array $data) {
+                        $record->status = $data['status'];
+                        $record->approved_by = filament()->auth()->user()->id;
+                        $record->save();
+                    })
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

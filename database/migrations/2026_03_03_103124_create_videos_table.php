@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title', 255);
             $table->string('video_url', 1024)->nullable();
             $table->string('thumbnail_url', 1024)->nullable();
+            $table->userstamps();
             $table->timestamps();
         });
     }

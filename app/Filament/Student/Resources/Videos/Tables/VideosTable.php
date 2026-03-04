@@ -24,10 +24,15 @@ class VideosTable
                     ->label('Video Thumbnail')
                     ->circular()
                     ->imageSize(80)
+                    ->placeholder('---')
                     ->state(function (?Model $record) {
+                        if (!$record->video_url) {
+                            return null;
+                        }
                         $guid = $record->video_url;
+                        $thumbnailUrl = $record->thumbnail_url ?? 'thumbnail.jpg';
                         $cdnHostName = config('filesystems.disks.bunny_stream.hostname');
-                        $url = "https://{$cdnHostName}/{$guid}/{$record->thumbnail_url}";
+                        $url = "https://{$cdnHostName}/{$guid}/{$thumbnailUrl}";
                         return $url;
                     })
                     ->searchable(),

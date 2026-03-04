@@ -106,6 +106,7 @@ class VideoForm
                                 ->visibility('public')
                                 ->previewable(true)
                                 ->nullable()
+                                ->visible(fn(?Model $record) => filled($record?->video_url))
                                 ->saveUploadedFileUsing(function ($file, $record) {
 
                                     if (! $record?->video_url) {

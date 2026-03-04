@@ -6,9 +6,12 @@ use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Objective;
 use Illuminate\Database\Eloquent\Model;
+use Mattiverse\Userstamps\Traits\Userstamps;
 
 class Video extends Model
 {
+    use Userstamps;
+
     protected $fillable = [
         'title',
         'video_url',

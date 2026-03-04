@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class VideoResource extends Resource
 {
@@ -53,5 +54,11 @@ class VideoResource extends Resource
             // 'view' => ViewVideo::route('/{record}'),
             'edit' => EditVideo::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('created_by', filament()->auth()->user()->id);
     }
 }

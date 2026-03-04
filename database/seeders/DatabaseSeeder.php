@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Enums\UserRole;
+use App\Models\Chapter;
+use App\Models\Course;
+use App\Models\Objective;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,7 +30,15 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'password' => 'admin@gmail.com'
+            'password' => 'admin@gmail.com',
+            'email_verified_at' => now()
+        ]);
+
+        $user2 = User::create([
+            'name' => 'Student',
+            'email' => 'ahmedshaharyar00@gmail.com',
+            'password' => 'ahmedshaharyar00@gmail.com',
+            'email_verified_at' => now()
         ]);
 
         $superAdminRole = Role::create([
@@ -39,5 +50,64 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user->assignRole($superAdminRole);
+        $user2->assignRole($studentRole);
+
+        // Create Laravel Course
+        $course = Course::create([
+            'name' => 'Laravel Framework',
+        ]);
+
+        // Chapters for Laravel course
+        $chapters = [
+            'Introduction to Laravel' => [
+                'Understand MVC Architecture',
+                'Install Laravel',
+                'Explore Laravel directory structure'
+            ],
+            'Routing & Controllers' => [
+                'Define routes',
+                'Create controllers',
+                'Route parameters and naming'
+            ],
+            'Blade Templating' => [
+                'Create Blade views',
+                'Use Blade directives',
+                'Template inheritance'
+            ],
+            'Database & Eloquent ORM' => [
+                'Migrations and schema',
+                'Eloquent models',
+                'Relationships between models'
+            ],
+            'Authentication & Authorization' => [
+                'User registration and login',
+                'Middleware',
+                'Gates and policies'
+            ],
+            'APIs & JSON Responses' => [
+                'Create API routes',
+                'Use Resource classes',
+                'Handle JSON requests and responses'
+            ],
+            'Testing & Debugging' => [
+                'Write unit tests',
+                'Use factories and seeders',
+                'Debug with Laravel Telescope'
+            ],
+        ];
+
+        foreach ($chapters as $chapterName => $objectives) {
+            $chapter = Chapter::create([
+                'name' => $chapterName,
+                'course_id' => $course->id,
+            ]);
+
+            foreach ($objectives as $objectiveName) {
+                Objective::create([
+                    'name' => $objectiveName,
+                    'chapter_id' => $chapter->id,
+                ]);
+            }
+        }
     }
 }

@@ -37,6 +37,7 @@ class StudentPanelProvider extends PanelProvider
             ->topbar(false)
             ->sidebarWidth('18rem')
             ->sidebarCollapsibleOnDesktop()
+            ->databaseTransactions()
             ->globalSearch(false)
             ->spa()
             ->profile()

@@ -36,32 +36,32 @@ class DatabaseSeeder extends Seeder
             'status' => UserStatus::APPROVED
         ]);
 
-        $user2 = User::create([
-            'name' => 'Student',
-            'email' => 'ahmedshaharyar00@gmail.com',
-            'password' => 'ahmedshaharyar00@gmail.com',
-            'email_verified_at' => now()
-        ]);
+        // $user2 = User::create([
+        //     'name' => 'Student',
+        //     'email' => 'ahmedshaharyar00@gmail.com',
+        //     'password' => 'ahmedshaharyar00@gmail.com',
+        //     'email_verified_at' => now()
+        // ]);
 
-        $user3 = User::create([
-            'name' => 'Moderator',
-            'email' => 'shaharyarahmed557@gmail.com',
-            'password' => 'shaharyarahmed557@gmail.com',
-            'email_verified_at' => now()
-        ]);
+        // $user3 = User::create([
+        //     'name' => 'Moderator',
+        //     'email' => 'shaharyarahmed557@gmail.com',
+        //     'password' => 'shaharyarahmed557@gmail.com',
+        //     'email_verified_at' => now()
+        // ]);
 
 
         $superAdminRole = Role::create([
             'name' => UserRole::SUPER_ADMIN
         ]);
 
-        // $studentRole = Role::create([
-        //     'name' => UserRole::STUDENT
-        // ]);
+        $studentRole = Role::create([
+            'name' => UserRole::STUDENT
+        ]);
 
-        // $moderatorRole = Role::create([
-        //     'name' => UserRole::MODERATOR,
-        // ]);
+        $moderatorRole = Role::create([
+            'name' => UserRole::MODERATOR,
+        ]);
 
         $user->assignRole($superAdminRole);
         // $user2->assignRole($studentRole);

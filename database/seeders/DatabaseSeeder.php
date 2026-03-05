@@ -55,24 +55,24 @@ class DatabaseSeeder extends Seeder
             'name' => UserRole::SUPER_ADMIN
         ]);
 
-        $studentRole = Role::create([
-            'name' => UserRole::STUDENT
-        ]);
+        // $studentRole = Role::create([
+        //     'name' => UserRole::STUDENT
+        // ]);
 
-        $moderatorRole = Role::create([
-            'name' => UserRole::MODERATOR,
-        ]);
+        // $moderatorRole = Role::create([
+        //     'name' => UserRole::MODERATOR,
+        // ]);
 
         $user->assignRole($superAdminRole);
-        $user2->assignRole($studentRole);
-        $user3->assignRole($moderatorRole);
+        // $user2->assignRole($studentRole);
+        // $user3->assignRole($moderatorRole);
 
         // Create Laravel Course
-        $course = Course::create([
-            'name' => 'Laravel Framework',
-            'description' =>
-            'Master the fundamentals of the Laravel PHP framework. This course covers routing, controllers, Blade templating, Eloquent ORM, and building modern web applications.'
-        ]);
+        // $course = Course::create([
+        //     'name' => 'Laravel Framework',
+        //     'description' =>
+        //     'Master the fundamentals of the Laravel PHP framework. This course covers routing, controllers, Blade templating, Eloquent ORM, and building modern web applications.'
+        // ]);
 
         // Chapters for Laravel course
         $chapters = [
@@ -113,18 +113,18 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach ($chapters as $chapterName => $objectives) {
-            $chapter = Chapter::create([
-                'name' => $chapterName,
-                'course_id' => $course->id,
-            ]);
+        // foreach ($chapters as $chapterName => $objectives) {
+        //     $chapter = Chapter::create([
+        //         'name' => $chapterName,
+        //         'course_id' => $course->id,
+        //     ]);
 
-            foreach ($objectives as $objectiveName) {
-                Objective::create([
-                    'name' => $objectiveName,
-                    'chapter_id' => $chapter->id,
-                ]);
-            }
-        }
+        //     foreach ($objectives as $objectiveName) {
+        //         Objective::create([
+        //             'name' => $objectiveName,
+        //             'chapter_id' => $chapter->id,
+        //         ]);
+        //     }
+        // }
     }
 }

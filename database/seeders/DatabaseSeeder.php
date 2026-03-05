@@ -70,6 +70,7 @@ class DatabaseSeeder extends Seeder
         // Create Laravel Course
         $course = Course::create([
             'name' => 'Laravel Framework',
+            'description' =>
             'Master the fundamentals of the Laravel PHP framework. This course covers routing, controllers, Blade templating, Eloquent ORM, and building modern web applications.'
         ]);
 

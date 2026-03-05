@@ -14,6 +14,8 @@ class CourseForm
                 TextInput::make('name')
                     ->maxLength(255)
                     ->required(),
+                TextInput::make('description')
+                    ->nullable(),
             ]);
     }
 }

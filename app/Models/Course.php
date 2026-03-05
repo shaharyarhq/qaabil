@@ -15,4 +15,14 @@ class Course extends Model
     {
         return $this->hasMany(Chapter::class);
     }
+
+    public function objectives()
+    {
+        return $this->hasManyThrough(Objective::class, Chapter::class);
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
 }

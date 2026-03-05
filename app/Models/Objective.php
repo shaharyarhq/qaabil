@@ -15,4 +15,9 @@ class Objective extends Model
     {
         return $this->belongsTo(Chapter::class);
     }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
 }

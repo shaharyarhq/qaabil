@@ -24,7 +24,7 @@ Route::get('/courses/{course}', function (Course $course) {
         'chapters',
         'chapters.objectives',
         'chapters.objectives.videos' => function ($query) {
-            $query->whereNotNull('video_url');
+            $query->whereNotNull('video_url')->where('status', 'approved');
         }
     ]);
 
@@ -36,7 +36,9 @@ Route::get('video/{video}', function (Video $video) {
         'course',
         'chapter',
         'objective',
-        'objective.videos',
+        'objective.videos'  => function ($query) {
+            $query->whereNotNull('video_url')->where('status', 'approved');
+        },
         'approver'
     ]);
 

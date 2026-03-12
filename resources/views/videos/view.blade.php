@@ -339,11 +339,23 @@
             <div class="flex flex-col gap-5">
 
                 <!-- Player -->
-                <div class="player-wrap">
+                {{-- <div class="player-wrap">
                     <iframe
                         src="https://iframe.mediadelivery.net/embed/{{ config('filesystems.disks.bunny_stream.library_id') }}/{{ $video->video_url }}"
                         allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;" allowfullscreen>
                     </iframe>
+                </div> --}}
+                <div class="player-wrap">
+                    @php
+                        preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/', $video->video_url ?? '', $matches);
+                        $videoId = $matches[1] ?? null;
+                    @endphp
+                    @if ($videoId)
+                        <iframe src="https://www.youtube.com/embed/{{ $videoId }}?rel=0&modestbranding=1&&iv_load_policy=3&showinfo=0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    @endif
                 </div>
 
                 <!-- Title + badge -->
@@ -392,8 +404,8 @@
                     @if ($video->objective)
                         <div class="info-row">
                             <div class="info-icon">
-                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
+                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                 </svg>
@@ -409,8 +421,8 @@
                     @if ($video->chapter)
                         <div class="info-row">
                             <div class="info-icon">
-                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
+                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                 </svg>
@@ -426,8 +438,8 @@
                     @if ($video->approver)
                         <div class="info-row">
                             <div class="info-icon">
-                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
+                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
@@ -438,7 +450,8 @@
                                 <p class="text-sm text-[#1e1b1a]/80">{{ $video->approver->name }}</p>
                                 @if ($video->updated_at && $status === 'approved')
                                     <p class="text-xs text-[#1e1b1a]/40 mt-0.5">
-                                        {{ $video->updated_at->diffForHumans() }}</p>
+                                        {{ $video->updated_at->diffForHumans() }}
+                                    </p>
                                 @endif
                             </div>
                         </div>
@@ -446,8 +459,8 @@
 
                     <div class="info-row">
                         <div class="info-icon">
-                            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2">
+                            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
@@ -475,24 +488,65 @@
                         <div class="text-sm serif-italic text-[#1e1b1a]/30 py-4">No other submissions yet.</div>
                     @else
                         <div class="flex flex-col gap-1">
+                            {{-- @foreach ($related as $rel)
+                            @php $relStatus = $rel->status instanceof \App\Enums\VideoStatus ? $rel->status->value :
+                            $rel->status; @endphp
+                            <a href="{{ route('video.view', $rel) }}" class="related-card">
+                                <div class="related-thumb">
+                                    @php
+                                    $libraryId = config('filesystems.disks.bunny_stream.library_id');
+                                    $guid = $rel->video_url;
+
+                                    $cdnHostName = config('filesystems.disks.bunny_stream.hostname');
+
+                                    $thubnail = $rel->thumbnail_url ?? 'thumbnail.jpg';
+                                    @endphp
+                                    <img src="{{ " https://{$cdnHostName}/{$guid}/{$thubnail}" }}" alt="{{ $rel->title }}">
+                                    <div class="play-overlay">
+                                        <div class="play-btn-sm">
+                                            <svg width="10" height="10" viewBox="0 0 10 10" fill="#1e1b1a">
+                                                <path d="M2 1.5l6 3.5-6 3.5V1.5z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0 py-0.5">
+                                    <p class="text-sm text-[#1e1b1a]/80 leading-snug line-clamp-2 mb-1">
+                                        {{ $rel->title ?? 'Untitled submission' }}
+                                    </p>
+                                    <div class="flex items-center gap-2">
+                                        @if ($relStatus === 'approved')
+                                        <span class="badge badge-approved"
+                                            style="font-size:.6rem; padding:.2rem .55rem;">approved</span>
+                                        @else
+                                        <span class="badge badge-pending" style="font-size:.6rem; padding:.2rem .55rem;">{{
+                                            $relStatus }}</span>
+                                        @endif
+                                        <span class="text-[11px] text-[#1e1b1a]/35">{{ $rel->created_at->diffForHumans()
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                            @endforeach --}}
                             @foreach ($related as $rel)
-                                @php $relStatus = $rel->status instanceof \App\Enums\VideoStatus ? $rel->status->value : $rel->status; @endphp
+                                @php
+                                    $relStatus = $rel->status instanceof \App\Enums\VideoStatus ? $rel->status->value : $rel->status;
+                                    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/', $rel->video_url ?? '', $matches);
+                                    $relVideoId = $matches[1] ?? null;
+                                    $relThumbnail = $relVideoId ? "https://img.youtube.com/vi/{$relVideoId}/mqdefault.jpg" : null;
+                                @endphp
                                 <a href="{{ route('video.view', $rel) }}" class="related-card">
                                     <div class="related-thumb">
-                                        @php
-                                            $libraryId = config('filesystems.disks.bunny_stream.library_id');
-                                            $guid = $rel->video_url;
-
-                                            $cdnHostName = config('filesystems.disks.bunny_stream.hostname');
-
-                                            $thubnail = $rel->thumbnail_url ?? 'thumbnail.jpg';
-                                        @endphp
-                                        <img src="{{ "https://{$cdnHostName}/{$guid}/{$thubnail}" }}"
-                                            alt="{{ $rel->title }}">
+                                        @if ($relThumbnail)
+                                            <img src="{{ $relThumbnail }}" alt="{{ $rel->title }}">
+                                        @else
+                                            <div class="w-full h-full bg-black/10 flex items-center justify-center">
+                                                <span class="text-xs text-black/20">No preview</span>
+                                            </div>
+                                        @endif
                                         <div class="play-overlay">
                                             <div class="play-btn-sm">
-                                                <svg width="10" height="10" viewBox="0 0 10 10"
-                                                    fill="#1e1b1a">
+                                                <svg width="10" height="10" viewBox="0 0 10 10" fill="#1e1b1a">
                                                     <path d="M2 1.5l6 3.5-6 3.5V1.5z" />
                                                 </svg>
                                             </div>
@@ -525,9 +579,8 @@
                     <div class="mt-8 pt-6 divider">
                         <a href="{{ route('courses.view', $video->course) }}"
                             class="flex items-center gap-2 text-sm text-[#1e1b1a]/50 hover:text-[#c69c5a] transition-colors font-medium group">
-                            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2"
-                                class="transition-transform group-hover:-translate-x-0.5">
+                            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="2" class="transition-transform group-hover:-translate-x-0.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                             </svg>
                             Back to {{ $video->course->name }}

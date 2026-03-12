@@ -432,7 +432,8 @@
                                             </div>
                                         </div>
                                         <div class="gap-3 px-5 py-4">
-                                            <a href="{{ route('objective.view', [$obj]) }}" class="text-sm  hover:underline text-[#1e1b1a]/80 leading-relaxed font-medium">
+                                            <a href="{{ route('objective.view', [$obj]) }}"
+                                                class="text-sm  hover:underline text-[#1e1b1a]/80 leading-relaxed font-medium">
                                                 All videos
                                             </a>
                                             <span style="color:var(--gold)">✦</span>
@@ -447,8 +448,8 @@
                                             <div class="video-slider flex gap-3 pb-2 overflow-auto"
                                                 {{-- style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;" --}}>
 
-                                                @foreach ($obj->videos as $video)
-                                                    <a href="{{ route('video.view', [$video]) }}"
+                                                {{-- @foreach ($obj->videos as $video) --}}
+                                                {{-- <a href="{{ route('video.view', [$video]) }}"
                                                         class="video-card flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer"
                                                         style="width: 220px; scroll-snap-align: start; background: #1e1b1a;">
 
@@ -467,10 +468,10 @@
                                                         <img src="{{ "https://{$cdnHostName}/{$guid}/{$thubnail}" }}"
                                                             alt="{{ $video->title }}"
                                                             class="w-full object-cover transition-opacity duration-300 group-hover:opacity-70"
-                                                            style="height: 130px;">
+                                                            style="height: 130px;"> --}}
 
-                                                        {{-- Play button overlay --}}
-                                                        <video
+                                                {{-- Play button overlay --}}
+                                                {{-- <video
                                                             src="https://vz-37c7561e-16f.b-cdn.net/e6ec1268-9f56-4d62-a184-f53539b39b8f/preview.webp?v=1772747506"
                                                             class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                                             <div class="w-10 h-10 rounded-full flex items-center justify-center"
@@ -480,8 +481,85 @@
                                                                     <path d="M3 2l9 5-9 5V2z" />
                                                                 </svg>
                                                             </div>
-                                                        </video>
+                                                        </video> --}}
 
+
+                                                {{-- Status badge --}}
+                                                {{-- <div class="absolute top-2 right-2">
+                                                            @if ($video->status === 'approved')
+                                                                <span
+                                                                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                                                                    style="background:rgba(198,156,90,.15); color:#c69c5a; border: 1px solid rgba(198,156,90,.3);">
+                                                                    approved
+                                                                </span>
+                                                            @elseif($video->status === 'pending')
+                                                                <span
+                                                                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                                                                    style="background:rgba(255,255,255,.08); color:rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1);">
+                                                                    pending
+                                                                </span>
+                                                            @endif
+                                                        </div> --}}
+
+                                                {{-- Title --}}
+                                                {{-- <div class="px-3 py-2.5">
+                                                            <p class="text-xs text-white/80 leading-snug line-clamp-2"
+                                                                style="font-size:.72rem;">
+                                                                {{ $video->title ?? 'Untitled submission' }}
+                                                            </p>
+                                                            @if ($video->creator)
+                                                                <p class="text-[10px] mt-1"
+                                                                    style="color:rgba(255,255,255,.3);">
+                                                                    {{ $video->creator->name }}</p>
+                                                            @endif
+                                                        </div>
+
+                                                    </a> --}}
+                                                {{-- @endforeach --}}
+
+                                                @foreach ($obj->videos as $video)
+                                                    @php
+                                                        preg_match(
+                                                            '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/',
+                                                            $video->video_url ?? '',
+                                                            $matches,
+                                                        );
+                                                        $videoId = $matches[1] ?? null;
+                                                        $thumbnail = $videoId
+                                                            ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg"
+                                                            : null;
+                                                        $embedUrl = $videoId
+                                                            ? "https://www.youtube.com/embed/{$videoId}"
+                                                            : null;
+                                                    @endphp
+
+                                                    <a href="{{ route('video.view', [$video]) }}"
+                                                        class="video-card flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer"
+                                                        style="width: 220px; scroll-snap-align: start; background: #1e1b1a;">
+
+                                                        {{-- Thumbnail --}}
+                                                        @if ($thumbnail)
+                                                            <img src="{{ $thumbnail }}" alt="{{ $video->title }}"
+                                                                class="w-full object-cover transition-opacity duration-300 group-hover:opacity-70"
+                                                                style="height: 130px;">
+                                                        @else
+                                                            <div class="w-full bg-white/5 flex items-center justify-center"
+                                                                style="height: 130px;">
+                                                                <span class="text-white/20 text-xs">No thumbnail</span>
+                                                            </div>
+                                                        @endif
+
+                                                        {{-- Play button overlay --}}
+                                                        <div
+                                                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                                            <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                                                                style="background: rgba(198,156,90,.9); backdrop-filter: blur(4px);">
+                                                                <svg width="14" height="14" viewBox="0 0 14 14"
+                                                                    fill="#1e1b1a">
+                                                                    <path d="M3 2l9 5-9 5V2z" />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
 
                                                         {{-- Status badge --}}
                                                         <div class="absolute top-2 right-2">
@@ -491,7 +569,7 @@
                                                                     style="background:rgba(198,156,90,.15); color:#c69c5a; border: 1px solid rgba(198,156,90,.3);">
                                                                     approved
                                                                 </span>
-                                                            @elseif($video->status === 'pending')
+                                                            @elseif ($video->status === 'pending')
                                                                 <span
                                                                     class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
                                                                     style="background:rgba(255,255,255,.08); color:rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1);">
@@ -509,13 +587,13 @@
                                                             @if ($video->creator)
                                                                 <p class="text-[10px] mt-1"
                                                                     style="color:rgba(255,255,255,.3);">
-                                                                    {{ $video->creator->name }}</p>
+                                                                    {{ $video->creator->name }}
+                                                                </p>
                                                             @endif
                                                         </div>
 
                                                     </a>
                                                 @endforeach
-
                                             </div>
 
                                         </div>

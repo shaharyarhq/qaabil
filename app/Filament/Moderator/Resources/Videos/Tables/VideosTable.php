@@ -5,7 +5,6 @@ namespace App\Filament\Moderator\Resources\Videos\Tables;
 use App\Enums\VideoStatus;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
@@ -23,20 +22,41 @@ class VideosTable
     {
         return $table
             ->columns([
+                // ImageColumn::make('thumbnail_url')
+                //     ->label('Video Thumbnail')
+                //     ->circular()
+                //     ->imageSize(80)
+                //     ->placeholder('---')
+                //     ->state(function (?Model $record) {
+                //         if (!$record->video_url) {
+                //             return null;
+                //         }
+                //         $guid = $record->video_url;
+                //         $thumbnailUrl = $record->thumbnail_url ?? 'thumbnail.jpg';
+                //         $cdnHostName = config('filesystems.disks.bunny_stream.hostname');
+                //         $url = "https://{$cdnHostName}/{$guid}/{$thumbnailUrl}";
+                //         return $url;
+                //     })
+                //     ->searchable(),
                 ImageColumn::make('thumbnail_url')
                     ->label('Video Thumbnail')
                     ->circular()
                     ->imageSize(80)
                     ->placeholder('---')
                     ->state(function (?Model $record) {
-                        if (!$record->video_url) {
+                        if (! $record->video_url) {
                             return null;
                         }
-                        $guid = $record->video_url;
-                        $thumbnailUrl = $record->thumbnail_url ?? 'thumbnail.jpg';
-                        $cdnHostName = config('filesystems.disks.bunny_stream.hostname');
-                        $url = "https://{$cdnHostName}/{$guid}/{$thumbnailUrl}";
-                        return $url;
+
+                        preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/', $record->video_url, $matches);
+                        $videoId = $matches[1] ?? null;
+
+                        if (! $videoId) {
+                            return null;
+                        }
+
+                        // hqdefault.jpg = 480x360, mqdefault.jpg = 320x180, maxresdefault.jpg = 1280x720
+                        return "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg";
                     })
                     ->searchable(),
                 TextColumn::make('title')
@@ -51,7 +71,7 @@ class VideosTable
                     ->copyable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn($state): string => match ($state) {
+                    ->color(fn ($state): string => match ($state) {
                         VideoStatus::APPROVED => 'success',
                         VideoStatus::PENDING => 'warning',
                         VideoStatus::REJECTED => 'danger',
@@ -78,7 +98,7 @@ class VideosTable
                     ->color('success')
                     ->icon(Heroicon::ArrowUpTray)
                     ->modalWidth(Width::Small)
-                    ->schema(fn(Model $record) => [
+                    ->schema(fn (Model $record) => [
                         Select::make('status')
                             ->options(VideoStatus::class)
                             ->required()
@@ -88,7 +108,7 @@ class VideosTable
                         $record->status = $data['status'];
                         $record->approved_by = filament()->auth()->user()->id;
                         $record->save();
-                    })
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -20,7 +20,8 @@ class Video extends Model
         'course_id',
         'chapter_id',
         'objective_id',
-        'approved_by'
+        'approved_by',
+        'status'
     ];
 
     protected $casts = [

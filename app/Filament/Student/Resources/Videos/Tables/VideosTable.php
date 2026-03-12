@@ -21,20 +21,41 @@ class VideosTable
     {
         return $table
             ->columns([
+                // ImageColumn::make('thumbnail_url')
+                //     ->label('Video Thumbnail')
+                //     ->circular()
+                //     ->imageSize(80)
+                //     ->placeholder('---')
+                //     ->state(function (?Model $record) {
+                //         if (!$record->video_url) {
+                //             return null;
+                //         }
+                //         $guid = $record->video_url;
+                //         $thumbnailUrl = $record->thumbnail_url ?? 'thumbnail.jpg';
+                //         $cdnHostName = config('filesystems.disks.bunny_stream.hostname');
+                //         $url = "https://{$cdnHostName}/{$guid}/{$thumbnailUrl}";
+                //         return $url;
+                //     })
+                //     ->searchable(),
                 ImageColumn::make('thumbnail_url')
                     ->label('Video Thumbnail')
                     ->circular()
                     ->imageSize(80)
                     ->placeholder('---')
                     ->state(function (?Model $record) {
-                        if (!$record->video_url) {
+                        if (! $record->video_url) {
                             return null;
                         }
-                        $guid = $record->video_url;
-                        $thumbnailUrl = $record->thumbnail_url ?? 'thumbnail.jpg';
-                        $cdnHostName = config('filesystems.disks.bunny_stream.hostname');
-                        $url = "https://{$cdnHostName}/{$guid}/{$thumbnailUrl}";
-                        return $url;
+
+                        preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/', $record->video_url, $matches);
+                        $videoId = $matches[1] ?? null;
+
+                        if (! $videoId) {
+                            return null;
+                        }
+
+                        // hqdefault.jpg = 480x360, mqdefault.jpg = 320x180, maxresdefault.jpg = 1280x720
+                        return "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg";
                     })
                     ->searchable(),
                 TextColumn::make('title')
@@ -47,7 +68,7 @@ class VideosTable
                     ->copyable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn($state): string => match ($state) {
+                    ->color(fn ($state): string => match ($state) {
                         VideoStatus::APPROVED => 'success',
                         VideoStatus::PENDING => 'warning',
                         VideoStatus::REJECTED => 'danger',

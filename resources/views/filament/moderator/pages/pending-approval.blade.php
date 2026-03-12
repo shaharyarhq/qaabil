@@ -16,7 +16,7 @@
                 Account Pending Approval
             </h1>
 
-            <div class="space-y-2">
+        <div class="space-y-2">
                 <p class="text-lg text-gray-600 dark:text-gray-400">
                     Your moderator account is currently under review.
                 </p>

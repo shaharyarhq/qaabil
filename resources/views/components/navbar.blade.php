@@ -4,7 +4,7 @@
 
         {{-- Logo --}}
         <a wire:navigate href="/" class="shrink-0">
-            <img src="{{ asset('storage/app/qaabil.jpeg') }}" alt="Qaabil" class="h-8 w-auto object-contain">
+            <img src="{{ asset('/images/logo/qaabil.jpeg') }}" alt="Qaabil" class="h-8 w-auto object-contain">
         </a>
 
         {{-- Desktop links --}}

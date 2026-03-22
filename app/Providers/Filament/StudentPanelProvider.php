@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Admin\Pages\Profile;
 use App\Filament\Student\Pages\Login;
 use App\Filament\Student\Pages\Register;
 use App\Filament\Support\PanelConfiguration;
@@ -12,6 +13,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -20,25 +22,31 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\View\View;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 
 class StudentPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return PanelConfiguration::make($panel)
-            ->id('student')
-            ->path('student')
+            ->id('member')
+            ->path('member')
             ->login(Login::class)
             ->registration(Register::class)
             ->passwordReset()
-            ->emailVerification()
-            ->emailChangeVerification()
-            ->profile()
+            // ->emailVerification()
+            // ->emailChangeVerification()
+            // ->profile(Profile::class)
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\Filament\Student\Resources')
             ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\Filament\Student\Pages')
             ->pages([
                 Dashboard::class,
             ])
+            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.login-moderator-instead'))
+            ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.register-moderator-instead'))
+            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.copyright-label'))
+            ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.copyright-label'))
             ->discoverWidgets(in: app_path('Filament/Student/Widgets'), for: 'App\Filament\Student\Widgets')
             ->widgets([
                 AccountWidget::class,
@@ -59,9 +67,8 @@ class StudentPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                // BreezyCore::make()
-                //     ->myProfile()
-                // ->enableTwoFactorAuthentication(),
+                BreezyCore::make()
+                    ->myProfile(hasAvatars: true),
             ]);
     }
 }

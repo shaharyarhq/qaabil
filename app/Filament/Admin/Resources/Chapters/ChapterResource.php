@@ -43,7 +43,7 @@ class ChapterResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ObjectivesRelationManager::class
+            ObjectivesRelationManager::class,
         ];
     }
 
@@ -52,9 +52,8 @@ class ChapterResource extends Resource
         return [
             'index' => ListChapters::route('/'),
             'create' => CreateChapter::route('/create'),
-            'view' => ViewChapter::route('/{record}'),
+            // 'view' => ViewChapter::route('/{record}'),
             'edit' => EditChapter::route('/{record}/edit'),
         ];
     }
 }
-

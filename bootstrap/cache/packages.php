@@ -1,9 +1,9 @@
 <?php return array (
-  'anourvalar/eloquent-serialize' => 
+  'andreia/filament-ui-switcher' => 
   array (
-    'aliases' => 
+    'providers' => 
     array (
-      'EloquentSerialize' => 'AnourValar\\EloquentSerialize\\Facades\\EloquentSerializeFacade',
+      0 => 'Andreia\\FilamentUiSwitcher\\FilamentUiSwitcherServiceProvider',
     ),
   ),
   'barryvdh/laravel-debugbar' => 
@@ -112,17 +112,6 @@
       0 => 'Jeffgreco13\\FilamentBreezy\\FilamentBreezyServiceProvider',
     ),
   ),
-  'jenssegers/agent' => 
-  array (
-    'aliases' => 
-    array (
-      'Agent' => 'Jenssegers\\Agent\\Facades\\Agent',
-    ),
-    'providers' => 
-    array (
-      0 => 'Jenssegers\\Agent\\AgentServiceProvider',
-    ),
-  ),
   'kirschbaum-development/eloquent-power-joins' => 
   array (
     'providers' => 
@@ -183,15 +172,11 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
-  'ryangjchandler/blade-capture-directive' => 
+  'qcod/laravel-gamify' => 
   array (
-    'aliases' => 
-    array (
-      'BladeCaptureDirective' => 'RyanChandler\\BladeCaptureDirective\\Facades\\BladeCaptureDirective',
-    ),
     'providers' => 
     array (
-      0 => 'RyanChandler\\BladeCaptureDirective\\BladeCaptureDirectiveServiceProvider',
+      0 => 'QCod\\Gamify\\GamifyServiceProvider',
     ),
   ),
   'spatie/laravel-permission' => 

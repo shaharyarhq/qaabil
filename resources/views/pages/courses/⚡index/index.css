@@ -1,0 +1,174 @@
+/* pseudo-elements + view transitions — can't be done with Tailwind */
+.card-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 36px 36px;
+}
+.manifesto::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+/* animated underline on hover */
+.underline-amber {
+    position: relative;
+    display: inline-block;
+}
+.underline-amber::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: #f59e0b;
+    transition: width 0.3s ease;
+    border-radius: 1px;
+}
+.card:hover .underline-amber::after {
+    width: 100%;
+}
+.card:hover .pill {
+    background: rgba(27, 58, 107, 0.1);
+}
+
+/* view transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fade-up {
+    animation: fadeUp 0.45s ease both;
+}
+.d1 {
+    animation-delay: 0.04s;
+}
+.d2 {
+    animation-delay: 0.08s;
+}
+.d3 {
+    animation-delay: 0.12s;
+}
+.d4 {
+    animation-delay: 0.16s;
+}
+.d5 {
+    animation-delay: 0.2s;
+}
+.d6 {
+    animation-delay: 0.24s;
+}
+
+/* ── Search & Filter styles ── */
+
+/* Search input glow */
+.search-wrap:focus-within {
+    box-shadow:
+        0 0 0 3px rgba(27, 58, 107, 0.12),
+        0 8px 24px -6px rgba(27, 58, 107, 0.1);
+}
+.search-input:focus {
+    outline: none;
+}
+
+/* Filter chip active state */
+.filter-chip {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.18s ease;
+}
+.filter-chip:hover {
+    border-color: rgba(27, 58, 107, 0.4);
+}
+.filter-chip.active {
+    background: #1b3a6b;
+    color: #fff;
+    border-color: #1b3a6b;
+}
+.filter-chip.active .chip-dot {
+    background: #f59e0b;
+}
+
+/* Sort dropdown */
+.sort-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+}
+.sort-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(27, 58, 107, 0.12);
+}
+
+/* No-results state */
+#no-results {
+    display: none;
+}
+#no-results.visible {
+    display: flex;
+}
+
+/* Course card hidden state */
+.card[data-hidden="true"] {
+    display: none;
+}
+
+/* Results count badge animation */
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.count-pop {
+    animation: pop 0.25s ease both;
+}
+
+/* Clear button */
+.clear-btn {
+    transition: all 0.18s ease;
+}
+.clear-btn:hover {
+    background: #fee2e2;
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+/* Grid fade during Livewire re-render */
+#course-grid {
+    transition: opacity 0.2s ease;
+}
+#course-grid.loading {
+    opacity: 0.35;
+    pointer-events: none;
+}

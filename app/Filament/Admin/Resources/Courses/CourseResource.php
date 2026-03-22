@@ -6,7 +6,7 @@ use App\Filament\Admin\Resources\Courses\Pages\CreateCourse;
 use App\Filament\Admin\Resources\Courses\Pages\EditCourse;
 use App\Filament\Admin\Resources\Courses\Pages\ListCourses;
 use App\Filament\Admin\Resources\Courses\Pages\ViewCourse;
-use App\Filament\Admin\Resources\Courses\RelationManagers\ChaptersRelationManager;
+use App\Filament\Admin\Resources\Courses\RelationManagers\SectionsRelationManager;
 use App\Filament\Admin\Resources\Courses\Schemas\CourseForm;
 use App\Filament\Admin\Resources\Courses\Schemas\CourseInfolist;
 use App\Filament\Admin\Resources\Courses\Tables\CoursesTable;
@@ -43,7 +43,7 @@ class CourseResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ChaptersRelationManager::class
+            SectionsRelationManager::class,
         ];
     }
 
@@ -57,4 +57,3 @@ class CourseResource extends Resource
         ];
     }
 }
-

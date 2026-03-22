@@ -3,19 +3,16 @@
 namespace App\Filament\Student\Resources\Videos\Schemas;
 
 use App\Enums\VideoStatus;
-use App\Services\BunnyStreamService;
-use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Notifications\Notification;
-use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Operation;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 
 class VideoForm
@@ -27,18 +24,23 @@ class VideoForm
                 TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+
                 Select::make('course_id')
                     ->label('Course')
                     ->relationship('course', 'name')
+                    ->afterStateUpdatedJs('$set(`section_id`, null)')
+                    ->required(),
+
+                Select::make('section_id')
+                    ->label('Section')
+                    ->relationship('section', 'name', fn ($query, Get $get) => $query->where('course_id', $get('course_id')))
+                    ->afterStateUpdatedJs('$set(`chapter_id`, null)')
                     ->required(),
 
                 Select::make('chapter_id')
                     ->label('Chapter')
-                    ->relationship(
-                        'chapter',
-                        'name',
-                        fn ($query, Get $get) => $query->where('course_id', $get('course_id'))
-                    )
+                    ->relationship('chapter', 'name', fn ($query, Get $get) => $query->where('section_id', $get('section_id')))
+                    ->afterStateUpdatedJs('$set(`objective_id`, null)')
                     ->required(),
 
                 Select::make('objective_id')
@@ -46,7 +48,7 @@ class VideoForm
                     ->relationship(
                         'objective',
                         'name',
-                        fn ($query, Get $get) => $query->where('chapter_id', $get('chapter_id')) // filter by selected chapter
+                        fn ($query, Get $get) => $query->where('chapter_id', $get('chapter_id'))
                     )
                     ->required(),
 
@@ -54,6 +56,11 @@ class VideoForm
                     ->disabled()
                     ->visibleOn(Operation::Edit)
                     ->options(VideoStatus::class),
+
+                Select::make('language')
+                    ->options(config('app.languages'))
+                    ->required()
+                    ->default('en'),
 
                 Section::make('Video')
                     ->columnSpanFull()
@@ -218,6 +225,44 @@ class VideoForm
         ");
                             }),
                     ]),
+
+                RichEditor::make('description')
+                    ->nullable()
+                    ->columnSpan('full'),
+
+                FileUpload::make('learning_materials')
+                    ->label('Attachments')
+                    ->directory('videos/attachments')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->multiple()
+                    ->deleteUploadedFileUsing(function ($file) {
+                        Storage::disk('public')->delete($file);
+                    })
+                    ->preserveFilenames()
+                    ->nullable()
+                    ->removeUploadedFileButtonPosition('right')
+                    ->downloadable()
+                    ->columnSpanFull()
+                    ->openable(),
+
+                FileUpload::make('quiz_attachments')
+                    ->label('Quiz Attachments')
+                    ->directory('videos/quizes')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->multiple()
+                    ->deleteUploadedFileUsing(function ($file) {
+                        Storage::disk('public')->delete($file);
+                    })
+                    ->preserveFilenames()
+                    ->nullable()
+                    ->removeUploadedFileButtonPosition('right')
+                    ->downloadable()
+                    ->columnSpanFull()
+                    ->openable(),
+
+                TextInput::make('quiz_link')->nullable()->url(),
 
             ]);
     }

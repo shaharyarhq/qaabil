@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Enums\VideoStatus;
-use App\Models\Chapter;
-use App\Models\Course;
-use App\Models\Objective;
+use App\Observers\VideoObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Mattiverse\Userstamps\Traits\Userstamps;
 
+#[ObservedBy(VideoObserver::class)]
 class Video extends Model
 {
     use Userstamps;
@@ -18,14 +18,22 @@ class Video extends Model
         'video_url',
         'thumbnail_url',
         'course_id',
+        'section_id',
         'chapter_id',
         'objective_id',
+        'language',
         'approved_by',
-        'status'
+        'description',
+        'learning_materials',
+        'quiz_attachments',
+        'quiz_link',
+        'status',
     ];
 
     protected $casts = [
-        'status' => VideoStatus::class
+        'status' => VideoStatus::class,
+        'learning_materials' => 'array',
+        'quiz_attachments' => 'array',
     ];
 
     protected $attributes = [
@@ -40,6 +48,11 @@ class Video extends Model
     public function chapter()
     {
         return $this->belongsTo(Chapter::class);
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
     }
 
     public function objective()

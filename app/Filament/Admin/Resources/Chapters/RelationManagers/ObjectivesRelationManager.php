@@ -2,14 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Chapters\RelationManagers;
 
-use App\Filament\Admin\Resources\Objectives\ObjectiveResource;
-use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\DissociateAction;
-use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\TextInput;
@@ -18,7 +14,6 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 
 class ObjectivesRelationManager extends RelationManager
 {
@@ -29,8 +24,7 @@ class ObjectivesRelationManager extends RelationManager
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
             ]);
     }
 
@@ -38,7 +32,13 @@ class ObjectivesRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                // TextEntry::make('name'),
+                TextEntry::make('name'),
+                TextEntry::make('created_at')
+                    ->dateTime()
+                    ->placeholder('-'),
+                TextEntry::make('updated_at')
+                    ->dateTime()
+                    ->placeholder('-'),
             ]);
     }
 
@@ -49,24 +49,28 @@ class ObjectivesRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 CreateAction::make(),
-                // AssociateAction::make(),
             ])
             ->recordActions([
-                // ViewAction::make(),
-                EditAction::make()
-                    ->url(fn(Model $record) => ObjectiveResource::getUrl('edit', [$record])),
-                // DissociateAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    // DissociateBulkAction::make(),
                     DeleteBulkAction::make(),
                 ]),
             ]);

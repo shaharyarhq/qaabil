@@ -22,30 +22,28 @@ class UpdatedAtFilter
                     ->schema([
                         DatePicker::make('updated_from')
                             ->displayFormat(app_date_format())
-                            ->maxDate(fn(Get $get) => $get('updated_until') ?: now())
+                            ->maxDate(fn (Get $get) => $get('updated_until') ?: now())
                             ->label('From'),
                         DatePicker::make('updated_until')
                             ->displayFormat(app_date_format())
-                            ->minDate(fn(Get $get) => $get('updated_from'))
+                            ->minDate(fn (Get $get) => $get('updated_from'))
                             ->maxDate(now())
                             ->label('Until'),
-                    ])
+                    ]),
             ])
             ->query(function (Builder $query, array $data): Builder {
                 return $query
                     ->when(
                         $data['updated_from'],
-                        fn(Builder $query, $date): Builder =>
-                        $query->whereDate('updated_at', '>=', $date),
+                        fn (Builder $query, $date): Builder => $query->whereDate('updated_at', '>=', $date),
                     )
                     ->when(
                         $data['updated_until'],
-                        fn(Builder $query, $date): Builder =>
-                        $query->whereDate('updated_at', '<=', $date),
+                        fn (Builder $query, $date): Builder => $query->whereDate('updated_at', '<=', $date),
                     );
             })
             ->indicateUsing(function (array $data): ?string {
-                if (!$data['updated_from'] && !$data['updated_until']) {
+                if (! $data['updated_from'] && ! $data['updated_until']) {
                     return null;
                 }
 

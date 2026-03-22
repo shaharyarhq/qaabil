@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Chapter;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
@@ -12,14 +11,14 @@ class Course extends Model
         'description',
     ];
 
-    public function chapters()
+    public function sections()
     {
-        return $this->hasMany(Chapter::class);
+        return $this->hasMany(Section::class);
     }
 
-    public function objectives()
+    public function chapters()
     {
-        return $this->hasManyThrough(Objective::class, Chapter::class);
+        return $this->hasManyThrough(Chapter::class, Section::class);
     }
 
     public function videos()

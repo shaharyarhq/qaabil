@@ -3,22 +3,33 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Andreia\FilamentUiSwitcher\Models\Traits\HasUiPreferences;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
+use App\Notifications\BadgeEarnedNotification;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
+use QCod\Gamify\Badge;
+use QCod\Gamify\Gamify;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser, MustVerifyEmail
+class User extends Authenticatable implements FilamentUser, HasAvatar
+// ,
+//  MustVerifyEmail
 {
+    use Gamify;
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     use HasRoles;
+    use HasUiPreferences;
     use TwoFactorAuthenticatable;
 
     /**
@@ -28,6 +39,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
      */
     protected $fillable = [
         'name',
+        'avatar_url',
         'email',
         'password',
     ];
@@ -56,8 +68,19 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'status' => UserStatus::class
+            'status' => UserStatus::class,
+            'ui_preferences' => 'array',
         ];
+    }
+
+    public function videos(): HasMany
+    {
+        return $this->hasMany(Video::class, 'created_by');
+    }
+
+    public function approvedVideos(): HasMany
+    {
+        return $this->hasMany(Video::class, 'approved_by');
     }
 
     public function isSuperAdmin(): bool
@@ -79,9 +102,41 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     {
         return match ($panel->getId()) {
             'admin' => $this->isSuperAdmin(),
-            'student' => $this->isStudent(),
+            'member' => $this->isStudent(),
             'moderator' => $this->isModerator(),
             default => false,
         };
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        $avatarColumn = config('filament-edit-profile.avatar_column', 'avatar_url');
+
+        return $this->$avatarColumn ? Storage::url($this->$avatarColumn) : null;
+    }
+
+    public function syncBadges($user = null): void
+    {
+        $user = is_null($user) ? $this : $user;
+
+        // Already loaded from the sync call — no extra query
+        $before = $user->badges()->pluck('badge_id')->toArray();
+
+        $badgeIds = app('badges')
+            ->filter->qualifier($user)
+            ->map->getBadgeId();
+
+        $user->badges()->sync($badgeIds); // single sync query
+
+        // Diff in memory — no extra DB hit
+        $newBadgeIds = array_diff($badgeIds->toArray(), $before);
+
+        if (! empty($newBadgeIds)) {
+            Badge::whereIn('id', $newBadgeIds)
+                ->get()
+                ->each(fn($badge) => $user->notify(
+                    new BadgeEarnedNotification($badge)
+                ));
+        }
     }
 }

@@ -1,0 +1,65 @@
+/* form focus ring */
+.field:focus {
+    outline: none;
+    border-color: #1b3a6b;
+    box-shadow: 0 0 0 3px rgba(27, 58, 107, 0.1);
+}
+.field:focus + .field-label,
+.field:not(:placeholder-shown) + .field-label {
+    transform: translateY(-22px) scale(0.8);
+    color: #1b3a6b;
+    background: #fff;
+    padding: 0 4px;
+}
+
+/* floating label wrapper */
+.float-wrap {
+    position: relative;
+}
+.field-label {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    font-weight: 500;
+    pointer-events: none;
+    transform-origin: left;
+    transition:
+        transform 0.18s ease,
+        color 0.18s ease;
+}
+
+/* contact method card hover */
+.contact-card:hover .contact-icon-wrap {
+    background: #1b3a6b;
+}
+.contact-card:hover .contact-icon-wrap svg {
+    stroke: #fff;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fu {
+    animation: fadeUp 0.45s ease both;
+}
+.d1 {
+    animation-delay: 0.05s;
+}
+.d2 {
+    animation-delay: 0.1s;
+}
+.d3 {
+    animation-delay: 0.15s;
+}
+.d4 {
+    animation-delay: 0.2s;
+}

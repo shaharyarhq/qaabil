@@ -2,7 +2,6 @@
 
 namespace App\Filament\Moderator\Pages;
 
-use Filament\Pages\Page;
 use Filament\Auth\Pages\Login as BaseLogin;
 use Illuminate\Contracts\Support\Htmlable;
 

@@ -7,12 +7,14 @@ use GuzzleHttp\Client;
 class BunnyStreamService
 {
     protected Client $client;
+
     protected string $libraryId;
+
     protected string $apiKey;
 
     public function __construct()
     {
-        $this->client = new Client();
+        $this->client = new Client;
         $this->libraryId = config('filesystems.disks.bunny_stream.library_id');
         $this->apiKey = config('filesystems.disks.bunny_stream.api_key');
     }
@@ -80,7 +82,7 @@ class BunnyStreamService
             "https://video.bunnycdn.com/library/{$this->libraryId}/videos/{$guid}/thumbnail",
             [
                 'headers' => [
-                    'AccessKey'    => $this->apiKey,
+                    'AccessKey' => $this->apiKey,
                     'Content-Type' => 'application/octet-stream',
                 ],
                 'body' => fopen($path, 'r'),

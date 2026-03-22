@@ -5,159 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qaabil · {{ $course->name }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --gold: #c69c5a;
-            --dark: #1e1b1a;
-            --bg: #faf7f2;
-            --muted: rgba(30, 27, 26, .45);
-            --border: rgba(198, 156, 90, .18);
-            --card: #ffffff;
+            --navy: #1b3a6b;
+            --navy-d: #122952;
+            --amber: #f59e0b;
+            --amber-d: #d97706;
+            --sky: #eff6ff;
+            --border: #e2e8f0;
         }
 
         body {
             background: var(--bg);
-            font-family: 'Sora', sans-serif;
-            color: var(--dark);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
         }
 
-        .serif {
-            font-family: 'Instrument Serif', serif;
-            font-weight: 400;
-            letter-spacing: -.02em;
+        /* can't do these with tailwind alone */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+            background-size: 48px 48px;
         }
 
-        .serif-italic {
-            font-family: 'Instrument Serif', serif;
-            font-style: italic;
+        .manifesto::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+            background-size: 48px 48px;
         }
 
-        nav {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .btn {
-            border-radius: 40px;
-            font-size: .8125rem;
-            font-weight: 500;
-            padding: .45rem 1.25rem;
-            transition: background .15s, color .15s, border-color .15s;
-            cursor: pointer;
-        }
-
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid rgba(30, 27, 26, .15);
-            color: var(--dark);
-        }
-
-        .btn-ghost:hover {
-            background: var(--dark);
-            color: var(--bg);
-            border-color: var(--dark);
-        }
-
-        .btn-fill {
-            background: var(--dark);
+        .chapter-toggle[aria-expanded="true"] .chapter-num {
+            background: var(--navy);
             color: #fff;
-            border: 1px solid var(--dark);
-        }
-
-        .btn-fill:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--dark);
-        }
-
-        /* ── Hero ─────────────────────────────────────────── */
-        .hero {
-            border-bottom: 1px solid var(--border);
-            animation: fadeUp .5s ease both;
-        }
-
-        /* ── Stat card ────────────────────────────────────── */
-        .stat-card {
-            background: var(--card);
-            border-radius: 14px;
-            padding: 1.1rem 1.4rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .035);
-            text-align: center;
-            min-width: 90px;
-        }
-
-        /* ── Chapter accordion ────────────────────────────── */
-        .chapter-item {
-            background: var(--card);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .035);
-            animation: fadeUp .45s ease both;
-        }
-
-        .chapter-toggle {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 1.25rem 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            transition: background .2s;
-        }
-
-        .chapter-toggle:hover {
-            background: rgba(198, 156, 90, .05);
-        }
-
-        .chapter-toggle[aria-expanded="true"] {
-            background: rgba(198, 156, 90, .06);
-        }
-
-        .chapter-num {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: rgba(198, 156, 90, .12);
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Instrument Serif', serif;
-            font-size: .85rem;
-            flex-shrink: 0;
-        }
-
-        .chevron {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-            color: var(--muted);
-            transition: transform .3s ease;
+            border-color: var(--navy);
         }
 
         .chapter-toggle[aria-expanded="true"] .chevron {
             transform: rotate(180deg);
+            color: var(--navy);
         }
 
-        /* CSS grid trick for smooth expand */
+        .chapter-toggle[aria-expanded="true"],
+        .chapter-toggle:hover {
+            background: var(--sky);
+        }
+
+        /* smooth expand trick — no tailwind equivalent */
         .chapter-body {
             display: grid;
             grid-template-rows: 0fr;
@@ -172,41 +80,6 @@
             overflow: hidden;
         }
 
-        /* ── Objective row ────────────────────────────────── */
-        .obj-row {
-            display: flex;
-            align-items: flex-start;
-            gap: .875rem;
-            padding: .875rem 1.5rem;
-            border-top: 1px solid rgba(30, 27, 26, .05);
-            transition: background .2s;
-        }
-
-        .obj-row:hover {
-            background: rgba(198, 156, 90, .03);
-        }
-
-        .obj-dot {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 1.5px solid rgba(198, 156, 90, .35);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .obj-dot-inner {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gold);
-            opacity: .4;
-        }
-
-        /* ── Animations ───────────────────────────────────── */
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -217,6 +90,10 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .fade-up {
+            animation: fadeUp .45s ease both;
         }
 
         .d1 {
@@ -238,412 +115,307 @@
         .d5 {
             animation-delay: .25s
         }
-
-        .divider {
-            border-top: 1px solid var(--border);
-        }
-
-
-        /* video card */
-        .video-card {
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-
-        .video-card:hover {
-            /* transform: translateY(-2px);
-            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, .35); */
-        }
-
-        /* arrow buttons */
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-calc(50% + 12px));
-            /* account for pb-2 */
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 1px solid rgba(198, 156, 90, .25);
-            background: rgba(250, 247, 242, .92);
-            color: #1e1b1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
-            transition: background .15s, border-color .15s;
-            z-index: 10;
-        }
-
-        .slider-arrow:hover {
-            background: #fff;
-            border-color: rgba(198, 156, 90, .5);
-        }
-
-        /* dot indicators */
-        .dot-indicator {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: rgba(30, 27, 26, .15);
-            transition: background .25s, transform .25s;
-        }
-
-        .dot-indicator.active {
-            background: #c69c5a;
-            transform: scale(1.3);
-        }
-
-        /* obj-row override for the new layout */
-        .obj-row {
-            border-top: 1px solid rgba(30, 27, 26, .05);
-            transition: background .2s;
-            align-items: flex-start;
-            gap: 0;
-            padding: 0;
-            /* padding moved inside children */
-            flex-direction: column;
-        }
-
-        .obj-row:hover {
-            background: rgba(198, 156, 90, .025);
-        }
     </style>
 </head>
 
-<body>
+<body class="bg-[#f8fafd] text-[#0f172a] antialiased">
 
-    <!-- ── Navbar ─────────────────────────────────────────────────── -->
-    <nav>
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-            <a href="/" class="flex items-center gap-3 shrink-0">
-                <img src="{{ asset('storage/logo.png') }}" alt="Qaabil" class="h-14 w-auto object-contain">
-            </a>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[#1e1b1a]/70">
-                <a href="{{ route('courses.index') }}" class="hover:text-[#c69c5a] transition-colors">Courses</a>
-                <a href="#" class="hover:text-[#c69c5a] transition-colors">Dashboard</a>
-                <a href="#" class="hover:text-[#c69c5a] transition-colors">Community</a>
-            </div>
-            <div class="flex items-center gap-2">
-                <button class="btn btn-ghost hidden sm:inline-block">Log in</button>
-                <button class="btn btn-fill">Sign up</button>
-            </div>
+    <x-navbar></x-navbar>
+
+    <!-- ── Hero ──────────────────────────────────── -->
+    <div class="hero bg-[#1b3a6b] relative overflow-hidden fade-up">
+        {{-- amber glow --}}
+        <div class="absolute rounded-full pointer-events-none"
+            style="width:500px;height:500px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 65%);top:-160px;right:-100px">
         </div>
-    </nav>
 
-    <!-- ── Hero ───────────────────────────────────────────────────── -->
-    <div class="hero">
-        <div class="max-w-7xl mx-auto px-6 py-14">
+        <div class="max-w-7xl mx-auto px-6 py-14 relative z-10">
 
-            <!-- Breadcrumb -->
-            <div class="flex items-center gap-2 text-xs text-[#1e1b1a]/40 mb-8 font-medium">
-                <a href="{{ route('courses.index') }}" class="hover:text-[#c69c5a] transition-colors">Courses</a>
-                <span style="color:var(--gold)">✦</span>
-                <span>{{ $course->name }}</span>
+            {{-- Breadcrumb --}}
+            <div class="flex items-center gap-2 mb-8 text-[.75rem] font-semibold text-white/40">
+                <a href="{{ route('courses.index') }}"
+                    class="text-white/40 no-underline transition-colors hover:text-[#f59e0b]">Courses</a>
+                <span class="text-[#f59e0b] text-[.65rem]">✦</span>
+                <span class="text-white/65">{{ $course->name }}</span>
             </div>
 
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-                <!-- Title + description -->
+
+                {{-- Title --}}
                 <div class="max-w-2xl">
-                    <h1 class="serif text-5xl md:text-6xl text-[#1e1b1a] leading-tight mb-5">
+                    <div
+                        class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.1em] text-white/50 mb-4">
+                        <span class="inline-block w-4 h-0.5 rounded-sm bg-[#f59e0b]"></span>
+                        Course
+                    </div>
+                    <h1 class="font-['Instrument_Serif',serif] font-normal text-white leading-[1.1] tracking-tight mb-5"
+                        style="font-size:clamp(2.5rem,5vw,3.75rem)">
                         {{ $course->name }}
                     </h1>
-                    <p class="text-[#1e1b1a]/60 text-base leading-relaxed">
+                    <p class="text-white/60 text-base leading-relaxed max-w-[520px]">
                         {{ $course->description }}
                     </p>
                 </div>
 
-                <!-- Stats -->
+                {{-- Stat cards --}}
                 <div class="flex flex-wrap gap-3 lg:justify-end shrink-0">
-                    <div class="stat-card">
-                        <div class="serif text-3xl text-[#1e1b1a]">{{ $course->chapters_count }}</div>
-                        <div class="text-xs text-[#1e1b1a]/45 mt-1 font-medium uppercase tracking-wide">
-                            {{ Str::plural('Chapter', $course->chapters_count) }}
+                    @foreach ([[$course->sections_count, Str::plural('Section', $course->sections_count)], [$course->chapters_count, Str::plural('Chapter', $course->chapters_count)], [$course->videos_count ?? 0, 'Videos']] as [$num, $label])
+                        <div class="text-center min-w-[100px] rounded-2xl px-6 py-[1.1rem]"
+                            style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(4px)">
+                            <div class="font-['Instrument_Serif',serif] text-[2.25rem] text-white leading-none">
+                                {{ $num }}</div>
+                            <div class="text-[.68rem] text-white/45 mt-1 font-bold uppercase tracking-[.08em]">
+                                {{ $label }}</div>
                         </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="serif text-3xl text-[#1e1b1a]">{{ $course->objectives_count ?? 0 }}</div>
-                        <div class="text-xs text-[#1e1b1a]/45 mt-1 font-medium uppercase tracking-wide">
-                            {{ Str::plural('Objective', $course->objectives_count ?? 0) }}
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="serif text-3xl text-[#1e1b1a]">{{ $course->videos_count ?? 0 }}</div>
-                        <div class="text-xs text-[#1e1b1a]/45 mt-1 font-medium uppercase tracking-wide">Videos</div>
-                    </div>
+                    @endforeach
                 </div>
+
             </div>
         </div>
     </div>
 
-    <!-- ── Chapters ────────────────────────────────────────────────── -->
+    <!-- ── Content ────────────────────────────────── -->
     <main class="max-w-7xl mx-auto px-6 py-14 pb-28">
 
-        <div class="flex items-center gap-3 mb-8">
-            <h2 class="serif-italic text-3xl text-[#1e1b1a]">Chapters</h2>
-            <span style="color:var(--gold)">✦</span>
+        <div class="mb-10">
+            <div class="flex items-center gap-2 mb-1.5">
+                <span class="inline-block w-4 h-[3px] rounded-sm bg-[#f59e0b]"></span>
+                <span class="text-[.7rem] font-extrabold uppercase tracking-[.1em] text-[#1b3a6b]">Course content</span>
+            </div>
+            <h2 class="text-[1.75rem] font-extrabold text-[#0f172a] tracking-tight leading-snug">
+                Sections <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">&
+                    Chapters</span>
+            </h2>
         </div>
 
-        <div class="flex flex-col gap-4">
-            @forelse ($course->chapters as $index => $chapter)
-                <div class="chapter-item d{{ min($index + 1, 5) }}">
+        {{-- Sections --}}
+        @forelse ($course->sections as $sectionIndex => $section)
 
-                    <button class="chapter-toggle" aria-expanded="false" onclick="toggleChapter(this)">
-                        <div class="flex items-center gap-4 min-w-0">
-                            <div class="chapter-num">{{ $index + 1 }}</div>
-                            <div class="min-w-0">
-                                <div class="serif text-[1.1rem] text-[#1e1b1a] truncate">{{ $chapter->name }}</div>
-                                @if ($chapter->description)
-                                    <div class="text-xs text-[#1e1b1a]/45 mt-0.5 truncate">{{ $chapter->description }}
+            <div id="{{ Str::slug($section->name) }}"
+                class="fade-up d{{ min($sectionIndex + 1, 5) }} mb-10 scroll-mt-20">
+
+                {{-- Section label --}}
+                <div class="flex items-center gap-2.5 pb-3 mb-3 border-b-2 border-[#e2e8f0]">
+                    <span
+                        class="text-[.68rem] font-extrabold uppercase tracking-[.08em] text-[#1b3a6b] bg-[#eff6ff] border border-[rgba(27,58,107,.12)] rounded-md px-2.5 py-0.5">
+                        Section {{ $sectionIndex + 1 }}
+                    </span>
+                    <a href="#{{ Str::slug($section->name) }}"
+                        class="text-base font-extrabold text-[#0f172a] tracking-tight">{{ $section->name }}</a>
+                    <span class="text-[.75rem] font-semibold text-[#94a3b8] ml-auto">
+                        {{ $section->chapters->count() }} {{ Str::plural('chapter', $section->chapters->count()) }}
+                    </span>
+                </div>
+
+                @php
+                    $chapterOffset = 0;
+                    foreach ($course->sections->take($sectionIndex) as $prev) {
+                        $chapterOffset += $prev->chapters->count();
+                    }
+                @endphp
+
+                <div class="flex flex-col gap-3">
+                    @forelse ($section->chapters as $chapterIndex => $chapter)
+                        <div
+                            class="chapter-item bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden transition-colors hover:border-[rgba(27,58,107,.22)] fade-up">
+
+                            <button
+                                class="chapter-toggle w-full flex items-center justify-between gap-4 px-6 py-5 bg-transparent border-none cursor-pointer text-left transition-colors"
+                                aria-expanded="false" onclick="toggleChapter(this)">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <div class="chapter-num w-9 h-9 rounded-[10px] flex items-center justify-center flex-shrink-0 font-['Instrument_Serif',serif] text-[.9rem] font-bold transition-colors"
+                                        style="background:rgba(27,58,107,.08);color:#1b3a6b;border:1px solid rgba(27,58,107,.12)">
+                                        {{ $chapterOffset + $chapterIndex + 1 }}
                                     </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 shrink-0">
-                            <span class="text-xs font-medium text-[#1e1b1a]/40 hidden sm:block">
-                                {{ $chapter->objectives->count() }}
-                                {{ Str::plural('objective', $chapter->objectives->count()) }}
-                            </span>
-                            <svg class="chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </button>
-
-                    <div class="chapter-body">
-                        <div class="chapter-body-inner">
-                            @forelse ($chapter->objectives as $obj)
-                                <div class="obj-row flex-col gap-0 p-0">
-
-                                    {{-- Objective header --}}
-                                    <div class="w-full flex justify-between">
-                                        <div class="flex items-start gap-3 px-5 py-4">
-                                            <div class="obj-dot mt-1">
-                                                <div class="obj-dot-inner"></div>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm text-[#1e1b1a]/80 leading-relaxed font-medium">
-                                                    {{ $obj->name }}</p>
-                                                @if ($obj->description)
-                                                    <p class="text-xs text-[#1e1b1a]/45 mt-1 leading-relaxed">
-                                                        {{ $obj->description }}</p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="gap-3 px-5 py-4">
-                                            <a href="{{ route('objective.view', [$obj]) }}"
-                                                class="text-sm  hover:underline text-[#1e1b1a]/80 leading-relaxed font-medium">
-                                                All videos
-                                            </a>
-                                            <span style="color:var(--gold)">✦</span>
+                                    <div class="min-w-0">
+                                        <div class="text-base font-bold text-[#0f172a] tracking-tight truncate">
+                                            {{ $chapter->name }}
                                         </div>
                                     </div>
+                                </div>
+                                <div class="flex items-center gap-4 shrink-0">
+                                    <span class="hidden sm:block text-[.75rem] font-semibold text-[#94a3b8]">
+                                        {{ $chapter->objectives->count() }}
+                                        {{ Str::plural('objective', $chapter->objectives->count()) }}
+                                    </span>
+                                    <svg class="chevron w-[18px] h-[18px] shrink-0 text-[#94a3b8] transition-all duration-300"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </button>
 
-                                    {{-- Video slider --}}
-                                    @if ($obj->videos->isNotEmpty())
-                                        <div class="relative px-5 pb-5">
+                            <div class="chapter-body">
+                                <div class="chapter-body-inner">
 
-                                            {{-- Scroll container --}}
-                                            <div class="video-slider flex gap-3 pb-2 overflow-auto"
-                                                {{-- style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;" --}}>
+                                    @forelse ($chapter->objectives as $obj)
+                                        <div
+                                            class="border-t border-[#e2e8f0] transition-colors hover:bg-[rgba(239,246,255,.5)] flex flex-col">
 
-                                                {{-- @foreach ($obj->videos as $video) --}}
-                                                {{-- <a href="{{ route('video.view', [$video]) }}"
-                                                        class="video-card flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer"
-                                                        style="width: 220px; scroll-snap-align: start; background: #1e1b1a;">
-
-                                                        @php
-                                                            $libraryId = config(
-                                                                'filesystems.disks.bunny_stream.library_id',
-                                                            );
-                                                            $guid = $video->video_url;
-
-                                                            $cdnHostName = config(
-                                                                'filesystems.disks.bunny_stream.hostname',
-                                                            );
-
-                                                            $thubnail = $record->thumbnail_url ?? 'thumbnail.jpg';
-                                                        @endphp
-                                                        <img src="{{ "https://{$cdnHostName}/{$guid}/{$thubnail}" }}"
-                                                            alt="{{ $video->title }}"
-                                                            class="w-full object-cover transition-opacity duration-300 group-hover:opacity-70"
-                                                            style="height: 130px;"> --}}
-
-                                                {{-- Play button overlay --}}
-                                                {{-- <video
-                                                            src="https://vz-37c7561e-16f.b-cdn.net/e6ec1268-9f56-4d62-a184-f53539b39b8f/preview.webp?v=1772747506"
-                                                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                                            <div class="w-10 h-10 rounded-full flex items-center justify-center"
-                                                                style="background: rgba(198,156,90,.9); backdrop-filter: blur(4px);">
-                                                                <svg width="14" height="14" viewBox="0 0 14 14"
-                                                                    fill="#1e1b1a">
-                                                                    <path d="M3 2l9 5-9 5V2z" />
-                                                                </svg>
-                                                            </div>
-                                                        </video> --}}
-
-
-                                                {{-- Status badge --}}
-                                                {{-- <div class="absolute top-2 right-2">
-                                                            @if ($video->status === 'approved')
-                                                                <span
-                                                                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                                                                    style="background:rgba(198,156,90,.15); color:#c69c5a; border: 1px solid rgba(198,156,90,.3);">
-                                                                    approved
-                                                                </span>
-                                                            @elseif($video->status === 'pending')
-                                                                <span
-                                                                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                                                                    style="background:rgba(255,255,255,.08); color:rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1);">
-                                                                    pending
-                                                                </span>
-                                                            @endif
-                                                        </div> --}}
-
-                                                {{-- Title --}}
-                                                {{-- <div class="px-3 py-2.5">
-                                                            <p class="text-xs text-white/80 leading-snug line-clamp-2"
-                                                                style="font-size:.72rem;">
-                                                                {{ $video->title ?? 'Untitled submission' }}
-                                                            </p>
-                                                            @if ($video->creator)
-                                                                <p class="text-[10px] mt-1"
-                                                                    style="color:rgba(255,255,255,.3);">
-                                                                    {{ $video->creator->name }}</p>
-                                                            @endif
-                                                        </div>
-
-                                                    </a> --}}
-                                                {{-- @endforeach --}}
-
-                                                @foreach ($obj->videos as $video)
-                                                    @php
-                                                        preg_match(
-                                                            '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/',
-                                                            $video->video_url ?? '',
-                                                            $matches,
-                                                        );
-                                                        $videoId = $matches[1] ?? null;
-                                                        $thumbnail = $videoId
-                                                            ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg"
-                                                            : null;
-                                                        $embedUrl = $videoId
-                                                            ? "https://www.youtube.com/embed/{$videoId}"
-                                                            : null;
-                                                    @endphp
-
-                                                    <a href="{{ route('video.view', [$video]) }}"
-                                                        class="video-card flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer"
-                                                        style="width: 220px; scroll-snap-align: start; background: #1e1b1a;">
-
-                                                        {{-- Thumbnail --}}
-                                                        @if ($thumbnail)
-                                                            <img src="{{ $thumbnail }}" alt="{{ $video->title }}"
-                                                                class="w-full object-cover transition-opacity duration-300 group-hover:opacity-70"
-                                                                style="height: 130px;">
-                                                        @else
-                                                            <div class="w-full bg-white/5 flex items-center justify-center"
-                                                                style="height: 130px;">
-                                                                <span class="text-white/20 text-xs">No thumbnail</span>
-                                                            </div>
+                                            {{-- Objective header --}}
+                                            <div class="w-full flex justify-between">
+                                                <div class="flex items-start gap-3 px-5 py-4">
+                                                    <div class="w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 mt-1"
+                                                        style="border:1.5px solid rgba(27,58,107,.2)">
+                                                        <div class="w-2 h-2 rounded-full bg-[#1b3a6b] opacity-35"></div>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-sm font-semibold text-[#0f172a] leading-relaxed">
+                                                            {{ $obj->name }}</p>
+                                                        @if ($obj->description)
+                                                            <p class="text-xs text-[#94a3b8] mt-0.5 leading-relaxed">
+                                                                {{ $obj->description }}</p>
                                                         @endif
-
-                                                        {{-- Play button overlay --}}
-                                                        <div
-                                                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                                            <div class="w-10 h-10 rounded-full flex items-center justify-center"
-                                                                style="background: rgba(198,156,90,.9); backdrop-filter: blur(4px);">
-                                                                <svg width="14" height="14" viewBox="0 0 14 14"
-                                                                    fill="#1e1b1a">
-                                                                    <path d="M3 2l9 5-9 5V2z" />
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- Status badge --}}
-                                                        <div class="absolute top-2 right-2">
-                                                            @if ($video->status === 'approved')
-                                                                <span
-                                                                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                                                                    style="background:rgba(198,156,90,.15); color:#c69c5a; border: 1px solid rgba(198,156,90,.3);">
-                                                                    approved
-                                                                </span>
-                                                            @elseif ($video->status === 'pending')
-                                                                <span
-                                                                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                                                                    style="background:rgba(255,255,255,.08); color:rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1);">
-                                                                    pending
-                                                                </span>
-                                                            @endif
-                                                        </div>
-
-                                                        {{-- Title --}}
-                                                        <div class="px-3 py-2.5">
-                                                            <p class="text-xs text-white/80 leading-snug line-clamp-2"
-                                                                style="font-size:.72rem;">
-                                                                {{ $video->title ?? 'Untitled submission' }}
-                                                            </p>
-                                                            @if ($video->creator)
-                                                                <p class="text-[10px] mt-1"
-                                                                    style="color:rgba(255,255,255,.3);">
-                                                                    {{ $video->creator->name }}
-                                                                </p>
-                                                            @endif
-                                                        </div>
-
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center gap-2 px-5 py-4 shrink-0">
+                                                    <a href="{{ route('objective.view', [$obj]) }}"
+                                                        class="text-[.775rem] font-bold text-[#1b3a6b] no-underline transition-colors hover:text-[#d97706]">
+                                                        All videos
                                                     </a>
-                                                @endforeach
+                                                    <span class="text-[#f59e0b] text-[.65rem]">✦</span>
+                                                </div>
                                             </div>
 
+                                            {{-- Video slider --}}
+                                            @if ($obj->videos->isNotEmpty())
+                                                <div class="px-5 pb-5">
+                                                    <div class="flex gap-3 pb-2 overflow-x-auto"
+                                                        style="scrollbar-width:none;-webkit-overflow-scrolling:touch;">
+                                                        @foreach ($obj->videos as $video)
+                                                            @php
+                                                                preg_match(
+                                                                    '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/',
+                                                                    $video->video_url ?? '',
+                                                                    $matches,
+                                                                );
+                                                                $videoId = $matches[1] ?? null;
+                                                                $thumbnail = $videoId
+                                                                    ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg"
+                                                                    : null;
+                                                            @endphp
+                                                            <a href="{{ route('video.view', [$video]) }}"
+                                                                class="flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer transition-transform duration-200 hover:-translate-y-0.5"
+                                                                style="width:220px;background:#0f172a;border:1px solid rgba(27,58,107,.2);">
+
+                                                                @if ($thumbnail)
+                                                                    <img src="{{ $thumbnail }}"
+                                                                        alt="{{ $video->title }}"
+                                                                        class="w-full object-cover transition-opacity duration-300 group-hover:opacity-70"
+                                                                        style="height:130px;">
+                                                                @else
+                                                                    <div class="w-full flex items-center justify-center"
+                                                                        style="height:130px;background:rgba(27,58,107,.15)">
+                                                                        <span class="text-white/20 text-xs">No
+                                                                            thumbnail</span>
+                                                                    </div>
+                                                                @endif
+
+                                                                {{-- Play overlay --}}
+                                                                <div
+                                                                    class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                                                    <div
+                                                                        class="w-10 h-10 rounded-full flex items-center justify-center bg-[rgba(245,158,11,.9)] backdrop-blur-sm">
+                                                                        <svg width="14" height="14"
+                                                                            viewBox="0 0 14 14" fill="#1b3a6b">
+                                                                            <path d="M3 2l9 5-9 5V2z" />
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+
+                                                                {{-- Status badge --}}
+                                                                <div class="absolute top-2 right-2">
+                                                                    @if ($video->status === 'approved')
+                                                                        <span
+                                                                            class="text-[.65rem] font-bold px-2 py-0.5 rounded-full text-[#f59e0b]"
+                                                                            style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3)">
+                                                                            approved
+                                                                        </span>
+                                                                    @elseif ($video->status === 'pending')
+                                                                        <span
+                                                                            class="text-[.65rem] font-bold px-2 py-0.5 rounded-full text-white/50"
+                                                                            style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)">
+                                                                            pending
+                                                                        </span>
+                                                                    @endif
+                                                                </div>
+
+                                                                {{-- Title --}}
+                                                                <div class="px-3 py-2.5">
+                                                                    <p
+                                                                        class="text-[.7rem] text-white/80 leading-snug line-clamp-2">
+                                                                        {{ $video->title ?? 'Untitled submission' }}
+                                                                    </p>
+                                                                    @if ($video->creator)
+                                                                        <p class="text-[.65rem] mt-0.5 text-white/30">
+                                                                            {{ $video->creator->name }}</p>
+                                                                    @endif
+                                                                </div>
+
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="px-5 pb-4">
+                                                    <p
+                                                        class="font-['Instrument_Serif',serif] italic text-[.825rem] text-[#94a3b8]">
+                                                        No videos submitted yet.
+                                                    </p>
+                                                </div>
+                                            @endif
+
                                         </div>
-                                    @else
-                                        <div class="px-5 pb-4">
-                                            <p class="text-xs serif-italic" style="color:rgba(30,27,26,.3)">No videos
-                                                submitted yet.</p>
+                                    @empty
+                                        <div
+                                            class="px-6 py-5 font-['Instrument_Serif',serif] italic text-sm text-[#94a3b8]">
+                                            No objectives yet.
                                         </div>
-                                    @endif
+                                    @endforelse
 
                                 </div>
-                            @empty
-                                <div class="px-6 py-5 text-sm serif-italic text-[#1e1b1a]/35">No objectives yet.</div>
-                            @endforelse
+                            </div>
+
                         </div>
-                    </div>
 
+                    @empty
+                        <p class="font-['Instrument_Serif',serif] italic text-sm text-[#94a3b8] py-2">
+                            No chapters in this section yet.
+                        </p>
+                    @endforelse
                 </div>
-            @empty
-                <div class="text-center py-20 serif-italic text-2xl text-[#1e1b1a]/30">
-                    No chapters yet <span style="color:var(--gold)">✦</span>
-                </div>
-            @endforelse
-        </div>
 
-        <!-- Bottom note -->
-        <div class="divider mt-16 pt-12 max-w-xl mx-auto text-center">
-            <p class="serif-italic text-[1.7rem] text-[#1e1b1a] leading-snug">
-                " upload an approved video <span style="color:var(--gold)">✦</span> unlock any chapter "
-            </p>
-            <p class="text-sm text-[#1e1b1a]/50 mt-4 leading-relaxed">
-                Submit a video solution to any objective. Once approved by a maintainer, you unlock the full course.
-            </p>
-            <button class="btn btn-fill mt-7 px-8 py-3 text-sm">Submit a video</button>
+            </div>
+
+        @empty
+            <div class="text-center py-20 font-['Instrument_Serif',serif] italic text-2xl text-[#94a3b8]">
+                No sections yet <span class="text-[#f59e0b]">✦</span>
+            </div>
+        @endforelse
+
+        {{-- Manifesto --}}
+        <div class="manifesto mt-6 bg-[#1b3a6b] rounded-3xl relative overflow-hidden px-8 md:px-16 py-14 text-center">
+            <div class="relative z-10">
+                <p class="font-['Instrument_Serif',serif] italic text-white leading-relaxed max-w-[560px] mx-auto"
+                    style="font-size:clamp(1.4rem,2.5vw,1.9rem)">
+                    " upload an approved video
+                    <span class="text-[#f59e0b]"> ✦ </span>
+                    unlock any chapter "
+                </p>
+                <div class="w-10 h-0.5 rounded mx-auto my-4 bg-[rgba(245,158,11,.4)]"></div>
+                <p class="text-sm text-white/45 max-w-[460px] mx-auto leading-relaxed">
+                    Submit a video solution to any objective. Once approved by a maintainer, you unlock the full course.
+                </p>
+                <button
+                    class="mt-7 relative z-10 bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] font-extrabold border-none rounded-xl px-9 py-3 text-sm cursor-pointer transition-colors">
+                    Submit a video
+                </button>
+            </div>
         </div>
 
     </main>
 
-    <!-- ── Footer ─────────────────────────────────────────────────── -->
-    <footer class="divider py-8">
-        <div
-            class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-[#1e1b1a]/45">
-            <span>© 2025 Qaabil — <span style="color:var(--gold)">✦</span> empower learning.</span>
-            <div class="flex gap-5">
-                <a href="#" class="hover:text-[#c69c5a] transition-colors">Terms</a>
-                <a href="#" class="hover:text-[#c69c5a] transition-colors">Privacy</a>
-                <a href="#" class="hover:text-[#c69c5a] transition-colors">Contact</a>
-            </div>
-        </div>
-    </footer>
+    <x-footer></x-footer>
 
     <script>
         function toggleChapter(btn) {
@@ -652,42 +424,10 @@
             btn.nextElementSibling.classList.toggle('open', !expanded);
         }
 
-        // Open first chapter on load
         document.addEventListener('DOMContentLoaded', () => {
             const first = document.querySelector('.chapter-toggle');
             if (first) toggleChapter(first);
         });
-
-        function slider() {
-            return {
-                canScrollLeft: false,
-                canScrollRight: false,
-                activeDot: 0,
-
-                init() {
-                    this.$nextTick(() => this.onScroll());
-                },
-
-                onScroll() {
-                    const t = this.$refs.track;
-                    if (!t) return;
-                    this.canScrollLeft = t.scrollLeft > 4;
-                    this.canScrollRight = t.scrollLeft + t.clientWidth < t.scrollWidth - 4;
-
-                    // update active dot: which card is most in view
-                    const cardW = 220 + 12; // width + gap
-                    this.activeDot = Math.round(t.scrollLeft / cardW);
-                },
-
-                scrollBy(dir) {
-                    const t = this.$refs.track;
-                    t.scrollBy({
-                        left: dir * 232,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        }
     </script>
 
 </body>

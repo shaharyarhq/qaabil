@@ -2,7 +2,10 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Moderator\Pages\Login;
+use App\Filament\Moderator\Pages\Register;
 use App\Filament\Support\PanelConfiguration;
+use App\Http\Middleware\EnsureModeratorIsApproved;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -10,10 +13,8 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
-use App\Filament\Moderator\Pages\Login;
-use App\Filament\Moderator\Pages\Register;
-use App\Http\Middleware\EnsureModeratorIsApproved;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -21,6 +22,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\View\View;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 
 class ModeratorPanelProvider extends PanelProvider
 {
@@ -32,15 +35,19 @@ class ModeratorPanelProvider extends PanelProvider
             ->login(Login::class)
             ->registration(Register::class)
             ->passwordReset()
-            ->emailVerification()
-            ->emailChangeVerification()
-            ->profile()
+            // ->emailVerification()
+            // ->emailChangeVerification()
+            // ->profile(Profile::class)
             ->discoverResources(in: app_path('Filament/Moderator/Resources'), for: 'App\Filament\Moderator\Resources')
             ->discoverPages(in: app_path('Filament/Moderator/Pages'), for: 'App\Filament\Moderator\Pages')
             ->pages([
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Moderator/Widgets'), for: 'App\Filament\Moderator\Widgets')
+            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.login-member-instead'))
+            ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.register-member-instead'))
+            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.copyright-label'))
+            ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.copyright-label'))
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
@@ -58,7 +65,11 @@ class ModeratorPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                EnsureModeratorIsApproved::class
+                EnsureModeratorIsApproved::class,
+            ])
+            ->plugins([
+                BreezyCore::make()
+                    ->myProfile(hasAvatars: true),
             ]);
     }
 }

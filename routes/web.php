@@ -1,55 +1,19 @@
 <?php
 
-use App\Models\Course;
-use App\Models\Objective;
-use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $courses = Course::withCount(['chapters', 'objectives', 'videos'])->get();
+Route::livewire('/', 'pages::index')->name('home');
 
-    return view('courses.abc', compact('courses'));
-});
+Route::livewire('/contact', 'pages::contact')->name('contact');
 
-Route::get('/courses', function () {
-    $courses = Course::withCount(['chapters', 'objectives', 'videos'])->get();
+Route::livewire('/about', 'pages::about')->name('about');
 
-    return view('courses.index', compact('courses'));
-})->name('courses.index');
+Route::livewire('/pricing', 'pages::pricing')->name('pricing');
 
-Route::get('/courses/{course}', function (Course $course) {
-    $course->loadCount(['chapters', 'objectives', 'videos' => function ($query) {
-        $query->whereNotNull('video_url');
-    }])->load([
-        'chapters',
-        'chapters.objectives',
-        'chapters.objectives.videos' => function ($query) {
-            $query->whereNotNull('video_url')->where('status', 'approved');
-        }
-    ]);
+Route::livewire('/courses', 'pages::courses.index')->name('courses.index');
 
-    return view('courses.view', compact('course'));
-})->name('courses.view');
+Route::livewire('/courses/{course}', 'pages::courses.view')->name('courses.view');
 
-Route::get('video/{video}', function (Video $video) {
-    $video->load([
-        'course',
-        'chapter',
-        'objective',
-        'objective.videos'  => function ($query) {
-            $query->whereNotNull('video_url')->where('status', 'approved');
-        },
-        'approver'
-    ]);
+Route::livewire('/videos/{video}', 'pages::videos.view')->name('videos.view');
 
-    return view('videos.view', compact('video'));
-})->name('video.view');
-
-
-Route::get('objectives/{objective}', function (Objective $objective) {
-    $objective->load([
-        'chapter.course',
-        'videos.creator',
-    ]);
-    return view('objectives.view', compact('objective'));
-})->name('objective.view');
+Route::livewire('/objectives/{objective}', 'pages::objectives.view')->name('objectives.view');

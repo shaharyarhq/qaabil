@@ -34,12 +34,12 @@
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 pt-4">
             <x-filament::button color="primary" icon="heroicon-m-arrow-path" tag="a"
-                href="{{ filament()->getHomeUrl() }}">
+                href="{{ filament()->getUrl() }}">
                 Refresh Status
             </x-filament::button>
 
             <x-filament::button color="gray" icon="heroicon-m-arrow-left-on-rectangle" tag="a"
-                href="{{ filament()->getLogoutUrl() }}" outlined>
+                href="{{ filament()->getUrl() }}" outlined>
                 Sign Out
             </x-filament::button>
         </div>

@@ -15,8 +15,8 @@ class ChapterForm
                 TextInput::make('name')
                     ->maxLength(255)
                     ->required(),
-                Select::make('course_id')
-                    ->relationship('course', 'name')
+                Select::make('section_id')
+                    ->relationship('section', 'name')
                     ->required(),
             ]);
     }

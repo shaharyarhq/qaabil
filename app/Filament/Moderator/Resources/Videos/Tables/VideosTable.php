@@ -63,6 +63,8 @@ class VideosTable
                     ->copyable(),
                 TextColumn::make('course.name')
                     ->copyable(),
+                TextColumn::make('section.name')
+                    ->copyable(),
                 TextColumn::make('chapter.name')
                     ->copyable(),
                 TextColumn::make('objective.name')

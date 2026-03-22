@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'status' => UserStatus::APPROVED
+            'status' => UserStatus::APPROVED,
         ]);
 
         // $user2 = User::create([
@@ -50,13 +50,12 @@ class DatabaseSeeder extends Seeder
         //     'email_verified_at' => now()
         // ]);
 
-
         $superAdminRole = Role::create([
-            'name' => UserRole::SUPER_ADMIN
+            'name' => UserRole::SUPER_ADMIN,
         ]);
 
         $studentRole = Role::create([
-            'name' => UserRole::STUDENT
+            'name' => UserRole::STUDENT,
         ]);
 
         $moderatorRole = Role::create([
@@ -79,37 +78,37 @@ class DatabaseSeeder extends Seeder
             'Introduction to Laravel' => [
                 'Understand MVC Architecture',
                 'Install Laravel',
-                'Explore Laravel directory structure'
+                'Explore Laravel directory structure',
             ],
             'Routing & Controllers' => [
                 'Define routes',
                 'Create controllers',
-                'Route parameters and naming'
+                'Route parameters and naming',
             ],
             'Blade Templating' => [
                 'Create Blade views',
                 'Use Blade directives',
-                'Template inheritance'
+                'Template inheritance',
             ],
             'Database & Eloquent ORM' => [
                 'Migrations and schema',
                 'Eloquent models',
-                'Relationships between models'
+                'Relationships between models',
             ],
             'Authentication & Authorization' => [
                 'User registration and login',
                 'Middleware',
-                'Gates and policies'
+                'Gates and policies',
             ],
             'APIs & JSON Responses' => [
                 'Create API routes',
                 'Use Resource classes',
-                'Handle JSON requests and responses'
+                'Handle JSON requests and responses',
             ],
             'Testing & Debugging' => [
                 'Write unit tests',
                 'Use factories and seeders',
-                'Debug with Laravel Telescope'
+                'Debug with Laravel Telescope',
             ],
         ];
 

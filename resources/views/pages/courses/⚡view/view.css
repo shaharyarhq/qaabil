@@ -1,0 +1,66 @@
+.chapter-toggle[aria-expanded="true"] .chapter-num {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+}
+
+.chapter-toggle[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+    color: var(--navy);
+}
+
+.chapter-toggle[aria-expanded="true"],
+.chapter-toggle:hover {
+    background: var(--sky);
+}
+
+/* smooth expand trick — no tailwind equivalent */
+.chapter-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+}
+
+.chapter-body.open {
+    grid-template-rows: 1fr;
+}
+
+.chapter-body-inner {
+    overflow: hidden;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    animation: fadeUp 0.45s ease both;
+}
+
+.d1 {
+    animation-delay: 0.05s;
+}
+
+.d2 {
+    animation-delay: 0.1s;
+}
+
+.d3 {
+    animation-delay: 0.15s;
+}
+
+.d4 {
+    animation-delay: 0.2s;
+}
+
+.d5 {
+    animation-delay: 0.25s;
+}

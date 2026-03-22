@@ -39,13 +39,12 @@ class AppServiceProvider extends ServiceProvider
                 ->paginated([5, 10, 25, 50, 100, 'all'])
                 ->extremePaginationLinks()
                 // ->deferColumnManager(false)
-                ->striped()
-                // ->filters([], layout: FiltersLayout::AboveContentCollapsible)
-                // ->filtersTriggerAction(
-                //     fn(Action $action) => $action
-                //         ->slideOver() // This makes the filter panel a slide-over
-                // )
-            ;
+                ->striped();
+            // ->filters([], layout: FiltersLayout::AboveContentCollapsible)
+            // ->filtersTriggerAction(
+            //     fn(Action $action) => $action
+            //         ->slideOver() // This makes the filter panel a slide-over
+            // )
         });
 
         SelectFilter::configureUsing(function (SelectFilter $filter): void {
@@ -70,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
         DeleteAction::configureUsing(function (DeleteAction $action) {
             $action->action(function () use ($action): void {
                 try {
-                    $result = $action->process(static fn(Model $record): ?bool => $record->delete());
+                    $result = $action->process(static fn (Model $record): ?bool => $record->delete());
 
                     if (! $result) {
                         $action->failure();
@@ -89,7 +88,7 @@ class AppServiceProvider extends ServiceProvider
 
                     $errorMessage = match (true) {
                         $isForeignKey => 'Cannot delete this record because it has related data.',
-                        default => $e->getMessage() ?: "An unknown error occurred while deleting the record.",
+                        default => $e->getMessage() ?: 'An unknown error occurred while deleting the record.',
                     };
 
                     Notification::make('record_deletion_error')

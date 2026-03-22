@@ -10,7 +10,6 @@ use App\Filament\Admin\Resources\Moderators\Pages\ViewModerator;
 use App\Filament\Admin\Resources\Moderators\Schemas\ModeratorForm;
 use App\Filament\Admin\Resources\Moderators\Schemas\ModeratorInfolist;
 use App\Filament\Admin\Resources\Moderators\Tables\ModeratorsTable;
-use App\Models\Moderator;
 use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;

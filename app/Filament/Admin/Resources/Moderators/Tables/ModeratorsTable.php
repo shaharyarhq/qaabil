@@ -34,7 +34,7 @@ class ModeratorsTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn($state): string => match ($state) {
+                    ->color(fn ($state): string => match ($state) {
                         UserStatus::APPROVED => 'success',
                         UserStatus::PENDING => 'warning',
                         UserStatus::REJECTED => 'danger',
@@ -59,7 +59,7 @@ class ModeratorsTable
                     ->color('success')
                     ->icon(Heroicon::ArrowUpTray)
                     ->modalWidth(Width::Small)
-                    ->schema(fn(Model $record) => [
+                    ->schema(fn (Model $record) => [
                         Select::make('status')
                             ->options(UserStatus::class)
                             ->required()
@@ -69,7 +69,7 @@ class ModeratorsTable
                         $record->status = $data['status'];
                         // $record->approved_by = filament()->auth()->user()->id;
                         $record->save();
-                    })
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

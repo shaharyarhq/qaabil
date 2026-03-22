@@ -3,6 +3,9 @@
 
 @source '../../../../app/Filament/Admin/**/*';
 @source '../../../../resources/views/filament/admin/**/*';
+@source '../../../../vendor/jeffgreco13/filament-breezy/resources/**/*';
+@source '../../../../vendor/andreia/filament-ui-switcher';
+
 
 /* wrapper */
 .auth-theme-switcher {

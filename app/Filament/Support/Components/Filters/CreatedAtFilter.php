@@ -22,11 +22,11 @@ class CreatedAtFilter
                     ->schema([
                         DatePicker::make('from')
                             ->displayFormat(app_date_format())
-                            ->maxDate(fn(Get $get) => $get('until') ?: now())
+                            ->maxDate(fn (Get $get) => $get('until') ?: now())
                             ->label('From'),
                         DatePicker::make('until')
                             ->displayFormat(app_date_format())
-                            ->minDate(fn(Get $get) => $get('from') ?: now())
+                            ->minDate(fn (Get $get) => $get('from') ?: now())
                             ->maxDate(now())
                             ->label('Until'),
                     ]),
@@ -35,17 +35,15 @@ class CreatedAtFilter
                 return $query
                     ->when(
                         $data['from'],
-                        fn(Builder $query, $date): Builder =>
-                        $query->whereDate('created_at', '>=', $date),
+                        fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                     )
                     ->when(
                         $data['until'],
-                        fn(Builder $query, $date): Builder =>
-                        $query->whereDate('created_at', '<=', $date),
+                        fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                     );
             })
             ->indicateUsing(function (array $data): ?string {
-                if (!$data['from'] && !$data['until']) {
+                if (! $data['from'] && ! $data['until']) {
                     return null;
                 }
 

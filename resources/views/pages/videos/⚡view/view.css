@@ -1,0 +1,50 @@
+.page-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+@media (min-width: 1024px) {
+    .page-grid {
+        grid-template-columns: 1fr 340px;
+        align-items: start;
+    }
+}
+
+.related-card:hover .play-overlay {
+    opacity: 1;
+}
+
+/* tab underline */
+.tab-btn.active {
+    color: #1b3a6b;
+    border-bottom-color: #f59e0b;
+}
+.tab-panel {
+    display: none;
+}
+.tab-panel.active {
+    display: block;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fade-up {
+    animation: fadeUp 0.45s ease both;
+}
+.fade-up-2 {
+    animation: fadeUp 0.45s ease both 0.06s;
+}
+.fade-up-3 {
+    animation: fadeUp 0.45s ease both 0.1s;
+}
+.fade-up-4 {
+    animation: fadeUp 0.45s ease both 0.12s;
+}

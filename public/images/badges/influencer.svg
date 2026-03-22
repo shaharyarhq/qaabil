@@ -1,0 +1,48 @@
+<svg width="120" height="220" viewBox="0 0 124 220"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="in-shield" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#AFA9EC"/>
+            <stop offset="50%" stop-color="#7F77DD"/>
+            <stop offset="100%" stop-color="#26215C"/>
+        </linearGradient>
+        <linearGradient id="in-inner" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#CECBF6"/>
+            <stop offset="60%" stop-color="#9F99E8"/>
+            <stop offset="100%" stop-color="#3C3489"/>
+        </linearGradient>
+        <linearGradient id="in-circle" x1="20%" y1="10%" x2="80%" y2="90%">
+            <stop offset="0%" stop-color="#EEEDFE"/>
+            <stop offset="40%" stop-color="#AFA9EC"/>
+            <stop offset="100%" stop-color="#26215C"/>
+        </linearGradient>
+        <linearGradient id="shine" x1="0%" y1="0%" x2="60%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+    </defs>
+    <path d="M62 6 L114 27 L114 97 Q114 140 62 161 Q10 140 10 97 L10 27 Z" fill="#100830" opacity="0.4" transform="translate(4,6)"/>
+    <path d="M62 6 L114 27 L114 97 Q114 140 62 161 Q10 140 10 97 L10 27 Z" fill="url(#in-shield)"/>
+    <path d="M62 18 L104 35 L104 95 Q104 130 62 148 Q20 130 20 95 L20 35 Z" fill="url(#in-inner)"/>
+    <circle cx="62" cy="90" r="33" fill="#100830" opacity="0.45"/>
+    <circle cx="62" cy="88" r="33" fill="url(#in-circle)"/>
+    <polygon points="44,98 48,78 62,88 76,78 80,98" fill="#3C3489" opacity="0.6"/>
+    <polygon points="44,98 48,78 62,88 76,78 80,98" fill="#EEEDFE"/>
+    <rect x="44" y="97" width="36" height="5" rx="2" fill="#534AB7"/>
+    <circle cx="48" cy="78" r="3" fill="#AFA9EC"/>
+    <circle cx="62" cy="84" r="3" fill="#CECBF6"/>
+    <circle cx="76" cy="78" r="3" fill="#AFA9EC"/>
+    <polygon points="62,6 65.5,15 76,15 68,20.5 71,30 62,24.5 53,30 56,20.5 48,15 58.5,15" fill="#CECBF6"/>
+    <polygon points="62,6 65.5,15 76,15 68,20.5 71,30 62,24.5 53,30 56,20.5 48,15 58.5,15" fill="url(#shine)" opacity="0.7"/>
+    <polygon points="108,38 109.5,43 114,43 110.5,46 112,51 108,48 104,51 105.5,46 102,43 106.5,43" fill="#CECBF6" opacity="0.9"/>
+    <circle cx="18" cy="75" r="3" fill="#AFA9EC" opacity="0.7"/>
+    <circle cx="22" cy="50" r="2" fill="#ffffff" opacity="0.5"/>
+    <path d="M26 32 Q40 22 62 20 L62 50 Q42 52 28 60 Z" fill="#ffffff" opacity="0.2"/>
+    <ellipse cx="52" cy="76" rx="10" ry="6" fill="#ffffff" opacity="0.25" transform="rotate(-30,52,76)"/>
+    <rect x="50" y="156" width="10" height="24" rx="3" fill="#3C3489" transform="rotate(-12,55,168)"/>
+    <rect x="64" y="156" width="10" height="24" rx="3" fill="#3C3489" transform="rotate(12,69,168)"/>
+    <polygon points="50,156 60,156 55,148" fill="#7F77DD"/>
+    <polygon points="64,156 74,156 69,148" fill="#7F77DD"/>
+    <text x="62" y="196" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#26215C">Influencer</text>
+    <text x="62" y="211" font-family="system-ui,sans-serif" font-size="11" font-weight="400" text-anchor="middle" fill="#534AB7">Reviewer</text>
+</svg>

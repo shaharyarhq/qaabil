@@ -24,6 +24,6 @@ class Register extends BaseRegister
 
     public function getHeading(): string|Htmlable
     {
-        return __('Student Registration');
+        return __('Member Registration');
     }
 }

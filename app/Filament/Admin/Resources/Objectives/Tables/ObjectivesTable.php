@@ -25,7 +25,11 @@ class ObjectivesTable
                     ->numeric()
                     ->copyable()
                     ->sortable(),
-                TextColumn::make('chapter.course.name')
+                TextColumn::make('chapter.section.name')
+                    ->numeric()
+                    ->copyable()
+                    ->sortable(),
+                TextColumn::make('chapter.section.course.name')
                     ->numeric()
                     ->copyable()
                     ->sortable(),
@@ -43,13 +47,15 @@ class ObjectivesTable
                 UpdatedAtFilter::make(),
                 SelectFilter::make('chapter')
                     ->relationship('chapter', 'name'),
+                SelectFilter::make('section')
+                    ->relationship('chapter.section', 'name'),
                 SelectFilter::make('course')
-                    ->relationship('chapter.course', 'name'),
+                    ->relationship('chapter.section.course', 'name'),
             ])
             ->recordActions([
                 // ViewAction::make(),
                 EditAction::make(),
-                DeleteAction::make()
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

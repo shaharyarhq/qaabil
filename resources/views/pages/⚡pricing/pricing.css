@@ -1,0 +1,104 @@
+.card-featured-plan::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+.manifesto::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+/* toggle */
+.tog-track {
+    width: 48px;
+    height: 26px;
+    border-radius: 13px;
+    background: #e2e8f0;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+.tog-track.on {
+    background: #1b3a6b;
+}
+.tog-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+.tog-track.on .tog-thumb {
+    transform: translateX(22px);
+}
+
+/* price swap */
+.price-num {
+    transition:
+        opacity 0.18s,
+        transform 0.18s;
+}
+.price-num.out {
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+/* faq */
+.faq-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+}
+.faq-body.open {
+    grid-template-rows: 1fr;
+}
+.faq-inner {
+    overflow: hidden;
+}
+.faq-chevron {
+    transition: transform 0.3s;
+}
+.faq-open .faq-chevron {
+    transform: rotate(180deg);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fu {
+    animation: fadeUp 0.45s ease both;
+}
+.d1 {
+    animation-delay: 0.05s;
+}
+.d2 {
+    animation-delay: 0.12s;
+}
+.d3 {
+    animation-delay: 0.19s;
+}
+.d4 {
+    animation-delay: 0.26s;
+}

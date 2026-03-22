@@ -21,7 +21,11 @@ class ChaptersTable
                 TextColumn::make('name')
                     ->copyable()
                     ->searchable(),
-                TextColumn::make('course.name')
+                TextColumn::make('section.name')
+                    ->numeric()
+                    ->copyable()
+                    ->sortable(),
+                TextColumn::make('section.course.name')
                     ->numeric()
                     ->copyable()
                     ->sortable(),
@@ -38,12 +42,14 @@ class ChaptersTable
                 CreatedAtFilter::make(),
                 UpdatedAtFilter::make(),
                 SelectFilter::make('course')
-                    ->relationship('course', 'name'),
+                    ->relationship('section.course', 'name'),
+                SelectFilter::make('section')
+                    ->relationship('section', 'name'),
             ])
             ->recordActions([
                 // ViewAction::make(),
                 EditAction::make(),
-                DeleteAction::make()
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

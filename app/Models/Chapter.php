@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
 
 class Chapter extends Model
 {
     protected $fillable = [
         'name',
-        'course_id',
+        'section_id',
     ];
 
-    public function course()
+    public function section()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Section::class);
     }
 
     public function objectives()

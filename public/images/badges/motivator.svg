@@ -1,0 +1,43 @@
+<svg width="120" height="220" viewBox="0 0 124 220"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="mo-shield" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F0997B"/>
+            <stop offset="50%" stop-color="#D85A30"/>
+            <stop offset="100%" stop-color="#4A1B0C"/>
+        </linearGradient>
+        <linearGradient id="mo-inner" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F5C4B3"/>
+            <stop offset="60%" stop-color="#E07050"/>
+            <stop offset="100%" stop-color="#712B13"/>
+        </linearGradient>
+        <linearGradient id="mo-circle" x1="20%" y1="10%" x2="80%" y2="90%">
+            <stop offset="0%" stop-color="#FAECE7"/>
+            <stop offset="40%" stop-color="#F0997B"/>
+            <stop offset="100%" stop-color="#4A1B0C"/>
+        </linearGradient>
+        <linearGradient id="shine" x1="0%" y1="0%" x2="60%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+    </defs>
+    <path d="M62 6 L114 27 L114 97 Q114 140 62 161 Q10 140 10 97 L10 27 Z" fill="#4A1B0C" opacity="0.3" transform="translate(4,6)"/>
+    <path d="M62 6 L114 27 L114 97 Q114 140 62 161 Q10 140 10 97 L10 27 Z" fill="url(#mo-shield)"/>
+    <path d="M62 18 L104 35 L104 95 Q104 130 62 148 Q20 130 20 95 L20 35 Z" fill="url(#mo-inner)"/>
+    <circle cx="62" cy="90" r="33" fill="#4A1B0C" opacity="0.4"/>
+    <circle cx="62" cy="88" r="33" fill="url(#mo-circle)"/>
+    <polygon points="62,74 65,82 74,82 67,87 70,96 62,91 54,96 57,87 50,82 59,82" fill="#993C1D" opacity="0.6"/>
+    <polygon points="62,74 65,82 74,82 67,87 70,96 62,91 54,96 57,87 50,82 59,82" fill="#FAECE7"/>
+    <polygon points="62,10 65,18 74,18 67,23 70,32 62,27 54,32 57,23 50,18 59,18" fill="#F5C4B3"/>
+    <polygon points="62,10 65,18 74,18 67,23 70,32 62,27 54,32 57,23 50,18 59,18" fill="url(#shine)" opacity="0.6"/>
+    <polygon points="20,70 21.5,74 26,74 22.5,76.5 24,81 20,78 16,81 17.5,76.5 14,74 18.5,74" fill="#F5C4B3" opacity="0.8"/>
+    <polygon points="104,70 105.5,74 110,74 106.5,76.5 108,81 104,78 100,81 101.5,76.5 98,74 102.5,74" fill="#F5C4B3" opacity="0.8"/>
+    <path d="M26 32 Q40 22 62 20 L62 50 Q42 52 28 60 Z" fill="#ffffff" opacity="0.18"/>
+    <ellipse cx="52" cy="76" rx="10" ry="6" fill="#ffffff" opacity="0.25" transform="rotate(-30,52,76)"/>
+    <rect x="50" y="156" width="10" height="24" rx="3" fill="#993C1D" transform="rotate(-12,55,168)"/>
+    <rect x="64" y="156" width="10" height="24" rx="3" fill="#993C1D" transform="rotate(12,69,168)"/>
+    <polygon points="50,156 60,156 55,148" fill="#D85A30"/>
+    <polygon points="64,156 74,156 69,148" fill="#D85A30"/>
+    <text x="62" y="196" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#712B13">Motivator</text>
+    <text x="62" y="211" font-family="system-ui,sans-serif" font-size="11" font-weight="400" text-anchor="middle" fill="#993C1D">Reviewer</text>
+</svg>

@@ -1,0 +1,22 @@
+[90m= [39m[34;4mApp\Models\Video[39;24m {#7805
+    [34mid[39m: [35m2[39m,
+    [34mcourse_id[39m: [35m1[39m,
+    [34msection_id[39m: [35m1[39m,
+    [34mchapter_id[39m: [35m1[39m,
+    [34mobjective_id[39m: [35m1[39m,
+    [34mtitle[39m: "[32mBayonetta[39m",
+    [34mvideo_url[39m: "[32mhttps://www.youtube.com/watch?v=i91-6ZIXLOw[39m",
+    [34mthumbnail_url[39m: [36mnull[39m,
+    [34mstatus[39m: "[32mapproved[39m",
+    [34mapproved_by[39m: [35m1[39m,
+    [34mcreated_by[39m: [35m3[39m,
+    [34mupdated_by[39m: [35m1[39m,
+    [34mcreated_at[39m: "[32m2026-03-22 13:01:38[39m",
+    [34mupdated_at[39m: "[32m2026-03-22 13:02:21[39m",
+    [34mlanguage[39m: "[32men[39m",
+    [34mdescription[39m: "[32m<p>[39m[32m</p>[39m",
+    [34mlearning_materials[39m: "[32m[][39m",
+    [34mquiz_attachments[39m: "[32m[][39m",
+    [34mquiz_link[39m: [36mnull[39m,
+  }
+

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Filament\Admin\Resources\Courses\RelationManagers;
+namespace App\Filament\Admin\Resources\Sections\RelationManagers;
 
-use App\Filament\Admin\Resources\Chapters\ChapterResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 
 class ChaptersRelationManager extends RelationManager
 {
@@ -24,7 +24,6 @@ class ChaptersRelationManager extends RelationManager
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->maxLength(255)
                     ->required(),
             ]);
     }
@@ -33,13 +32,13 @@ class ChaptersRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                // TextEntry::make('name'),
-                // TextEntry::make('created_at')
-                //     ->dateTime()
-                //     ->placeholder('-'),
-                // TextEntry::make('updated_at')
-                //     ->dateTime()
-                //     ->placeholder('-'),
+                TextEntry::make('name'),
+                TextEntry::make('created_at')
+                    ->dateTime()
+                    ->placeholder('-'),
+                TextEntry::make('updated_at')
+                    ->dateTime()
+                    ->placeholder('-'),
             ]);
     }
 
@@ -66,9 +65,8 @@ class ChaptersRelationManager extends RelationManager
                 CreateAction::make(),
             ])
             ->recordActions([
-                // ViewAction::make(),
-                EditAction::make()
-                    ->url(fn(Model $record) => ChapterResource::getUrl('edit', [$record])),
+                ViewAction::make(),
+                EditAction::make(),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

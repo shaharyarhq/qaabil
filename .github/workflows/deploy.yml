@@ -18,9 +18,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/domains/ifelsedevs.com/public_html/demo/qaabil
-            git reset --hard
-            git clean -fd
-            git pull origin main
             git pull origin main
             composer install --no-dev --optimize-autoloader
             php artisan migrate:fresh --seed

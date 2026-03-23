@@ -49,7 +49,7 @@
     </style>
 </head>
 
-<body class="bg-[#f8fafd] text-[#0f172a] antialiased" style="font-family:'Plus Jakarta Sans',system-ui,sans-serif">
+<body wire:transition class="bg-[#f8fafd] text-[#0f172a] antialiased" style="font-family:'Plus Jakarta Sans',system-ui,sans-serif">
     <x-navbar></x-navbar>
 
     {{ $slot }}

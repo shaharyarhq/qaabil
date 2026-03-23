@@ -3,37 +3,37 @@
     <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
 
         {{-- Logo --}}
-        <a wire:navigate href="/" class="shrink-0">
+        <a {{ spa() }} href="/" class="shrink-0">
             <img src="{{ asset('/images/logo/qaabil.jpeg') }}" alt="Qaabil" class="h-8 w-auto object-contain">
         </a>
 
         {{-- Desktop links --}}
         <div class="hidden md:flex items-center gap-1">
-            <a wire:navigate href="{{ route('home') }}" @class([
+            <a {{ spa() }} href="{{ route('home') }}" @class([
                 'text-[.85rem] font-semibold px-3 py-[.4rem] rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('home'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('home'),
             ])>Home</a>
 
-            <a wire:navigate href="{{ route('courses.index') }}" @class([
+            <a {{ spa() }} href="{{ route('courses.index') }}" @class([
                 'text-[.85rem] font-semibold px-3 py-[.4rem] rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('courses.*'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('courses.*'),
             ])>Courses</a>
 
-            <a wire:navigate href="{{ route('pricing') }}" @class([
+            <a {{ spa() }} href="{{ route('pricing') }}" @class([
                 'text-[.85rem] font-semibold px-3 py-[.4rem] rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('pricing'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('pricing'),
             ])>Pricing</a>
 
-            <a wire:navigate href="{{ route('contact') }}" @class([
+            <a {{ spa() }} href="{{ route('contact') }}" @class([
                 'text-[.85rem] font-semibold px-3 py-[.4rem] rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('contact'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('contact'),
             ])>Contact Us</a>
 
-            <a wire:navigate href="{{ route('about') }}" @class([
+            <a {{ spa() }} href="{{ route('about') }}" @class([
                 'text-[.85rem] font-semibold px-3 py-[.4rem] rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('about'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('about'),
@@ -96,31 +96,31 @@
         style="display:none"
     >
         <div class="flex flex-col gap-1">
-            <a wire:navigate href="{{ route('home') }}" @click="open = false" @class([
+            <a {{ spa() }} href="{{ route('home') }}" @click="open = false" @class([
                 'text-[.9rem] font-semibold px-3 py-2.5 rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('home'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('home'),
             ])>Home</a>
 
-            <a wire:navigate href="{{ route('courses.index') }}" @click="open = false" @class([
+            <a {{ spa() }} href="{{ route('courses.index') }}" @click="open = false" @class([
                 'text-[.9rem] font-semibold px-3 py-2.5 rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('courses.*'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('courses.*'),
             ])>Courses</a>
 
-            <a wire:navigate href="{{ route('pricing') }}" @click="open = false" @class([
+            <a {{ spa() }} href="{{ route('pricing') }}" @click="open = false" @class([
                 'text-[.9rem] font-semibold px-3 py-2.5 rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('pricing'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('pricing'),
             ])>Pricing</a>
 
-            <a wire:navigate href="{{ route('contact') }}" @click="open = false" @class([
+            <a {{ spa() }} href="{{ route('contact') }}" @click="open = false" @class([
                 'text-[.9rem] font-semibold px-3 py-2.5 rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('contact'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('contact'),
             ])>Contact Us</a>
 
-            <a wire:navigate href="{{ route('about') }}" @click="open = false" @class([
+            <a {{ spa() }} href="{{ route('about') }}" @click="open = false" @class([
                 'text-[.9rem] font-semibold px-3 py-2.5 rounded-lg no-underline transition-colors',
                 'bg-[#eff6ff] text-[#1b3a6b]'                            => request()->routeIs('about'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs('about'),

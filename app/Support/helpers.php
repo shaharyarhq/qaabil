@@ -13,3 +13,10 @@ if (! function_exists('app_date_time_format')) {
         return 'd-M-Y h:i a';
     }
 }
+
+if (! function_exists('spa')) {
+    function spa()
+    {
+        return 'wire:navigate';
+    }
+}

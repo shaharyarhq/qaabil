@@ -136,8 +136,8 @@
                         class="tab-btn text-sm font-bold px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b]">
                         Reviews
                         {{-- optional count badge --}}
-                        <span
-                            class="ml-1.5 text-[.65rem] font-extrabold bg-[#f59e0b] text-[#1b3a6b] rounded-full px-1.5 py-0.5">4</span>
+                        {{-- <span
+                            class="ml-1.5 text-[.65rem] font-extrabold bg-[#f59e0b] text-[#1b3a6b] rounded-full px-1.5 py-0.5">4</span> --}}
                     </button>
 
                 </div>

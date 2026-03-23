@@ -56,11 +56,11 @@
                     Dashboard
                 </a>
             @else
-                <a href="{{ filament()->getPanel('member')->getLoginUrl() }}"
+                <a href="{{ filament()->getPanel('member')->getLoginUrl() }}?redirectTo={{ url()->current() }}"
                     class="hidden sm:inline-block text-[.825rem] font-semibold text-[#475569] border-[1.5px] border-[#e2e8f0] rounded-[10px] px-[1.1rem] py-[.45rem] bg-transparent cursor-pointer transition-all hover:border-[#1b3a6b] hover:text-[#1b3a6b]">
                     Log in
                 </a>
-                <a href="{{ filament()->getPanel('member')->getRegistrationUrl() }}"
+                <a href="{{ filament()->getPanel('member')->getRegistrationUrl() }}?redirectTo={{ url()->current() }}"
                     class="hidden sm:inline-block text-[.825rem] font-bold text-white bg-[#1b3a6b] border-[1.5px] border-[#1b3a6b] rounded-[10px] px-[1.2rem] py-[.45rem] cursor-pointer transition-colors hover:bg-[#122952]">
                     Sign up free
                 </a>
@@ -143,11 +143,11 @@
                     Dashboard
                 </a>
             @else
-                <a href="{{ filament()->getPanel('member')->getLoginUrl() }}"
+                <a href="{{ filament()->getPanel('member')->getLoginUrl() }}?redirectTo={{ url()->current() }}"
                     class="text-[.9rem] font-semibold text-center text-[#475569] border-[1.5px] border-[#e2e8f0] rounded-[10px] px-4 py-2.5 transition-all hover:border-[#1b3a6b] hover:text-[#1b3a6b]">
                     Log in
                 </a>
-                <a href="{{ filament()->getPanel('member')->getRegistrationUrl() }}"
+                <a href="{{ filament()->getPanel('member')->getRegistrationUrl() }}?redirectTo={{ url()->current() }}"
                     class="text-[.9rem] font-bold text-center text-white bg-[#1b3a6b] border-[1.5px] border-[#1b3a6b] rounded-[10px] px-4 py-2.5 transition-colors hover:bg-[#122952]">
                     Sign up free
                 </a>

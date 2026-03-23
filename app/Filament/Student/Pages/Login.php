@@ -6,6 +6,7 @@ use Filament\Auth\Pages\Login as BaseLogin;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\View\View;
+use Livewire\Attributes\Url;
 
 class Login extends BaseLogin
 {

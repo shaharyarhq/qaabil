@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Response\LoginResponse;
+use App\Models\User;
+use Codebyray\ReviewRateable\Models\Review;
 use Filament\Actions\DeleteAction;
+use Filament\Auth\Http\Responses\LoginResponse as BaseLoginResponse;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
@@ -19,7 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(
+            BaseLoginResponse::class,
+            LoginResponse::class
+        );
     }
 
     /**
@@ -27,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Review::resolveRelationUsing('user', function ($review) {
+            return $review->belongsTo(User::class, 'user_id');
+        });
+
         Table::configureUsing(function (Table $table): void {
             $table
                 // ->deferFilters(false)
@@ -69,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
         DeleteAction::configureUsing(function (DeleteAction $action) {
             $action->action(function () use ($action): void {
                 try {
-                    $result = $action->process(static fn (Model $record): ?bool => $record->delete());
+                    $result = $action->process(static fn(Model $record): ?bool => $record->delete());
 
                     if (! $result) {
                         $action->failure();

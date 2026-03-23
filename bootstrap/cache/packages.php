@@ -31,6 +31,13 @@
       0 => 'BladeUI\\Icons\\BladeIconsServiceProvider',
     ),
   ),
+  'codebyray/laravel-review-rateable' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Codebyray\\ReviewRateable\\ReviewRateableServiceProvider',
+    ),
+  ),
   'filament/actions' => 
   array (
     'providers' => 

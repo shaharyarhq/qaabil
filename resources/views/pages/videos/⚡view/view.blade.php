@@ -132,6 +132,14 @@
                             Quiz
                         </button>
                     @endif
+                    <button onclick="switchTab('reviews', this)"
+                        class="tab-btn text-sm font-bold px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b]">
+                        Reviews
+                        {{-- optional count badge --}}
+                        <span
+                            class="ml-1.5 text-[.65rem] font-extrabold bg-[#f59e0b] text-[#1b3a6b] rounded-full px-1.5 py-0.5">4</span>
+                    </button>
+
                 </div>
 
                 {{-- Overview tab --}}
@@ -357,10 +365,17 @@
                     </div>
                 @endif
 
+                {{-- Reviews tab --}}
+                <div id="tab-reviews" class="tab-panel">
+                    <livewire:courses.review-tab :video="$video" />
+                </div>
+
             </div>
             {{-- end tabs --}}
 
         </div>
+
+
         {{-- end left col --}}
 
         <!-- ── Right col: sidebar ─────────────────── -->

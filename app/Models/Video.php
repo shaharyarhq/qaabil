@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\VideoStatus;
 use App\Observers\VideoObserver;
+use Codebyray\ReviewRateable\Traits\ReviewRateable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Mattiverse\Userstamps\Traits\Userstamps;
@@ -12,7 +13,8 @@ use Mattiverse\Userstamps\Traits\Userstamps;
 class Video extends Model
 {
     use Userstamps;
-
+    use ReviewRateable;
+    
     protected $fillable = [
         'title',
         'video_url',

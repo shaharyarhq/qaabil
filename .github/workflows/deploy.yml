@@ -20,7 +20,7 @@ jobs:
             cd ~/domains/ifelsedevs.com/public_html/demo/qaabil
             git pull origin main
             composer install --no-dev --optimize-autoloader
-            # php artisan migrate:fresh --seed
+            php artisan migrate:fresh --seed
             php artisan optimize:clear
             php artisan optimize
             php artisan storage:link

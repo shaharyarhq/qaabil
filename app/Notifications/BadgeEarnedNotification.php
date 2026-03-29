@@ -55,17 +55,35 @@ class BadgeEarnedNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
+    // public function toMail(object $notifiable): MailMessage
+    // {
+    //     return (new MailMessage)
+    //         ->subject("🏅 You earned a new badge — {$this->badge->name}")
+    //         ->greeting("Hey {$notifiable->name}!")
+    //         ->line("You just earned the **{$this->badge->name}** badge.")
+    //         ->line($this->badge->description)
+    //         ->action('View Your Badges', url('/member'))
+    //         ->line('Keep it up! 🚀');
+    // }
+
     public function toMail(object $notifiable): MailMessage
     {
+        // $iconPath = public_path($this->badge->icon); // e.g. /var/www/public/images/badges/bronze-creator.svg
+        // $iconBase64 = base64_encode(file_get_contents($iconPath));
+        // $iconMime = str_ends_with($this->badge->icon, '.svg') ? 'image/svg+xml' : 'image/png';
+        // $iconDataUri = "data:{$iconMime};base64,{$iconBase64}";
+
+        $iconUrl = rtrim(config('app.url'), '/') . '/' . ltrim($this->badge->icon, '/');
+
         return (new MailMessage)
             ->subject("🏅 You earned a new badge — {$this->badge->name}")
-            ->greeting("Hey {$notifiable->name}!")
-            ->line("You just earned the **{$this->badge->name}** badge.")
-            ->line($this->badge->description)
-            ->action('View Your Badges', url('/member'))
-            ->line('Keep it up! 🚀');
+            ->view('partials.emails.badge-earned', [
+                'badge'        => $this->badge,
+                'notifiable'   => $notifiable,
+                'iconDataUri'  => $iconUrl,
+                // 'iconDataUri'  => $iconDataUri,
+            ]);
     }
-
     /**
      * Get the array representation of the notification.
      *

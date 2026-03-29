@@ -7,6 +7,8 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 
+    {{-- <x-pwa.head></x-pwa.head> --}}
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -55,6 +57,8 @@
     {{ $slot }}
     
     <x-footer></x-footer>
+
+    {{-- <x-pwa.scripts></x-pwa.scripts> --}}
 
     @livewireScripts
 </body>

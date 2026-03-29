@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Response\LoginResponse;
 use App\Models\User;
+use App\Services\VideoAccessService;
 use Codebyray\ReviewRateable\Models\Review;
 use Filament\Actions\DeleteAction;
 use Filament\Auth\Http\Responses\LoginResponse as BaseLoginResponse;
@@ -27,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
             BaseLoginResponse::class,
             LoginResponse::class
         );
+
+        $this->app->singleton(VideoAccessService::class);
     }
 
     /**

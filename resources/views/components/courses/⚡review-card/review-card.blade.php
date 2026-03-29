@@ -6,7 +6,7 @@
             $rating = optional($review->ratings->first())->value ?? 0;
             $isAuthor = auth()->check() && auth()->id() === $review->user_id;
         @endphp
-        <div wire:keu="{{ $review->id }}" class="bg-white border border-[#e2e8f0] rounded-2xl p-5" x-data="{ isEditing: false }">
+        <div wire:key="{{ $review->id }}" class="bg-white border border-[#e2e8f0] rounded-2xl p-5" x-data="{ isEditing: false }">
             <div class="flex items-start justify-between gap-3">
 
                 <div class="flex items-center gap-3">

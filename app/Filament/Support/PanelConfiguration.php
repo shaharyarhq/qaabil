@@ -36,6 +36,8 @@ class PanelConfiguration
             // ->sidebarCollapsibleOnDesktop()
             ->globalSearch(false)
             ->spa()
+            ->brandLogo('/images/logo/qaabil.jpeg')
+            ->brandLogoHeight('2.4rem')
             ->simplePageMaxContentWidth(Width::Large)
             ->databaseTransactions()
             ->databaseNotifications()

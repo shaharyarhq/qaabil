@@ -6,6 +6,7 @@ namespace App\Models;
 use Andreia\FilamentUiSwitcher\Models\Traits\HasUiPreferences;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
+use App\Models\VideoView;
 use App\Notifications\BadgeEarnedNotification;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
@@ -111,8 +112,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function getFilamentAvatarUrl(): ?string
     {
         $avatarColumn = config('filament-edit-profile.avatar_column', 'avatar_url');
-
-        return $this->$avatarColumn ? Storage::url($this->$avatarColumn) : null;
+        $avatar = $this->{$avatarColumn};
+        return $avatar
+            ? Storage::url($avatar)
+            : "https://ui-avatars.com/api/?name=" . urlencode($this->name ?? 'U')
+            . "&color=FFFFFF&background=oklch(0.145 0.008 326)";
     }
 
     public function syncBadges($user = null): void
@@ -138,5 +142,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
                     new BadgeEarnedNotification($badge)
                 ));
         }
+    }
+
+
+    public function videoViews(): HasMany
+    {
+        return $this->hasMany(VideoView::class);
     }
 }

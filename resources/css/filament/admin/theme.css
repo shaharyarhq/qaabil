@@ -1,11 +1,10 @@
 @import "../../../../vendor/filament/filament/resources/css/theme.css";
-@import '../../app.css';
+@import "../../app.css";
 
 @source '../../../../app/Filament/Admin/**/*';
 @source '../../../../resources/views/filament/admin/**/*';
 @source '../../../../vendor/jeffgreco13/filament-breezy/resources/**/*';
 @source '../../../../vendor/andreia/filament-ui-switcher';
-
 
 /* wrapper */
 .auth-theme-switcher {
@@ -68,27 +67,27 @@
     }
 
     ::-webkit-scrollbar-track {
-        background: #e5e7eb
+        background: #e5e7eb;
     }
 
     ::-webkit-scrollbar-thumb {
-        background: #d1d5db
+        background: #d1d5db;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: #c9cbcd
+        background: #c9cbcd;
     }
 
     .dark ::-webkit-scrollbar-track {
-        background: #101215
+        background: #101215;
     }
 
     .dark ::-webkit-scrollbar-thumb {
-        background: #1f2126
+        background: #1f2126;
     }
 
     .dark ::-webkit-scrollbar-thumb:hover {
-        background: #1a1d21
+        background: #1a1d21;
     }
 
     @supports (-moz-appearance: none) {
@@ -97,7 +96,8 @@
             scrollbar-color: #d1d5db #e5e7eb;
         }
 
-        .dark, .dark * {
+        .dark,
+        .dark * {
             scrollbar-color: #1f2126 #101215;
         }
     }
@@ -105,5 +105,9 @@
 
 .cp-label {
     @apply w-full text-center;
+}
+
+.fi-sidebar {
+    @apply bg-white border-r transition-all border-gray-200 dark:border-gray-800 dark:bg-gray-900 duration-300 ease-in-out lg:!transition-all;
 }
 

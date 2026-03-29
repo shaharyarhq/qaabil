@@ -2,6 +2,7 @@
 
 namespace App\Filament\Student\Resources\Videos\Schemas;
 
+use App\Enums\VideoFocus;
 use App\Enums\VideoStatus;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -33,13 +34,13 @@ class VideoForm
 
                 Select::make('section_id')
                     ->label('Section')
-                    ->relationship('section', 'name', fn ($query, Get $get) => $query->where('course_id', $get('course_id')))
+                    ->relationship('section', 'name', fn($query, Get $get) => $query->where('course_id', $get('course_id')))
                     ->afterStateUpdatedJs('$set(`chapter_id`, null)')
                     ->required(),
 
                 Select::make('chapter_id')
                     ->label('Chapter')
-                    ->relationship('chapter', 'name', fn ($query, Get $get) => $query->where('section_id', $get('section_id')))
+                    ->relationship('chapter', 'name', fn($query, Get $get) => $query->where('section_id', $get('section_id')))
                     ->afterStateUpdatedJs('$set(`objective_id`, null)')
                     ->required(),
 
@@ -48,7 +49,7 @@ class VideoForm
                     ->relationship(
                         'objective',
                         'name',
-                        fn ($query, Get $get) => $query->where('chapter_id', $get('chapter_id'))
+                        fn($query, Get $get) => $query->where('chapter_id', $get('chapter_id'))
                     )
                     ->required(),
 
@@ -56,6 +57,9 @@ class VideoForm
                     ->disabled()
                     ->visibleOn(Operation::Edit)
                     ->options(VideoStatus::class),
+
+                Select::make('focus_of_the_video')
+                    ->options(VideoFocus::class),
 
                 Select::make('language')
                     ->options(config('app.languages'))
@@ -202,7 +206,7 @@ class VideoForm
 
                         TextEntry::make('video_preview')
                             ->label('Current Video')
-                            ->visible(fn ($record) => filled($record?->video_url))
+                            ->visible(fn($record) => filled($record?->video_url))
                             ->state(function ($record) {
                                 $url = $record->video_url;
 

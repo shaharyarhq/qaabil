@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\VideoFocus;
 use App\Enums\VideoStatus;
 use App\Observers\VideoObserver;
 use Codebyray\ReviewRateable\Traits\ReviewRateable;
@@ -14,7 +15,7 @@ class Video extends Model
 {
     use Userstamps;
     use ReviewRateable;
-    
+
     protected $fillable = [
         'title',
         'video_url',
@@ -28,6 +29,7 @@ class Video extends Model
         'description',
         'learning_materials',
         'quiz_attachments',
+        'focus_of_the_video',
         'quiz_link',
         'status',
     ];
@@ -36,6 +38,7 @@ class Video extends Model
         'status' => VideoStatus::class,
         'learning_materials' => 'array',
         'quiz_attachments' => 'array',
+        'focus_of_the_video' => VideoFocus::class,
     ];
 
     protected $attributes = [
@@ -65,5 +68,10 @@ class Video extends Model
     public function approver()
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function views()
+    {
+        return $this->hasMany(VideoView::class);
     }
 }

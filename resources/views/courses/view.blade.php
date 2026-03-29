@@ -282,78 +282,94 @@
                                                 <div class="px-5 pb-5">
                                                     <div class="flex gap-3 pb-2 overflow-x-auto"
                                                         style="scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-                                                        @foreach ($obj->videos as $video)
-                                                            @php
-                                                                preg_match(
-                                                                    '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/',
-                                                                    $video->video_url ?? '',
-                                                                    $matches,
-                                                                );
-                                                                $videoId = $matches[1] ?? null;
-                                                                $thumbnail = $videoId
-                                                                    ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg"
-                                                                    : null;
-                                                            @endphp
-                                                            <a href="{{ route('video.view', [$video]) }}"
-                                                                class="flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer transition-transform duration-200 hover:-translate-y-0.5"
-                                                                style="width:220px;background:#0f172a;border:1px solid rgba(27,58,107,.2);">
+                                                       @foreach ($obj->videos as $video)
+    @php
+        preg_match(
+            '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/',
+            $video->video_url ?? '',
+            $matches,
+        );
+        $videoId = $matches[1] ?? null;
+        $thumbnail = $videoId
+            ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg"
+            : null;
 
-                                                                @if ($thumbnail)
-                                                                    <img src="{{ $thumbnail }}"
-                                                                        alt="{{ $video->title }}"
-                                                                        class="w-full object-cover transition-opacity duration-300 group-hover:opacity-70"
-                                                                        style="height:130px;">
-                                                                @else
-                                                                    <div class="w-full flex items-center justify-center"
-                                                                        style="height:130px;background:rgba(27,58,107,.15)">
-                                                                        <span class="text-white/20 text-xs">No
-                                                                            thumbnail</span>
-                                                                    </div>
-                                                                @endif
+        // ── Rating (uses already-eager-loaded relation, zero extra queries) ──
+        $reviews   = $video->reviews ?? collect();
+        $total     = $reviews->count();
+        $avgRating = $total > 0
+            ? round($reviews->map(fn($r) => optional($r->ratings->first())->value ?? 0)->avg(), 1)
+            : null;
+    @endphp
 
-                                                                {{-- Play overlay --}}
-                                                                <div
-                                                                    class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                                                    <div
-                                                                        class="w-10 h-10 rounded-full flex items-center justify-center bg-[rgba(245,158,11,.9)] backdrop-blur-sm">
-                                                                        <svg width="14" height="14"
-                                                                            viewBox="0 0 14 14" fill="#1b3a6b">
-                                                                            <path d="M3 2l9 5-9 5V2z" />
-                                                                        </svg>
-                                                                    </div>
-                                                                </div>
+    <a wire:navigate
+        href="{{ route('videos.view', [$video]) }}"
+        class="flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer transition-transform duration-200 hover:-translate-y-0.5"
+        style="width:220px;background:#0f172a;border:1px solid rgba(27,58,107,.2);">
 
-                                                                {{-- Status badge --}}
-                                                                <div class="absolute top-2 right-2">
-                                                                    @if ($video->status === 'approved')
-                                                                        <span
-                                                                            class="text-[.65rem] font-bold px-2 py-0.5 rounded-full text-[#f59e0b]"
-                                                                            style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3)">
-                                                                            approved
-                                                                        </span>
-                                                                    @elseif ($video->status === 'pending')
-                                                                        <span
-                                                                            class="text-[.65rem] font-bold px-2 py-0.5 rounded-full text-white/50"
-                                                                            style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)">
-                                                                            pending
-                                                                        </span>
-                                                                    @endif
-                                                                </div>
+        {{-- Thumbnail --}}
+        @if ($thumbnail)
+            <img src="{{ $thumbnail }}"
+                alt="{{ $video->title }}"
+                class="w-full object-cover transition-opacity duration-300 group-hover:opacity-70"
+                style="height:130px;">
+        @else
+            <div class="w-full flex items-center justify-center"
+                style="height:130px;background:rgba(27,58,107,.15)">
+                <span class="text-white/20 text-xs">No thumbnail</span>
+            </div>
+        @endif
 
-                                                                {{-- Title --}}
-                                                                <div class="px-3 py-2.5">
-                                                                    <p
-                                                                        class="text-[.7rem] text-white/80 leading-snug line-clamp-2">
-                                                                        {{ $video->title ?? 'Untitled submission' }}
-                                                                    </p>
-                                                                    @if ($video->creator)
-                                                                        <p class="text-[.65rem] mt-0.5 text-white/30">
-                                                                            {{ $video->creator->name }}</p>
-                                                                    @endif
-                                                                </div>
+        {{-- Play overlay --}}
+        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-[rgba(245,158,11,.9)] backdrop-blur-sm">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="#1b3a6b">
+                    <path d="M3 2l9 5-9 5V2z" />
+                </svg>
+            </div>
+        </div>
 
-                                                            </a>
-                                                        @endforeach
+        {{-- Status badge --}}
+        <div class="absolute top-2 right-2">
+            @if ($video->status === 'approved')
+                <span class="text-[.65rem] font-bold px-2 py-0.5 rounded-full text-[#f59e0b]"
+                    style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3)">approved</span>
+            @elseif ($video->status === 'pending')
+                <span class="text-[.65rem] font-bold px-2 py-0.5 rounded-full text-white/50"
+                    style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)">pending</span>
+            @endif
+        </div>
+
+        {{-- Info --}}
+        <div class="px-3 py-2.5">
+            <p class="text-[.7rem] text-white/80 leading-snug line-clamp-2">
+                {{ $video->title ?? 'Untitled submission' }}
+            </p>
+
+            {{-- Stars --}}
+            @if ($avgRating !== null)
+                <div class="flex items-center gap-1 mt-1.5">
+                    <div class="flex items-center gap-0.5">
+                        @for ($s = 1; $s <= 5; $s++)
+                            <svg width="10" height="10" viewBox="0 0 20 20"
+                                fill="{{ $s <= round($avgRating) ? '#f59e0b' : 'rgba(255,255,255,0.15)' }}">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        @endfor
+                    </div>
+                    <span class="text-[.6rem] font-bold text-[#f59e0b]">{{ number_format($avgRating, 1) }}</span>
+                    <span class="text-[.6rem] text-white/25">({{ $total }})</span>
+                </div>
+            @else
+                <p class="text-[.6rem] mt-1.5 text-white/20 italic">No ratings yet</p>
+            @endif
+
+            @if ($video->creator)
+                <p class="text-[.65rem] mt-0.5 text-white/30">{{ $video->creator->name }}</p>
+            @endif
+        </div>
+    </a>
+@endforeach
                                                     </div>
                                                 </div>
                                             @else

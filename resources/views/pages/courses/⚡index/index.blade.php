@@ -1,5 +1,5 @@
 <div>
-    <main class="max-w-7xl mx-auto px-6 py-14 pb-28">
+    <main class="max-w-8xl mx-auto px-6 py-14 pb-28">
 
         {{-- ── Page header ── --}}
         <div class="flex items-end justify-between mb-8">
@@ -55,8 +55,8 @@
                     class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s] hover:border-[rgba(27,58,107,.3)]">
                     <option value="newest">Newest first</option>
                     <option value="oldest">Oldest first</option>
-                    <option value="name-asc">Name A → Z</option>
-                    <option value="name-desc">Name Z → A</option>
+                    {{-- <option value="name-asc">Name A → Z</option> --}}
+                    {{-- <option value="name-desc">Name Z → A</option> --}}
                 </select>
             </div>
         </div>
@@ -121,7 +121,7 @@
 
         {{-- ── Course grid ── --}}
         @if ($this->courses()->isNotEmpty())
-            <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr"
+            <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr"
                 wire:loading.class="loading" wire:target="search, sort">
 
                 @foreach ($this->courses() as $i => $course)

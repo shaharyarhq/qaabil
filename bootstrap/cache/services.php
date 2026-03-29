@@ -45,16 +45,18 @@
     41 => 'Laravel\\Sail\\SailServiceProvider',
     42 => 'Laravel\\Tinker\\TinkerServiceProvider',
     43 => 'Livewire\\LivewireServiceProvider',
-    44 => 'Carbon\\Laravel\\ServiceProvider',
-    45 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    46 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    47 => 'QCod\\Gamify\\GamifyServiceProvider',
-    48 => 'Spatie\\Permission\\PermissionServiceProvider',
-    49 => 'Mattiverse\\Userstamps\\UserstampsServiceProvider',
-    50 => 'App\\Providers\\AppServiceProvider',
-    51 => 'App\\Providers\\Filament\\AdminPanelProvider',
-    52 => 'App\\Providers\\Filament\\ModeratorPanelProvider',
-    53 => 'App\\Providers\\Filament\\StudentPanelProvider',
+    44 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    45 => 'Carbon\\Laravel\\ServiceProvider',
+    46 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    47 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    48 => 'QCod\\Gamify\\GamifyServiceProvider',
+    49 => 'Spatie\\Permission\\PermissionServiceProvider',
+    50 => 'Staudenmeir\\EloquentHasManyDeep\\IdeHelperServiceProvider',
+    51 => 'Mattiverse\\Userstamps\\UserstampsServiceProvider',
+    52 => 'App\\Providers\\AppServiceProvider',
+    53 => 'App\\Providers\\Filament\\AdminPanelProvider',
+    54 => 'App\\Providers\\Filament\\ModeratorPanelProvider',
+    55 => 'App\\Providers\\Filament\\StudentPanelProvider',
   ),
   'eager' => 
   array (
@@ -87,16 +89,17 @@
     26 => 'Kirschbaum\\PowerJoins\\PowerJoinsServiceProvider',
     27 => 'Laravel\\Pail\\PailServiceProvider',
     28 => 'Livewire\\LivewireServiceProvider',
-    29 => 'Carbon\\Laravel\\ServiceProvider',
-    30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    31 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    32 => 'QCod\\Gamify\\GamifyServiceProvider',
-    33 => 'Spatie\\Permission\\PermissionServiceProvider',
-    34 => 'Mattiverse\\Userstamps\\UserstampsServiceProvider',
-    35 => 'App\\Providers\\AppServiceProvider',
-    36 => 'App\\Providers\\Filament\\AdminPanelProvider',
-    37 => 'App\\Providers\\Filament\\ModeratorPanelProvider',
-    38 => 'App\\Providers\\Filament\\StudentPanelProvider',
+    29 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    30 => 'Carbon\\Laravel\\ServiceProvider',
+    31 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    32 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    33 => 'QCod\\Gamify\\GamifyServiceProvider',
+    34 => 'Spatie\\Permission\\PermissionServiceProvider',
+    35 => 'Mattiverse\\Userstamps\\UserstampsServiceProvider',
+    36 => 'App\\Providers\\AppServiceProvider',
+    37 => 'App\\Providers\\Filament\\AdminPanelProvider',
+    38 => 'App\\Providers\\Filament\\ModeratorPanelProvider',
+    39 => 'App\\Providers\\Filament\\StudentPanelProvider',
   ),
   'deferred' => 
   array (
@@ -257,6 +260,7 @@
     'Laravel\\Sail\\Console\\InstallCommand' => 'Laravel\\Sail\\SailServiceProvider',
     'Laravel\\Sail\\Console\\PublishCommand' => 'Laravel\\Sail\\SailServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'Staudenmeir\\EloquentHasManyDeep\\Barryvdh\\LaravelIdeHelper\\Console\\ModelsCommand' => 'Staudenmeir\\EloquentHasManyDeep\\IdeHelperServiceProvider',
   ),
   'when' => 
   array (
@@ -303,6 +307,9 @@
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
+    array (
+    ),
+    'Staudenmeir\\EloquentHasManyDeep\\IdeHelperServiceProvider' => 
     array (
     ),
   ),

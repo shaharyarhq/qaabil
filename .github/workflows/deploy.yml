@@ -20,6 +20,16 @@ jobs:
             cd ~/domains/ifelsedevs.com/public_html/demo/qaabil
             git pull origin main
             composer install --no-dev --optimize-autoloader
+
+            # Force repo to match remote exactly (no local drift)
+            git fetch origin
+            git reset --hard origin/main
+
+            # Clean untracked garbage (like cache files)
+            git clean -fd
+
+            composer install --no-dev --optimize-autoloader
+
             php artisan migrate: --force
             php artisan optimize:clear
             php artisan optimize

@@ -26,7 +26,7 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-3 lg:justify-end shrink-0">
-                    @foreach ([[$course->sections_count, Str::plural('Section', $course->sections_count)], [$course->chapters_count, Str::plural('Chapter', $course->chapters_count)], [$course->videos_count ?? 0, 'Videos'], [$course->objectives_count, Str::plural('Objective', $course->objectives_count)]] as [$num, $label])
+                    @foreach ([[$course->sections_count, Str::plural('Section', $course->sections_count)], [$course->chapters_count, Str::plural('Chapter', $course->chapters_count)], [$course->objectives_count, Str::plural('Learning Objective', $course->objectives_count)], [$course->videos_count ?? 0, 'Videos']] as [$num, $label])
                         <div class="text-center min-w-[100px] rounded-2xl px-6 py-[1.1rem]"
                             style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(4px)">
                             <div class="font-['Instrument_Serif',serif] text-[2.25rem] text-white leading-none">{{ $num }}</div>

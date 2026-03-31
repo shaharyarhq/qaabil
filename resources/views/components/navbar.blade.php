@@ -1,6 +1,6 @@
 <!-- ── Nav ───────────────────────────────────── -->
 <nav class="bg-white border-b border-[#e2e8f0] sticky top-0 z-50" x-data="{ open: false }">
-    <div class="max-w-8xl mx-auto px-8 py-2 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-8 py-2 flex items-center justify-between gap-4">
 
         {{-- Logo --}}
         <a {{ spa() }} href="/" class="shrink-0">
@@ -72,7 +72,7 @@
                     Sign up free
                 </a>
             @endauth
-{{-- 
+{{--
             <button x-data="{ show: false }" x-init="window.addEventListener('pwa-install-available', () => show = true)" x-show="show" @click="installPWA()"
                 class="hidden sm:inline-flex items-center gap-2 text-[.925rem] font-semibold text-[#475569] border-[1.5px] border-[#e2e8f0] rounded-[10px] px-[1.4rem] py-[.65rem] bg-transparent cursor-pointer transition-all hover:border-[#1b3a6b] hover:text-[#1b3a6b]">
                 Install App

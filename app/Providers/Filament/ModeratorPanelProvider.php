@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Moderator\Pages\Login;
 use App\Filament\Moderator\Pages\Register;
 use App\Filament\Support\PanelConfiguration;
+use App\Filament\Widgets\AccountWidget;
 use App\Http\Middleware\EnsureModeratorIsApproved;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -14,7 +15,6 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\View\PanelsRenderHook;
-use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -50,7 +50,7 @@ class ModeratorPanelProvider extends PanelProvider
             ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.copyright-label'))
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
+                // FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

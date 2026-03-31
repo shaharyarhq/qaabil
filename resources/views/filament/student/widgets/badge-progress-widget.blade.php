@@ -41,7 +41,7 @@
                             {{-- Title + subtitle --}}
                             <div>
                                 <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ $progress['label'] }} Badge
+                                    {{ $progress['label'] }} Badges
                                 </div>
                                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                                     @if ($nextTierName)

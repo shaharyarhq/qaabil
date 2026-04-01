@@ -8,6 +8,7 @@ class Objective extends Model
 {
     protected $fillable = [
         'name',
+        'chapter_id'
     ];
 
     public function chapter()

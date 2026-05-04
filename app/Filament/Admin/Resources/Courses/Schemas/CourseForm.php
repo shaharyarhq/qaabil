@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\Courses\Schemas;
 
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class CourseForm
@@ -17,6 +18,7 @@ class CourseForm
                     ->required(),
                 Textarea::make('description')
                     ->nullable(),
+                Toggle::make('is_disabled'),
             ]);
     }
 }

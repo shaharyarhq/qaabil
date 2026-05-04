@@ -37,6 +37,7 @@ class PanelConfiguration
             ->globalSearch(false)
             ->spa()
             ->brandLogo('/images/logo/qaabil.jpeg')
+            ->favicon('/images/logo/favicon.png')
             ->brandLogoHeight('2.4rem')
             ->simplePageMaxContentWidth(Width::Large)
             ->databaseTransactions()

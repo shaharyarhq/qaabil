@@ -7,10 +7,18 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 
-    {{-- <x-pwa.head></x-pwa.head> --}}
+    <!-- Open Graph / WhatsApp Preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:title" content="{{ $title ?? config('app.name') }}" />
+    <meta property="og:description" content="Empowering Learning" />
+    <meta property="og:image" content="{{ asset('images/logo/qaabil.jpeg') }}" />
+    <meta property="og:site_name" content="{{ config('app.name') }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo/favicon.png') }}">
     <link
         href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
         rel="stylesheet">
@@ -51,11 +59,12 @@
     </style>
 </head>
 
-<body wire:transition class="bg-[#f8fafd] text-[#0f172a] antialiased" style="font-family:'Plus Jakarta Sans',system-ui,sans-serif">
+<body wire:transition class="bg-[#f8fafd] text-[#0f172a] antialiased"
+    style="font-family:'Plus Jakarta Sans',system-ui,sans-serif">
     <x-navbar></x-navbar>
 
     {{ $slot }}
-    
+
     <x-footer></x-footer>
 
     {{-- <x-pwa.scripts></x-pwa.scripts> --}}

@@ -79,7 +79,7 @@
                         </svg>
                     </div>
                     <p class="text-[.72rem] font-extrabold uppercase tracking-[.1em] text-[#94a3b8] mb-1">Community</p>
-                    <h3 class="text-xl font-extrabold text-[#0f172a] mb-2">Free forever</h3>
+                    <h3 class="text-xl font-extrabold text-[#0f172a] mb-2">Free Every Month</h3>
                     <p class="text-sm text-[#475569] leading-relaxed">Join, browse, and earn access by submitting video
                         solutions. The Qaabil way.</p>
                 </div>

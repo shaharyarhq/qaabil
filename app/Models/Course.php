@@ -13,6 +13,7 @@ class Course extends Model
     protected $fillable = [
         'name',
         'description',
+        'is_disabled'
     ];
 
 
@@ -38,4 +39,8 @@ class Course extends Model
     {
         return $this->hasMany(Video::class);
     }
+
+    protected $casts = [
+        'is_disabled' => 'boolean'
+    ];
 }

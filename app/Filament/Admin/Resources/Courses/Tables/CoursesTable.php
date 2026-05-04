@@ -8,6 +8,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class CoursesTable
@@ -23,6 +24,7 @@ class CoursesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_disabled'),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

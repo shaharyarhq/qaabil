@@ -46,8 +46,8 @@ class ModeratorPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Moderator/Widgets'), for: 'App\Filament\Moderator\Widgets')
             ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.login-member-instead'))
             ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.register-member-instead'))
-            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.copyright-label'))
-            ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.copyright-label'))
+            // ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.copyright-label'))
+            // ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.copyright-label'))
             ->widgets([
                 AccountWidget::class,
                 // FilamentInfoWidget::class,

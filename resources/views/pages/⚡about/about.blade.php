@@ -165,8 +165,8 @@
         </section>
 
         {{-- ── Section 4: Comparison table ── --}}
-        <section>
-            <div class="text-center max-w-xl mx-auto mb-12">
+        {{-- <section> --}}
+            {{-- <div class="text-center max-w-xl mx-auto mb-12">
                 <div
                     class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.1em] text-[#1b3a6b] mb-3">
                     <span class="inline-block w-4 h-[3px] rounded-sm bg-[#f59e0b]"></span>
@@ -176,11 +176,11 @@
                     See how we
                     <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">compare</span>
                 </h2>
-            </div>
+            </div> --}}
 
-            <div class="bg-white border border-[#e2e8f0] rounded-3xl overflow-hidden">
+            {{-- <div class="bg-white border border-[#e2e8f0] rounded-3xl overflow-hidden"> --}}
                 {{-- header --}}
-                <div class="grid grid-cols-4 border-b border-[#e2e8f0]">
+                {{-- <div class="grid grid-cols-4 border-b border-[#e2e8f0]">
                     <div class="p-5">
                         <span class="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">Feature</span>
                     </div>
@@ -195,9 +195,9 @@
                             @endif
                         </div>
                     @endforeach
-                </div>
+                </div> --}}
 
-                @php $rows = [['Free full access', '✅', '❌', '❌'], ['Earn access by contributing', '✅', '❌', '❌'], ['Peer-reviewed content', '✅', '⚠️', '✅'], ['No ads', '✅', '❌', '✅'], ['Community maintained', '✅', '❌', '⚠️'], ['Works without a subscription', '✅', '❌', '❌'], ['Open to any contributor', '✅', '✅', '⚠️']]; @endphp
+                {{-- @php $rows = [['Free full access', '✅', '❌', '❌'], ['Earn access by contributing', '✅', '❌', '❌'], ['Peer-reviewed content', '✅', '⚠️', '✅'], ['No ads', '✅', '❌', '✅'], ['Community maintained', '✅', '❌', '⚠️'], ['Works without a subscription', '✅', '❌', '❌'], ['Open to any contributor', '✅', '✅', '⚠️']]; @endphp
 
                 @foreach ($rows as $i => $row)
                     @php
@@ -216,9 +216,9 @@
                             </div>
                         @endforeach
                     </div>
-                @endforeach
-            </div>
-        </section>
+                @endforeach --}}
+            {{-- </div> --}}
+        {{-- </section> --}}
 
         {{-- ── Section 5: Who is it for ── --}}
         <section>

@@ -10,7 +10,7 @@ new class extends Component
 
     #[Url]
     public string $language = '';
-    
+
     #[Computed]
     public function availableLanguages()
     {
@@ -30,8 +30,6 @@ new class extends Component
                     $query->whereNotNull('video_url')->where('status', 'approved');
                 },
             ]);
-
-
 
         $this->course = $course;
     }

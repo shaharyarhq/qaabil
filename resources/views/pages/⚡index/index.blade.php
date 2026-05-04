@@ -31,7 +31,7 @@
                 </h1>
 
                 <p class="text-white/60 text-[1.05rem] leading-[1.7] max-w-[440px] mb-9 mx-auto lg:mx-0">
-                    Every chapter is unlocked by real video submissions. Submit once — access everything.
+                    Every chapter is unlocked by real video submissions. Submit a Video, Access Everything for a Month.
                 </p>
 
                 <div class="flex flex-wrap gap-3 justify-center lg:justify-start">

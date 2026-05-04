@@ -28,7 +28,7 @@
                 'bg-[#eff6ff] text-[#1b3a6b]' => request()->routeIs('pricing'),
                 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs(
                     'pricing'),
-            ])>Pricing</a>
+            ])>Get Access</a>
 
             <a {{ spa() }} href="{{ route('contact') }}" @class([
                 'text-[.95rem] font-semibold px-4 py-[.6rem] rounded-lg no-underline transition-colors',
@@ -121,7 +121,7 @@
                     'bg-[#eff6ff] text-[#1b3a6b]' => request()->routeIs('pricing'),
                     'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !request()->routeIs(
                         'pricing'),
-                ])>Pricing</a>
+                ])>Get Access</a>
 
             <a {{ spa() }} href="{{ route('contact') }}" @click="open = false"
                 @class([

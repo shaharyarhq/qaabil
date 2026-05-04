@@ -12,7 +12,7 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:title" content="{{ $title ?? config('app.name') }}" />
     <meta property="og:description" content="Empowering Learning" />
-    <meta property="og:image" content="{{ asset('images/logo/qaabil.jpeg') }}" />
+    <meta property="og:image" content="{{ asset('images/logo/favicon.png') }}" />
     <meta property="og:site_name" content="{{ config('app.name') }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

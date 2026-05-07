@@ -1,74 +1,162 @@
 <div>
 
-    <!-- ── Hero ───────────────────────────────────── -->
-    <div class="hero bg-[#1b3a6b] relative overflow-hidden">
-        {{-- amber glow --}}
-        <div class="absolute rounded-full pointer-events-none"
-            style="width:600px;height:600px;background:radial-gradient(circle,rgba(245,158,11,.22) 0%,transparent 65%);top:-180px;right:-120px">
-        </div>
-        {{-- blue glow --}}
-        <div class="absolute rounded-full pointer-events-none"
-            style="width:300px;height:300px;background:radial-gradient(circle,rgba(99,132,255,.15) 0%,transparent 65%);bottom:-80px;left:60px">
-        </div>
+    <!-- ── Hero Slider ───────────────────────────────────── -->
+    @php
+        $heroSlides = [
+            [
+                'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600',
+                'alt' => 'Students collaborating',
+                'title' => 'Learn anything, together.',
+                'sub' => 'Submit a video, unlock all courses for 30 days.',
+                'cta' => ['label' => 'Get Started', 'href' => '#'],
+            ],
+            [
+                'image' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1600',
+                'alt' => 'Workspace',
+                'title' => '10K+ Active Learners',
+                'sub' => 'Join a community of knowledge sharers worldwide.',
+                'cta' => ['label' => 'Browse Courses', 'href' => '#'],
+            ],
+            [
+                'image' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600',
+                'alt' => 'Online learning',
+                'title' => 'Peer Reviewed Content',
+                'sub' => 'Quality content validated by top contributors.',
+                'cta' => ['label' => 'Learn More', 'href' => '#'],
+            ],
+        ];
+    @endphp
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 flex flex-col lg:flex-row items-center gap-16">
-
-            <!-- copy -->
-            <div class="flex-1 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-7"
-                    style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25)">
-                    <span class="inline-block w-[7px] h-[7px] rounded-full bg-[#f59e0b] shrink-0"></span>
-                    <span class="text-white/80 text-[.75rem] font-bold uppercase tracking-[.08em]">
-                        Crowdsourced · Peer-Validated · Free
-                    </span>
-                </div>
-
-                <h1 class="font-extrabold text-white leading-[1.1] tracking-tight mb-5"
-                    style="font-size:clamp(2.6rem,5vw,4rem)">
-                    Learn anything.<br>
-                    <span class="font-['Instrument_Serif',serif] font-normal italic text-[#f59e0b]"
-                        style="font-size:1.05em">Together.</span>
-                </h1>
-
-                <p class="text-white/60 text-[1.05rem] leading-[1.7] max-w-[440px] mb-9 mx-auto lg:mx-0">
-                    Every chapter is unlocked by real video submissions. Submit a Video, Access Everything for a Month.
-                </p>
-
-                <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                    <button
-                        class="bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] font-extrabold border-none rounded-xl px-8 py-3 text-[.925rem] cursor-pointer transition-colors">
-                        Browse courses
-                    </button>
-                    <button
-                        class="text-white/90 font-bold rounded-xl px-8 py-3 text-[.925rem] cursor-pointer transition-all hover:bg-white/15"
-                        style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2)">
-                        How it works
-                    </button>
-                </div>
-            </div>
-
-            <!-- floating feature cards -->
-            <div class="shrink-0 grid grid-cols-2 gap-3 max-w-xs w-full">
-                @php
-                    $heroStats = [
-                        ['icon' => '🎯', 'label' => 'Submit a video', 'sub' => 'to unlock chapters'],
-                        ['icon' => '👥', 'label' => 'Peer reviewed', 'sub' => 'by top contributors'],
-                        ['icon' => '♾️', 'label' => 'Approval to access', 'sub' => 'one approval = access'],
-                        ['icon' => '🌍', 'label' => 'Community built', 'sub' => 'by members, for members'],
-                    ];
-                @endphp
-                @foreach($heroStats as $s)
-                    <div class="rounded-2xl p-4 backdrop-blur-md"
-                        style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
-                        <div class="text-[1.4rem] mb-1.5">{{ $s['icon'] }}</div>
-                        <div class="text-[.8rem] font-bold text-white mb-0.5">{{ $s['label'] }}</div>
-                        <div class="text-[.72rem] font-medium text-white/50">{{ $s['sub'] }}</div>
+    <div class="hero-slider relative overflow-hidden">
+        <div class="swiper heroSwiper">
+            <div class="swiper-wrapper">
+                @foreach ($heroSlides as $slide)
+                    <div class="swiper-slide">
+                        <div class="relative h-125 md:h-150 lg:h-175">
+                            <img src="{{ $slide['image'] }}" alt="{{ $slide['alt'] }}"
+                                class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#1b3a6b]/90 to-transparent"></div>
+                            <div class="relative z-10 h-full flex items-center">
+                                <div class="max-w-7xl mx-auto px-8 w-full">
+                                    <div class="max-w-lg">
+                                        <h2 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                                            {{ $slide['title'] }}
+                                        </h2>
+                                        <p class="text-white/70 text-lg mb-8">
+                                            {{ $slide['sub'] }}
+                                        </p>
+                                        <a href="{{ $slide['cta']['href'] }}"
+                                            class="inline-flex items-center bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] font-semibold rounded-lg px-8 py-3.5 transition-all">
+                                            {{ $slide['cta']['label'] }}
+                                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
 
+            {{-- Navigation Arrows --}}
+            <button
+                class="hero-prev absolute left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-all border border-white/20">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <button
+                class="hero-next absolute right-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-all border border-white/20">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+
+            {{-- Pagination Dots --}}
+            <div class="hero-pagination absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3"></div>
         </div>
     </div>
+
+    {{-- Swiper CSS & JS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    @script
+        <script>
+            new Swiper('.heroSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                speed: 800,
+                navigation: {
+                    nextEl: '.hero-next',
+                    prevEl: '.hero-prev',
+                },
+                pagination: {
+                    el: '.hero-pagination',
+                    clickable: true,
+                    renderBullet: function(index, className) {
+                        return '<span class="' + className +
+                            ' w-3 h-3 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.3)"></span>';
+                    },
+                },
+                on: {
+                    init: function() {
+                        document.querySelectorAll('.hero-pagination .swiper-pagination-bullet').forEach(bullet => {
+                            bullet.addEventListener('mouseenter', () => {
+                                if (!bullet.classList.contains('swiper-pagination-bullet-active')) {
+                                    bullet.style.background = 'rgba(245,158,11,.5)';
+                                }
+                            });
+                            bullet.addEventListener('mouseleave', () => {
+                                if (!bullet.classList.contains('swiper-pagination-bullet-active')) {
+                                    bullet.style.background = 'rgba(255,255,255,.3)';
+                                }
+                            });
+                        });
+                    }
+                }
+            });
+
+            const observer = new MutationObserver(() => {
+                document.querySelectorAll('.hero-pagination .swiper-pagination-bullet').forEach(bullet => {
+                    if (bullet.classList.contains('swiper-pagination-bullet-active')) {
+                        bullet.style.background = '#f59e0b';
+                        bullet.style.width = '28px';
+                        bullet.style.borderRadius = '999px';
+                    } else {
+                        bullet.style.background = 'rgba(255,255,255,.3)';
+                        bullet.style.width = '12px';
+                        bullet.style.borderRadius = '50%';
+                    }
+                });
+            });
+
+            observer.observe(document.querySelector('.hero-pagination'), {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        </script>
+    @endscript
+
+    <style>
+        .hero-slider .swiper-slide {
+            opacity: 0 !important;
+            transition: opacity 0.8s ease;
+        }
+
+        .hero-slider .swiper-slide-active {
+            opacity: 1 !important;
+        }
+    </style>
 
     {{-- <!-- ── Trust bar ──────────────────────────────── -->
     <div class="bg-white border-b border-[#e2e8f0]">
@@ -82,7 +170,7 @@
                         ['num' => '∞', 'label' => 'Knowledge unlocked'],
                     ];
                 @endphp
-                @foreach($trustItems as $t)
+                @foreach ($trustItems as $t)
                     <div class="text-center px-6 first:pl-0 last:pr-0">
                         <div class="text-[1.25rem] font-extrabold text-[#1b3a6b] leading-none">{{ $t['num'] }}</div>
                         <div class="text-[.72rem] font-medium text-[#94a3b8] mt-0.5">{{ $t['label'] }}</div>
@@ -120,7 +208,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
 
             @foreach ($courses as $i => $course)
-                  <livewire:courses.course-card :course="$course" :i="$i" :key="$course->id" />
+                <livewire:courses.course-card :course="$course" :i="$i" :key="$course->id" />
             @endforeach
 
             {{-- CTA dark card

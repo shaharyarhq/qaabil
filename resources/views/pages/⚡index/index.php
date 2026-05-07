@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Course;
 use Livewire\Component;
 
 new class extends Component
@@ -9,6 +8,6 @@ new class extends Component
 
     public function mount()
     {
-        $this->courses = Course::withCount(['sections', 'chapters', 'videos'])->get();
+        $this->courses = getCourseQuery()->withCount(['sections', 'chapters', 'videos'])->get();
     }
 };

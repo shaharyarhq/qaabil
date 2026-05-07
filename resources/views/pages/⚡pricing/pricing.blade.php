@@ -23,8 +23,7 @@
                     everyone.</span>
             </h1>
             <p class="text-white/60 text-lg max-w-xl mx-auto leading-relaxed mb-8">
-                Qaabil runs on community contributions. Submit a video, get it approved, unlock any chapter — forever
-                free. Upgrade only if you want instant access.
+                Qaabil runs on community contributions. Submit a video, get it approved, unlock any chapter . Upgrade only if you want instant access.
             </p>
 
             {{-- social proof chips --}}

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Course;
+
 if (! function_exists('app_date_format')) {
     function app_date_format()
     {
@@ -19,4 +21,9 @@ if (! function_exists('spa')) {
     {
         return 'wire:navigate';
     }
+}
+
+function getCourseQuery()
+{
+    return Course::query()->where('is_disabled', false);
 }

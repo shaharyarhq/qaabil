@@ -15,7 +15,7 @@ new class extends Component
     #[Computed]
     public function courses()
     {
-        $query = Course::withCount(['sections', 'chapters', 'videos'])->where('is_disabled', false);
+        $query = getCourseQuery()->withCount(['sections', 'chapters', 'videos']);
 
         if ($this->search) {
             $query->where(function ($q) {

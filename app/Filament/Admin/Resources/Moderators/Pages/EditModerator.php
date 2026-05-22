@@ -11,6 +11,11 @@ class EditModerator extends EditRecord
 {
     protected static string $resource = ModeratorResource::class;
 
+    public static function canAccess(array $parameters = []): bool
+    {
+        return false;
+    }
+
     protected function getHeaderActions(): array
     {
         return [

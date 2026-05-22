@@ -8,7 +8,8 @@ class Objective extends Model
 {
     protected $fillable = [
         'name',
-        'chapter_id'
+        'chapter_id',
+        'quiz_link',
     ];
 
     public function chapter()
@@ -19,5 +20,10 @@ class Objective extends Model
     public function videos()
     {
         return $this->hasMany(Video::class);
+    }
+
+    public function userProgress()
+    {
+        return $this->hasMany(UserObjectiveProgress::class);
     }
 }

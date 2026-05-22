@@ -54,7 +54,7 @@ class ModeratorsTable
             ])
             ->recordActions([
                 // ViewAction::make(),
-                EditAction::make(),
+                // EditAction::make(),
                 Action::make('update_status')
                     ->color('success')
                     ->icon(Heroicon::ArrowUpTray)
@@ -63,6 +63,7 @@ class ModeratorsTable
                         Select::make('status')
                             ->options(UserStatus::class)
                             ->required()
+                            ->preload(false)
                             ->default($record->status),
                     ])
                     ->action(function (Model $record, array $data) {
@@ -71,6 +72,7 @@ class ModeratorsTable
                         $record->save();
                     }),
             ])
+            ->recordUrl(null)
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

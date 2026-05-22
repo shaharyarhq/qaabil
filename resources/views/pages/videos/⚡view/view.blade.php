@@ -1,33 +1,33 @@
 <!-- ── Main ──────────────────────────────────── -->
-<main class="max-w-7xl mx-auto px-6 py-10 pb-28">
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 pb-28">
 
     <!-- Breadcrumb -->
-    <div class="flex items-center gap-2 text-xs font-semibold text-[#94a3b8] mb-8 flex-wrap">
+    <div class="flex items-center gap-1.5 sm:gap-2 text-xs font-semibold text-[#94a3b8] mb-6 sm:mb-8 flex-wrap">
         <a wire:navigate href="{{ route('courses.index') }}"
             class="text-[#94a3b8] no-underline transition-colors hover:text-[#1b3a6b]">Courses</a>
         @if ($video->course)
             <span class="text-[#f59e0b] text-[.65rem]">✦</span>
             <a wire:navigate href="{{ route('courses.view', $video->course) }}"
-                class="text-[#94a3b8] no-underline transition-colors hover:text-[#1b3a6b]">{{ $video->course->name }}</a>
+                class="text-[#94a3b8] no-underline transition-colors hover:text-[#1b3a6b] truncate max-w-30 sm:max-w-none">{{ $video->course->name }}</a>
         @endif
         @if ($video->section)
             <span class="text-[#f59e0b] text-[.65rem]">✦</span>
-            <span class="text-[#475569]">{{ $video->section->name }}</span>
+            <span class="text-[#475569] truncate max-w-25 sm:max-w-none">{{ $video->section->name }}</span>
         @endif
         @if ($video->chapter)
             <span class="text-[#f59e0b] text-[.65rem]">✦</span>
-            <span class="text-[#475569]">{{ $video->chapter->name }}</span>
+            <span class="text-[#475569] truncate max-w-25 sm:max-w-none">{{ $video->chapter->name }}</span>
         @endif
         @if ($video->objective)
             <span class="text-[#f59e0b] text-[.65rem]">✦</span>
-            <span class="text-[#475569]">{{ $video->objective->name }}</span>
+            <span class="text-[#475569] truncate max-w-25 sm:max-w-none">{{ $video->objective->name }}</span>
         @endif
     </div>
 
-    <div class="page-grid">
+    <div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 xl:gap-8 items-start">
 
         <!-- ── Left col ───────────────────────────── -->
-        <div class="flex flex-col gap-5">
+        <div class="flex flex-col gap-4 sm:gap-5 min-w-0">
 
             <!-- Player -->
             <div class="fade-up bg-[#0f172a] rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,.15)]">
@@ -48,17 +48,17 @@
             </div>
 
             <!-- Title + badge row -->
-            <div class="fade-up-2 flex items-start justify-between gap-4 flex-wrap">
+            <div class="fade-up-2 flex items-start justify-between gap-3 sm:gap-4 flex-wrap">
                 <div class="min-w-0 flex-1">
                     <h1
-                        class="font-['Instrument_Serif',serif] font-normal text-[2rem] md:text-[2.4rem] text-[#0f172a] leading-tight tracking-tight mb-1.5">
+                        class="font-['Instrument_Serif',serif] font-normal text-[1.65rem] sm:text-[2rem] md:text-[2.4rem] text-[#0f172a] leading-tight tracking-tight mb-1.5">
                         {{ $video->title ?? 'Untitled submission' }}
                     </h1>
-                    <div class="flex items-center flex-wrap gap-3 text-sm text-[#94a3b8]">
-                        <span>Submitted {{ $video->created_at->diffForHumans() }}</span>
+                    <div class="flex items-center flex-wrap gap-2 sm:gap-3 text-sm text-[#94a3b8]">
+                        <span class="text-xs sm:text-sm">Submitted {{ $video->created_at->diffForHumans() }}</span>
                         @if ($video->creator ?? null)
                             <span class="text-[#e2e8f0]">·</span>
-                            <span class="text-[#475569] font-medium">{{ $video->creator->name }}</span>
+                            <span class="text-[#475569] font-medium text-xs sm:text-sm">{{ $video->creator->name }}</span>
                         @endif
                         @if ($video->language)
                             <span class="text-[#e2e8f0]">·</span>
@@ -72,7 +72,7 @@
 
                 {{-- Status badge --}}
                 @php $status = $video->status instanceof \App\Enums\VideoStatus ? $video->status->value : $video->status; @endphp
-                <div class="shrink-0 mt-1">
+                <div class="shrink-0 mt-0.5 sm:mt-1">
                     @if ($status === 'approved')
                         <span
                             class="inline-flex items-center gap-1.5 text-[.7rem] font-bold uppercase tracking-[.06em] px-3 py-[.3rem] rounded-full text-[#f59e0b]"
@@ -113,52 +113,47 @@
 
             <div class="fade-up-3">
                 {{-- Tab bar --}}
-                <div class="flex gap-0 border-b border-[#e2e8f0] mb-5">
+                <div class="flex gap-0 border-b border-[#e2e8f0] mb-4 sm:mb-5 overflow-x-auto scrollbar-hide">
                     <button onclick="switchTab('overview', this)"
-                        class="tab-btn active text-sm font-bold px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b]">
+                        class="tab-btn active text-xs sm:text-sm font-bold px-3 sm:px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b] whitespace-nowrap shrink-0">
                         Overview
                     </button>
                     @if ($hasMaterials)
                         <button onclick="switchTab('materials', this)"
-                            class="tab-btn text-sm font-bold px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b]">
-                            Learning materials
+                            class="tab-btn text-xs sm:text-sm font-bold px-3 sm:px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b] whitespace-nowrap shrink-0">
+                            <span class="hidden sm:inline">Learning materials</span>
+                            <span class="sm:hidden">Materials</span>
                             <span
                                 class="ml-1.5 text-[.65rem] font-extrabold bg-[#1b3a6b] text-white rounded-full px-1.5 py-0.5">{{ count($video->learning_materials) }}</span>
                         </button>
                     @endif
                     @if ($hasQuiz)
                         <button onclick="switchTab('quiz', this)"
-                            class="tab-btn text-sm font-bold px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b]">
+                            class="tab-btn text-xs sm:text-sm font-bold px-3 sm:px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b] whitespace-nowrap shrink-0">
                             Quiz
                         </button>
                     @endif
                     <button onclick="switchTab('reviews', this)"
-                        class="tab-btn text-sm font-bold px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b]">
+                        class="tab-btn text-xs sm:text-sm font-bold px-3 sm:px-4 pb-3 border-b-2 border-transparent text-[#94a3b8] bg-transparent cursor-pointer transition-colors hover:text-[#1b3a6b] whitespace-nowrap shrink-0">
                         Reviews
-                        {{-- optional count badge --}}
-                        {{-- <span
-                            class="ml-1.5 text-[.65rem] font-extrabold bg-[#f59e0b] text-[#1b3a6b] rounded-full px-1.5 py-0.5">4</span> --}}
                     </button>
-
                 </div>
 
                 {{-- Overview tab --}}
                 <div id="tab-overview" class="tab-panel active">
-                    {{-- Description --}}
                     @if ($hasDesc)
-                        <div class="bg-white border border-[#e2e8f0] rounded-2xl p-5 mb-4">
+                        <div class="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-5 mb-4">
                             <p class="text-[.68rem] font-bold uppercase tracking-[.08em] text-[#94a3b8] mb-2">About this
                                 submission</p>
                             <p class="text-sm text-[#475569] leading-relaxed">{!! str($video->description)->sanitizeHtml() !!}</p>
                         </div>
                     @endif
 
-                    {{-- Info rows --}}
-                    <div class="bg-white border border-[#e2e8f0] rounded-2xl p-5 flex flex-col gap-0">
+                    <div class="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-5 flex flex-col gap-0">
 
                         @if ($video->objective)
                             <div class="flex items-start gap-3 py-3 border-b border-[#e2e8f0] first:pt-0">
-                                <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
+                                <div class="w-7.5 h-7.5 rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
                                     style="background:rgba(245,158,11,.1)">
                                     <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" stroke-width="2">
@@ -166,7 +161,7 @@
                                             d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                     </svg>
                                 </div>
-                                <div>
+                                <div class="min-w-0 flex-1">
                                     <p class="text-[.68rem] font-bold uppercase tracking-[.06em] text-[#94a3b8] mb-0.5">
                                         Objective</p>
                                     <p class="text-sm font-medium text-[#0f172a]">{{ $video->objective->name }}</p>
@@ -176,7 +171,7 @@
 
                         @if ($video->chapter)
                             <div class="flex items-start gap-3 py-3 border-b border-[#e2e8f0]">
-                                <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
+                                <div class="w-7.5 h-7.5 rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
                                     style="background:rgba(245,158,11,.1)">
                                     <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" stroke-width="2">
@@ -184,7 +179,7 @@
                                             d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                 </div>
-                                <div>
+                                <div class="min-w-0 flex-1">
                                     <p class="text-[.68rem] font-bold uppercase tracking-[.06em] text-[#94a3b8] mb-0.5">
                                         Chapter</p>
                                     <p class="text-sm font-medium text-[#0f172a]">{{ $video->chapter->name }}</p>
@@ -194,7 +189,7 @@
 
                         @if ($video->section)
                             <div class="flex items-start gap-3 py-3 border-b border-[#e2e8f0]">
-                                <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
+                                <div class="w-7.5 h-7.5 rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
                                     style="background:rgba(245,158,11,.1)">
                                     <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" stroke-width="2">
@@ -202,9 +197,8 @@
                                             d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <p
-                                        class="text-[.68rem] font-bold uppercase tracking-[.06em] text-[#94a3b8] mb-0.5">
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-[.68rem] font-bold uppercase tracking-[.06em] text-[#94a3b8] mb-0.5">
                                         Section</p>
                                     <p class="text-sm font-medium text-[#0f172a]">{{ $video->section->name }}</p>
                                 </div>
@@ -213,7 +207,7 @@
 
                         @if ($video->approver)
                             <div class="flex items-start gap-3 py-3 border-b border-[#e2e8f0]">
-                                <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
+                                <div class="w-7.5 h-7.5 rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
                                     style="background:rgba(245,158,11,.1)">
                                     <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" stroke-width="2">
@@ -221,9 +215,8 @@
                                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <p
-                                        class="text-[.68rem] font-bold uppercase tracking-[.06em] text-[#94a3b8] mb-0.5">
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-[.68rem] font-bold uppercase tracking-[.06em] text-[#94a3b8] mb-0.5">
                                         Approved by</p>
                                     <p class="text-sm font-medium text-[#0f172a]">{{ $video->approver->name }}</p>
                                     @if ($video->updated_at && $status === 'approved')
@@ -235,7 +228,7 @@
                         @endif
 
                         <div class="flex items-start gap-3 pt-3">
-                            <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
+                            <div class="w-7.5 h-7.5 rounded-lg flex items-center justify-center shrink-0 text-[#f59e0b]"
                                 style="background:rgba(245,158,11,.1)">
                                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="2">
@@ -243,7 +236,7 @@
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                             </div>
-                            <div>
+                            <div class="min-w-0 flex-1">
                                 <p class="text-[.68rem] font-bold uppercase tracking-[.06em] text-[#94a3b8] mb-0.5">
                                     Submitted</p>
                                 <p class="text-sm font-medium text-[#0f172a]">
@@ -277,14 +270,13 @@
                                     $isImg = in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']);
                                 @endphp
                                 <a href="{{ asset('storage/' . $url) }}" target="_blank" rel="noopener"
-                                    class="flex items-center gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-4 no-underline text-inherit transition-all hover:border-[rgba(27,58,107,.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-8px_rgba(27,58,107,.12)]">
+                                    class="flex items-center gap-3 sm:gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-3.5 sm:p-4 no-underline text-inherit transition-all hover:border-[rgba(27,58,107,.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-8px_rgba(27,58,107,.12)]">
                                     <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[.65rem] font-extrabold text-[#1b3a6b]"
                                         style="background:rgba(27,58,107,.08)">
                                         {{ $ext }}
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-semibold text-[#0f172a] truncate">{{ $name }}
-                                        </p>
+                                        <p class="text-sm font-semibold text-[#0f172a] truncate">{{ $name }}</p>
                                         <p class="text-xs text-[#94a3b8] mt-0.5">
                                             {{ $isDoc ? 'Document' : ($isImg ? 'Image' : 'File') }} · click to open</p>
                                     </div>
@@ -304,11 +296,10 @@
                     <div id="tab-quiz" class="tab-panel">
                         <div class="flex flex-col gap-4">
 
-                            {{-- External quiz link --}}
                             @if ($video->quiz_link)
                                 <a href="{{ $video->quiz_link }}" target="_blank" rel="noopener"
-                                    class="flex items-center gap-4 bg-[#1b3a6b] rounded-2xl p-5 no-underline transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(27,58,107,.45)]">
-                                    <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                                    class="flex items-center gap-3 sm:gap-4 bg-[#1b3a6b] rounded-2xl p-4 sm:p-5 no-underline transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(27,58,107,.45)]">
+                                    <div class="w-10 sm:w-11 h-10 sm:h-11 rounded-xl flex items-center justify-center shrink-0"
                                         style="background:rgba(245,158,11,.15)">
                                         <svg width="20" height="20" fill="none" viewBox="0 0 24 24"
                                             stroke="#f59e0b" stroke-width="2">
@@ -316,7 +307,7 @@
                                                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                                         </svg>
                                     </div>
-                                    <div class="flex-1">
+                                    <div class="flex-1 min-w-0">
                                         <p class="text-sm font-extrabold text-white">Take the quiz</p>
                                         <p class="text-xs text-white/50 mt-0.5">Opens in a new tab</p>
                                     </div>
@@ -328,7 +319,6 @@
                                 </a>
                             @endif
 
-                            {{-- Quiz attachment files --}}
                             @if (!empty($video->quiz_attachments))
                                 <div class="flex flex-col gap-3">
                                     @foreach ($video->quiz_attachments as $attachment)
@@ -340,7 +330,7 @@
                                             $aExt = strtoupper(pathinfo($aUrl, PATHINFO_EXTENSION) ?: 'FILE');
                                         @endphp
                                         <a href="{{ asset('storage/' . $aUrl) }}" target="_blank" rel="noopener"
-                                            class="flex items-center gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-4 no-underline text-inherit transition-all hover:border-[rgba(27,58,107,.2)] hover:-translate-y-0.5">
+                                            class="flex items-center gap-3 sm:gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-3.5 sm:p-4 no-underline text-inherit transition-all hover:border-[rgba(27,58,107,.2)] hover:-translate-y-0.5">
                                             <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-[.65rem] font-extrabold text-[#f59e0b]"
                                                 style="background:rgba(245,158,11,.1)">
                                                 {{ $aExt }}
@@ -374,12 +364,10 @@
             {{-- end tabs --}}
 
         </div>
-
-
         {{-- end left col --}}
 
         <!-- ── Right col: sidebar ─────────────────── -->
-        <aside class="fade-up-4">
+        <aside class="fade-up-4 xl:sticky xl:top-6">
 
             <p class="text-[.7rem] font-bold uppercase tracking-[.08em] text-[#94a3b8] mb-3.5">
                 More from this objective
@@ -393,7 +381,8 @@
                         No other submissions yet.
                     </div>
                 @else
-                    <div class="flex flex-col gap-1">
+                    {{-- On mobile/tablet: horizontal scroll row. On xl: vertical list. --}}
+                    <div class="flex xl:flex-col gap-3 xl:gap-1 overflow-x-auto xl:overflow-x-visible pb-2 xl:pb-0 -mx-4 sm:-mx-6 xl:mx-0 px-4 sm:px-6 xl:px-0 scrollbar-hide">
                         @foreach ($related as $rel)
                             @php
                                 $relStatus =
@@ -409,8 +398,8 @@
                                     : null;
                             @endphp
                             <a wire:navigate href="{{ route('videos.view', $rel) }}"
-                                class="related-card flex gap-3.5 p-3 rounded-xl no-underline text-inherit transition-colors hover:bg-[#eff6ff]">
-                                <div class="relative w-24 h-[60px] rounded-lg overflow-hidden shrink-0 bg-[#0f172a]">
+                                class="related-card flex xl:flex-row flex-col gap-2.5 xl:gap-3.5 p-3 rounded-xl no-underline text-inherit transition-colors hover:bg-[#eff6ff] shrink-0 xl:shrink w-55 sm:w-60 xl:w-auto">
+                                <div class="relative w-full xl:w-24 h-30 xl:h-15 rounded-lg overflow-hidden shrink-0 bg-[#0f172a]">
                                     @if ($relThumbnail)
                                         <img src="{{ $relThumbnail }}" alt="{{ $rel->title }}"
                                             class="w-full h-full object-cover">
@@ -423,18 +412,17 @@
                                     <div
                                         class="play-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200">
                                         <div
-                                            class="w-[26px] h-[26px] rounded-full flex items-center justify-center bg-[rgba(245,158,11,.9)]">
+                                            class="w-6.5 h-6.5 rounded-full flex items-center justify-center bg-[rgba(245,158,11,.9)]">
                                             <svg width="10" height="10" viewBox="0 0 10 10" fill="#1b3a6b">
                                                 <path d="M2 1.5l6 3.5-6 3.5V1.5z" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex-1 min-w-0 py-0.5">
+                                <div class="flex-1 min-w-0 py-0 xl:py-0.5">
                                     <p class="text-sm font-medium text-[#0f172a] leading-snug line-clamp-2 mb-1.5">
                                         {{ $rel->title ?? 'Untitled submission' }}
                                     </p>
-                                    {{-- ── Stars ── --}}
                                     @php
                                         $relReviews = $rel->reviews ?? collect();
                                         $relTotal = $relReviews->count();
@@ -451,7 +439,7 @@
                                     @if ($relAvg !== null)
                                         <div class="flex items-center gap-0.5 mb-1.5">
                                             @for ($s = 1; $s <= 5; $s++)
-                                                <svg width="14" height="14" viewBox="0 0 20 20"
+                                                <svg width="12" height="12" viewBox="0 0 20 20"
                                                     fill="{{ $s <= round($relAvg) ? '#f59e0b' : 'rgba(27,58,107,0.15)' }}">
                                                     <path
                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -462,7 +450,7 @@
                                             <span class="text-[.7rem] text-[#94a3b8]">({{ $relTotal }})</span>
                                         </div>
                                     @endif
-                                    <div class="flex items-center gap-2">
+                                    <div class="flex items-center gap-2 flex-wrap">
                                         @if ($relStatus === 'approved')
                                             <span
                                                 class="text-[.6rem] font-bold uppercase tracking-[.04em] px-2 py-[.2rem] rounded-full text-[#f59e0b]"
@@ -484,7 +472,7 @@
 
             {{-- Back to course --}}
             @if ($video->course)
-                <div class="mt-8 pt-6 border-t border-[#e2e8f0]">
+                <div class="mt-6 xl:mt-8 pt-5 xl:pt-6 border-t border-[#e2e8f0]">
                     <a wire:navigate href="{{ route('courses.view', $video->course) }}"
                         class="group flex items-center gap-2 text-sm font-semibold text-[#94a3b8] no-underline transition-colors hover:text-[#1b3a6b]">
                         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"

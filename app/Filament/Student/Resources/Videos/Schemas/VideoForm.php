@@ -9,6 +9,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
@@ -22,54 +23,160 @@ class VideoForm
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
+                Section::make()
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
 
-                Select::make('course_id')
-                    ->label('Course')
-                    ->relationship('course', 'name')
-                    ->afterStateUpdatedJs('$set(`section_id`, null)')
-                    ->required(),
+                        TextInput::make('title')
+                            ->required()
+                            ->columnSpanFull()
+                            ->maxLength(255),
 
-                Select::make('section_id')
-                    ->label('Section')
-                    ->relationship('section', 'name', fn($query, Get $get) => $query->where('course_id', $get('course_id')))
-                    ->afterStateUpdatedJs('$set(`chapter_id`, null)')
-                    ->required(),
+                        Group::make()
+                            ->columnSpanFull()
+                            ->columns(4)
+                            ->schema([
+                                Select::make('course_id')
+                                    ->label('Course')
+                                    ->relationship('course', 'name')
+                                    ->afterStateUpdatedJs('$set(`section_id`, null)')
+                                    ->required(),
 
-                Select::make('chapter_id')
-                    ->label('Chapter')
-                    ->relationship('chapter', 'name', fn($query, Get $get) => $query->where('section_id', $get('section_id')))
-                    ->afterStateUpdatedJs('$set(`objective_id`, null)')
-                    ->required(),
+                                Select::make('section_id')
+                                    ->label('Section')
+                                    ->relationship('section', 'name', fn($query, Get $get) => $query->where('course_id', $get('course_id')))
+                                    ->afterStateUpdatedJs('$set(`chapter_id`, null)')
+                                    ->required(),
 
-                Select::make('objective_id')
-                    ->label('Objective')
-                    ->relationship(
-                        'objective',
-                        'name',
-                        fn($query, Get $get) => $query->where('chapter_id', $get('chapter_id'))
-                    )
-                    ->required(),
+                                Select::make('chapter_id')
+                                    ->label('Chapter')
+                                    ->relationship('chapter', 'name', fn($query, Get $get) => $query->where('section_id', $get('section_id')))
+                                    ->afterStateUpdatedJs('$set(`objective_id`, null)')
+                                    ->required(),
 
-                Select::make('status')
-                    ->disabled()
-                    ->visibleOn(Operation::Edit)
-                    ->options(VideoStatus::class),
+                                Select::make('objective_id')
+                                    ->label('Objective')
+                                    ->relationship(
+                                        'objective',
+                                        'name',
+                                        fn($query, Get $get) => $query->where('chapter_id', $get('chapter_id'))
+                                    )
+                                    ->required(),
 
-                Select::make('focus_of_the_video')
-                    ->options(VideoFocus::class),
+                            ]),
 
-                Select::make('language')
-                    ->options(config('app.languages'))
-                    ->required()
-                    ->default('en'),
+                        Select::make('status')
+                            ->disabled()
+                            ->visibleOn(Operation::Edit)
+                            ->options(VideoStatus::class),
+
+                        Select::make('focus_of_the_video')
+                            ->required()
+                            ->preload(false)
+                            ->options(VideoFocus::class),
+
+                        Select::make('language')
+                            ->options(config('app.languages'))
+                            ->required()
+                            ->preload(false)
+                            ->default('en'),
+                    ]),
 
                 Section::make('Video')
                     ->columnSpanFull()
                     ->columns(2)
                     ->schema([
+                        TextInput::make('video_url')
+                            ->nullable()
+                            ->placeholder('https://www.youtube.com/watch?v=abcdefgh')
+                            ->url()
+                            ->rules(['nullable', 'url', 'regex:/^https?:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w\-]+/']),
+
+                        TextEntry::make('video_preview')
+                            ->label('Current Video')
+                            ->visible(fn($record) => filled($record?->video_url))
+                            ->state(function ($record) {
+                                $url = $record->video_url;
+
+                                // Extract video ID from either youtube.com/watch?v= or youtu.be/ format
+                                preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/', $url, $matches);
+                                $videoId = $matches[1] ?? null;
+
+                                if (! $videoId) {
+                                    return new HtmlString('<p class="text-red-500">Invalid YouTube URL</p>');
+                                }
+
+                                return new HtmlString("
+            <iframe
+                src='https://www.youtube.com/embed/{$videoId}'
+                style='width:100%; aspect-ratio:16/9; border-radius:8px;'
+                frameborder='0'
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                allowfullscreen>
+            </iframe>
+        ");
+                            }),
+                    ]),
+
+                Section::make('Description')
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
+
+                        RichEditor::make('description')
+                            ->nullable()
+                            ->columnSpan('full'),
+
+                    ]),
+
+                Section::make('Attachments')
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
+
+                        FileUpload::make('learning_materials')
+                            ->label('Attachments')
+                            ->directory('videos/attachments')
+                            ->disk('public')
+                            ->visibility('public')
+                            ->multiple()
+                            ->deleteUploadedFileUsing(function ($file) {
+                                Storage::disk('public')->delete($file);
+                            })
+                            ->preserveFilenames()
+                            ->nullable()
+                            ->removeUploadedFileButtonPosition('right')
+                            ->downloadable()
+                            ->columnSpanFull()
+                            ->openable(),
+
+                        // FileUpload::make('quiz_attachments')
+                        //     ->label('Quiz Attachments')
+                        //     ->directory('videos/quizes')
+                        //     ->disk('public')
+                        //     ->visibility('public')
+                        //     ->multiple()
+                        //     ->deleteUploadedFileUsing(function ($file) {
+                        //         Storage::disk('public')->delete($file);
+                        //     })
+                        //     ->preserveFilenames()
+                        //     ->nullable()
+                        //     ->removeUploadedFileButtonPosition('right')
+                        //     ->downloadable()
+                        //     // ->columnSpanFull()
+                        //     ->openable(),
+
+                    ]),
+
+                // TextInput::make('quiz_link')->nullable()->url(),
+
+            ]);
+    }
+}
+
+
+
 
                         // Group::make([
 
@@ -197,77 +304,3 @@ class VideoForm
                         //                         ->success()
                         //                         ->send();
                         //                 })),
-
-                        TextInput::make('video_url')
-                            ->nullable()
-                            ->placeholder('https://www.youtube.com/watch?v=abcdefgh')
-                            ->url()
-                            ->rules(['nullable', 'url', 'regex:/^https?:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w\-]+/']),
-
-                        TextEntry::make('video_preview')
-                            ->label('Current Video')
-                            ->visible(fn($record) => filled($record?->video_url))
-                            ->state(function ($record) {
-                                $url = $record->video_url;
-
-                                // Extract video ID from either youtube.com/watch?v= or youtu.be/ format
-                                preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w\-]+)/', $url, $matches);
-                                $videoId = $matches[1] ?? null;
-
-                                if (! $videoId) {
-                                    return new HtmlString('<p class="text-red-500">Invalid YouTube URL</p>');
-                                }
-
-                                return new HtmlString("
-            <iframe
-                src='https://www.youtube.com/embed/{$videoId}'
-                style='width:100%; aspect-ratio:16/9; border-radius:8px;'
-                frameborder='0'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowfullscreen>
-            </iframe>
-        ");
-                            }),
-                    ]),
-
-                RichEditor::make('description')
-                    ->nullable()
-                    ->columnSpan('full'),
-
-                FileUpload::make('learning_materials')
-                    ->label('Attachments')
-                    ->directory('videos/attachments')
-                    ->disk('public')
-                    ->visibility('public')
-                    ->multiple()
-                    ->deleteUploadedFileUsing(function ($file) {
-                        Storage::disk('public')->delete($file);
-                    })
-                    ->preserveFilenames()
-                    ->nullable()
-                    ->removeUploadedFileButtonPosition('right')
-                    ->downloadable()
-                    ->columnSpanFull()
-                    ->openable(),
-
-                FileUpload::make('quiz_attachments')
-                    ->label('Quiz Attachments')
-                    ->directory('videos/quizes')
-                    ->disk('public')
-                    ->visibility('public')
-                    ->multiple()
-                    ->deleteUploadedFileUsing(function ($file) {
-                        Storage::disk('public')->delete($file);
-                    })
-                    ->preserveFilenames()
-                    ->nullable()
-                    ->removeUploadedFileButtonPosition('right')
-                    ->downloadable()
-                    ->columnSpanFull()
-                    ->openable(),
-
-                TextInput::make('quiz_link')->nullable()->url(),
-
-            ]);
-    }
-}

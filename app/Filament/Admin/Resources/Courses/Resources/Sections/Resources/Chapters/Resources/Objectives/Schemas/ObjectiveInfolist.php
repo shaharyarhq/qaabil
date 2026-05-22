@@ -2,7 +2,6 @@
 
 namespace App\Filament\Admin\Resources\Courses\Resources\Sections\Resources\Chapters\Resources\Objectives\Schemas;
 
-use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
 class ObjectiveInfolist
@@ -11,13 +10,6 @@ class ObjectiveInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
             ]);
     }
 }

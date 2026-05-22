@@ -16,7 +16,7 @@
                 Account Pending Approval
             </h1>
 
-        <div class="space-y-2">
+            <div class="space-y-2">
                 <p class="text-lg text-gray-600 dark:text-gray-400">
                     Your moderator account is currently under review.
                 </p>
@@ -38,10 +38,12 @@
                 Refresh Status
             </x-filament::button>
 
-            <x-filament::button color="gray" icon="heroicon-m-arrow-left-on-rectangle" tag="a"
-                href="{{ filament()->getUrl() }}" outlined>
-                Sign Out
-            </x-filament::button>
+            <form method="POST" action="{{ filament()->getLogoutUrl() }}">
+                @csrf
+                <x-filament::button color="gray" icon="heroicon-m-arrow-left-on-rectangle" type="submit" outlined>
+                    Sign Out
+                </x-filament::button>
+            </form>
         </div>
 
         <!-- Support Link -->

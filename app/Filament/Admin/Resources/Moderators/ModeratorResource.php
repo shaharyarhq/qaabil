@@ -26,7 +26,7 @@ class ModeratorResource extends Resource
 
     protected static ?string $label = 'Moderator';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 
     protected static ?string $recordTitleAttribute = 'name';
 

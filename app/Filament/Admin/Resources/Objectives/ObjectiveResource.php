@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Resources\Objectives;
 use App\Filament\Admin\Resources\Objectives\Pages\CreateObjective;
 use App\Filament\Admin\Resources\Objectives\Pages\EditObjective;
 use App\Filament\Admin\Resources\Objectives\Pages\ListObjectives;
-use App\Filament\Admin\Resources\Objectives\Pages\ViewObjective;
 use App\Filament\Admin\Resources\Objectives\Schemas\ObjectiveForm;
 use App\Filament\Admin\Resources\Objectives\Schemas\ObjectiveInfolist;
 use App\Filament\Admin\Resources\Objectives\Tables\ObjectivesTable;
@@ -20,7 +19,7 @@ class ObjectiveResource extends Resource
 {
     protected static ?string $model = Objective::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Document;
 
     protected static ?string $recordTitleAttribute = 'name';
 

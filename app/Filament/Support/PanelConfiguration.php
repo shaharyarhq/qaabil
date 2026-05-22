@@ -9,6 +9,7 @@ use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
 use Filament\View\PanelsRenderHook;
 use Illuminate\View\View;
+use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 
 class PanelConfiguration
 {
@@ -36,6 +37,9 @@ class PanelConfiguration
             // ->sidebarCollapsibleOnDesktop()
             ->globalSearch(false)
             ->spa()
+            ->spaUrlExceptions([
+                '/',
+            ])
             ->brandLogo('/images/logo/qaabil.jpeg')
             ->favicon('/images/logo/favicon.png')
             ->brandLogoHeight('2.4rem')
@@ -73,6 +77,7 @@ class PanelConfiguration
             ->plugins([
                 FilamentUiSwitcherPlugin::make()
                     ->withModeSwitcher(),
+                FilamentApexChartsPlugin::make()
             ]);
 
         return $panel;

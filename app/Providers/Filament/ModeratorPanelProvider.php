@@ -2,11 +2,18 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\UserRole;
+use App\Exceptions\SocialiteEmailAlreadyExistsException;
+use App\Exceptions\SocialiteUnableToCreateUserException;
 use App\Filament\Moderator\Pages\Login;
 use App\Filament\Moderator\Pages\Register;
 use App\Filament\Support\PanelConfiguration;
 use App\Filament\Widgets\AccountWidget;
 use App\Http\Middleware\EnsureModeratorIsApproved;
+use App\Models\User;
+use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
+use DutchCodingCompany\FilamentSocialite\Provider;
+use Exception;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -15,15 +22,17 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\View\PanelsRenderHook;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\View\View;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 
 class ModeratorPanelProvider extends PanelProvider
 {
@@ -44,8 +53,8 @@ class ModeratorPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Moderator/Widgets'), for: 'App\Filament\Moderator\Widgets')
-            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.login-member-instead'))
-            ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.register-member-instead'))
+            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn(): View => view('partials.login-member-instead'))
+            ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn(): View => view('partials.register-member-instead'))
             // ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn (): View => view('partials.copyright-label'))
             // ->renderHook(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER, fn (): View => view('partials.copyright-label'))
             ->widgets([
@@ -69,7 +78,58 @@ class ModeratorPanelProvider extends PanelProvider
             ])
             ->plugins([
                 BreezyCore::make()
+                    // ->customMyProfilePage(Profile::class)
                     ->myProfile(hasAvatars: true),
+                FilamentSocialitePlugin::make()
+                    ->slug('moderator')
+                    ->registration()
+                    ->providers([
+                        Provider::make('github')
+                            ->label('Github')
+                            ->icon('fab-github')
+                            ->color('primary')
+                            ->outlined(false)
+                            ->stateless(false)
+                            ->scopes(['read:user']),
+                        Provider::make('google')
+                            ->label('Google')
+                            ->icon('fab-google')
+                            ->color('danger')
+                            ->outlined(false)
+                            ->stateless(false)
+                            ->scopes(['email', 'profile']),
+                    ])
+                    ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+                        $email = $oauthUser->getEmail();
+
+                        if (User::where('email', $email)->exists()) { // Check if email already exists
+                            throw new SocialiteEmailAlreadyExistsException;
+                        }
+
+                        DB::beginTransaction();
+
+                        try {
+                            $user = User::create([
+                                'name' => $oauthUser->getName() ?? $oauthUser->getNickname(),
+                                'email' => $oauthUser->getEmail(),
+                                'password' => Str::password(32),
+                                'avatar_url' => $oauthUser->getAvatar(),
+                            ]);
+
+                            $user->assignRole(UserRole::MODERATOR);
+                            $user->markEmailAsVerified(); // To auto validate user email
+                            DB::commit();
+
+                            return $user;
+                        } catch (Exception $exception) {
+                            DB::rollBack();
+                            logger()->error($exception->getMessage());
+                            throw new SocialiteUnableToCreateUserException;
+                        }
+                    })
+                    ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+                        // dd($oauthUser, User::all());
+                    })
             ]);
     }
 }

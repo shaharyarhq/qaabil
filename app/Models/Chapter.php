@@ -9,6 +9,7 @@ class Chapter extends Model
     protected $fillable = [
         'name',
         'section_id',
+        'quiz_link'
     ];
 
     public function section()

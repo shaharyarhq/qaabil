@@ -9,6 +9,7 @@ class Section extends Model
     protected $fillable = [
         'name',
         'course_id',
+        'quiz_link'
     ];
 
     public function course()

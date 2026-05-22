@@ -20,7 +20,7 @@ class VideoResource extends Resource
 {
     protected static ?string $model = Video::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::VideoCamera;
 
     protected static ?string $recordTitleAttribute = 'title';
 

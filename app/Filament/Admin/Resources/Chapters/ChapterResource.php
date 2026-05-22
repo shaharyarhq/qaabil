@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Resources\Chapters;
 use App\Filament\Admin\Resources\Chapters\Pages\CreateChapter;
 use App\Filament\Admin\Resources\Chapters\Pages\EditChapter;
 use App\Filament\Admin\Resources\Chapters\Pages\ListChapters;
-use App\Filament\Admin\Resources\Chapters\Pages\ViewChapter;
 use App\Filament\Admin\Resources\Chapters\RelationManagers\ObjectivesRelationManager;
 use App\Filament\Admin\Resources\Chapters\Schemas\ChapterForm;
 use App\Filament\Admin\Resources\Chapters\Schemas\ChapterInfolist;
@@ -21,7 +20,7 @@ class ChapterResource extends Resource
 {
     protected static ?string $model = Chapter::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
     protected static ?string $recordTitleAttribute = 'name';
 

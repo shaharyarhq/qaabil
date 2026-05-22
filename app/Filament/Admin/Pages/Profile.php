@@ -2,11 +2,12 @@
 
 namespace App\Filament\Admin\Pages;
 
-use Filament\Auth\Pages\EditProfile;
+use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
+use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
-class Profile extends EditProfile
+class Profile extends MyProfilePage
 {
     public function form(Schema $form): Schema
     {
@@ -25,6 +26,15 @@ class Profile extends EditProfile
                 $this->getEmailFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
+                Action::make('delete')
             ]);
     }
+
+    // public function getRegisteredMyProfileComponents(): array
+    // {
+    //     return [
+    //         ...filament('filament-breezy')->getRegisteredMyProfileComponents(),
+    //         'delete_account' => DeleteAccount::class,
+    //     ];
+    // }
 }

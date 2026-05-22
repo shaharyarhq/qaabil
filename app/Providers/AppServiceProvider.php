@@ -2,15 +2,19 @@
 
 namespace App\Providers;
 
+use App\Filament\Support\View\LucideLoadingIndicator;
 use App\Http\Response\LoginResponse;
 use App\Models\User;
 use App\Services\VideoAccessService;
 use Codebyray\ReviewRateable\Models\Review;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Auth\Http\Responses\LoginResponse as BaseLoginResponse;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
+use Filament\Support\Contracts\LoadingIndicator;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\ColumnManagerLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(VideoAccessService::class);
+        $this->app->bind(LoadingIndicator::class, LucideLoadingIndicator::class);
     }
 
     /**
@@ -51,14 +56,16 @@ class AppServiceProvider extends ServiceProvider
                 ->defaultSort('created_at', 'desc')
                 ->filtersFormColumns(2)
                 ->paginated([5, 10, 25, 50, 100, 'all'])
+                ->columnManagerLayout(ColumnManagerLayout::Modal)
+                ->columnManagerTriggerAction(fn(Action $action): Action => $action->slideOver())
                 ->extremePaginationLinks()
                 // ->deferColumnManager(false)
-                ->striped();
-            // ->filters([], layout: FiltersLayout::AboveContentCollapsible)
-            // ->filtersTriggerAction(
-            //     fn(Action $action) => $action
-            //         ->slideOver() // This makes the filter panel a slide-over
-            // )
+                ->striped()
+                // ->filters([], layout: FiltersLayout::AboveContentCollapsible)
+                ->filtersTriggerAction(
+                    fn(Action $action) => $action
+                        ->slideOver() // This makes the filter panel a slide-over
+                );
         });
 
         SelectFilter::configureUsing(function (SelectFilter $filter): void {
@@ -116,6 +123,12 @@ class AppServiceProvider extends ServiceProvider
                     logger($e);
                 }
             });
+        });
+
+        Action::configureUsing(function (Action $action) {
+            $action->extraAttributes([
+                'class' => 'rounded-full',
+            ]);
         });
     }
 }

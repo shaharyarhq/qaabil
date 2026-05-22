@@ -52,7 +52,7 @@ class ObjectiveResource extends Resource
     {
         return [
             'create' => CreateObjective::route('/create'),
-            // 'view' => ViewObjective::route('/{record}'),
+            'view' => ViewObjective::route('/{record}'),
             'edit' => EditObjective::route('/{record}/edit'),
         ];
     }

@@ -6,8 +6,8 @@ namespace App\Models;
 use Andreia\FilamentUiSwitcher\Models\Traits\HasUiPreferences;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
-use App\Models\VideoView;
 use App\Notifications\BadgeEarnedNotification;
+use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
@@ -22,13 +22,14 @@ use QCod\Gamify\Gamify;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar
-// ,
-//  MustVerifyEmail
+    // ,
+    //  MustVerifyEmail
 {
     use Gamify;
 
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
     use HasRoles;
     use HasUiPreferences;
     use TwoFactorAuthenticatable;
@@ -84,6 +85,10 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->hasMany(Video::class, 'approved_by');
     }
 
+     public function userProgress()
+    {
+        return $this->hasMany(UserObjectiveProgress::class);
+    }
     public function isSuperAdmin(): bool
     {
         return $this->hasRole(UserRole::SUPER_ADMIN);
@@ -113,10 +118,18 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     {
         $avatarColumn = config('filament-edit-profile.avatar_column', 'avatar_url');
         $avatar = $this->{$avatarColumn};
-        return $avatar
-            ? Storage::url($avatar)
-            : "https://ui-avatars.com/api/?name=" . urlencode($this->name ?? 'U')
-            . "&color=FFFFFF&background=oklch(0.145 0.008 326)";
+
+        if (! $avatar) {
+            return 'https://ui-avatars.com/api/?name='.urlencode($this->name ?? 'U')
+                .'&color=FFFFFF&background=oklch(0.145 0.008 326)';
+        }
+
+        // If it's already a full URL, return as-is
+        if (str_starts_with($avatar, 'http://') || str_starts_with($avatar, 'https://')) {
+            return $avatar;
+        }
+
+        return Storage::url($avatar);
     }
 
     public function syncBadges($user = null): void
@@ -138,12 +151,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         if (! empty($newBadgeIds)) {
             Badge::whereIn('id', $newBadgeIds)
                 ->get()
-                ->each(fn($badge) => $user->notify(
+                ->each(fn ($badge) => $user->notify(
                     new BadgeEarnedNotification($badge)
                 ));
         }
     }
-
 
     public function videoViews(): HasMany
     {

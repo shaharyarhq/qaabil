@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Resources\Courses;
 use App\Filament\Admin\Resources\Courses\Pages\CreateCourse;
 use App\Filament\Admin\Resources\Courses\Pages\EditCourse;
 use App\Filament\Admin\Resources\Courses\Pages\ListCourses;
-use App\Filament\Admin\Resources\Courses\Pages\ViewCourse;
 use App\Filament\Admin\Resources\Courses\RelationManagers\SectionsRelationManager;
 use App\Filament\Admin\Resources\Courses\Schemas\CourseForm;
 use App\Filament\Admin\Resources\Courses\Schemas\CourseInfolist;
@@ -21,7 +20,7 @@ class CourseResource extends Resource
 {
     protected static ?string $model = Course::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::BookOpen;
 
     protected static ?string $recordTitleAttribute = 'name';
 

@@ -103,6 +103,7 @@ class VideosTable
                     ->schema(fn (Model $record) => [
                         Select::make('status')
                             ->options(VideoStatus::class)
+                            ->preload(false)
                             ->required()
                             ->default($record->status),
                     ])

@@ -9,6 +9,8 @@ Route::livewire('/contact', 'pages::contact')->name('contact');
 
 Route::livewire('/about', 'pages::about')->name('about');
 
+Route::livewire('/academy', 'pages::academy')->name('academy');
+
 Route::livewire('/pricing', 'pages::pricing')->name('pricing');
 
 Route::livewire('/courses', 'pages::courses.index')->name('courses.index');

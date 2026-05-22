@@ -2,8 +2,6 @@
 
 namespace App\Filament\Moderator\Resources\Videos;
 
-use App\Filament\Moderator\Resources\Videos\Pages\CreateVideo;
-use App\Filament\Moderator\Resources\Videos\Pages\EditVideo;
 use App\Filament\Moderator\Resources\Videos\Pages\ListVideos;
 use App\Filament\Moderator\Resources\Videos\Pages\ViewVideo;
 use App\Filament\Moderator\Resources\Videos\Schemas\VideoForm;
@@ -20,7 +18,7 @@ class VideoResource extends Resource
 {
     protected static ?string $model = Video::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::VideoCamera;
 
     protected static ?string $recordTitleAttribute = 'title';
 

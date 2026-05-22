@@ -13,7 +13,8 @@ class Course extends Model
     protected $fillable = [
         'name',
         'description',
-        'is_disabled'
+        'is_disabled',
+        'quiz_link',
     ];
 
 

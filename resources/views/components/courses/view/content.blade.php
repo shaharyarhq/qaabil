@@ -475,7 +475,7 @@
                                                     <div class="px-5 pb-4">
                                                         <p
                                                             class="font-['Instrument_Serif',serif] italic text-[.825rem] text-[#94a3b8]">
-                                                            No videos submitted yet.</p>
+                                                            Be the first to upload a Video in this Learning Objective!.</p>
                                                     </div>
                                                 @endif
                                                 {{-- ── End of LO CTA ── --}}
@@ -494,12 +494,12 @@
                                                     {{-- Progress radio toggles --}}
                                                     <div class="flex items-center gap-2">
                                                         <span
-                                                            class="text-[.65rem] font-bold text-[#94a3b8] uppercase tracking-wider">Progress:</span>
+                                                            class="text-[.65rem] font-bold text-[#1b3a6b] uppercase tracking-wider">Progress:</span>
                                                         <template
                                                             x-for="opt in [
-            { key: 'behind',   label: 'Falling Behind',     active: 'bg-red-50 text-red-600 border-red-300',             idle: 'text-[#94a3b8] border-[#e2e8f0]' },
-            { key: 'practice', label: 'Need More Practice',  active: 'bg-amber-50 text-amber-600 border-amber-300',       idle: 'text-[#94a3b8] border-[#e2e8f0]' },
-            { key: 'mastery',  label: 'Mastery Reached',     active: 'bg-emerald-50 text-emerald-600 border-emerald-300', idle: 'text-[#94a3b8] border-[#e2e8f0]' }
+            { key: 'behind',   label: 'Falling Behind',     active: 'bg-red-50 text-red-600 border-red-300',             idle: 'text-[#1b3a6b] border-[rgba(27,58,107,.25)]' },
+            { key: 'practice', label: 'Need More Practice',  active: 'bg-amber-50 text-amber-600 border-amber-300',       idle: 'text-[#1b3a6b] border-[rgba(27,58,107,.25)]' },
+            { key: 'mastery',  label: 'Mastery Reached',     active: 'bg-emerald-50 text-emerald-600 border-emerald-300', idle: 'text-[#1b3a6b] border-[rgba(27,58,107,.25)]' }
         ]"
                                                             :key="opt.key">
                                                             <button type="button" @click="handle(opt.key)"
@@ -510,8 +510,8 @@
                                                                     status === opt.key ?
                                                                     opt.active + ' font-extrabold cursor-pointer' :
                                                                     opt.idle +
-                                                                    ' font-semibold bg-white hover:bg-slate-50 cursor-pointer'"
-                                                                class="text-[.65rem] px-2.5 py-1 rounded-full border transition-all duration-150"
+                                                                    ' font-bold bg-white hover:bg-[#eff6ff] cursor-pointer text-[#1b3a6b]'"
+                                                                class="text-[.65rem] px-2.5 py-1 rounded-full border transition-all duration-150 font-semibold"
                                                                 x-text="opt.label">
                                                             </button>
                                                         </template>
@@ -579,6 +579,41 @@
             No sections yet <span class="text-[#f59e0b]">✦</span>
         </div>
     @endforelse
+
+    {{-- Course Past Papers CTA --}}
+    @if ($course->quiz_link)
+        <div class="flex items-center justify-between gap-4 mt-4 px-6 py-4 rounded-2xl"
+            style="background:rgba(27,58,107,.04);border:1px solid rgba(27,58,107,.12);">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                    style="background:linear-gradient(135deg,#1b3a6b 0%,#2d5499 100%);box-shadow:0 2px 8px rgba(27,58,107,.25);">
+                    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="white"
+                        stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[.85rem] font-extrabold text-[#0f172a] tracking-tight">Past Papers</p>
+                    <p class="text-[.72rem] text-[#94a3b8]">Practice with real past exam questions</p>
+                </div>
+            </div>
+            <a href="{{ $course->quiz_link }}" target="_blank"
+                class="inline-flex items-center gap-2 text-[.8rem] font-bold text-white rounded-xl px-5 py-2.5 transition-all duration-200 hover:opacity-90 active:scale-95 shrink-0"
+                style="background:linear-gradient(135deg,#1b3a6b 0%,#2d5499 100%);box-shadow:0 2px 8px rgba(27,58,107,.25);">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                View Past Papers
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12" />
+                </svg>
+            </a>
+        </div>
+    @endif
 
     {{-- Manifesto --}}
     <div class="manifesto mt-6 bg-[#1b3a6b] rounded-3xl relative overflow-hidden px-8 md:px-16 py-14 text-center">

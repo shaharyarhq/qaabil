@@ -425,12 +425,39 @@
     <div class="top-bar">
         <div>
             <span class="top-bar-left">{{ $course->name }}</span>
+            <span class="top-bar-right">
+                <img src="{{ public_path('/images/logo/qaabil.jpeg') }}" height="38" style="vertical-align:middle;" />
+            </span>
             <div class="clear"></div>
         </div>
     </div>
 
-    {{-- ── Main heading ── --}}
-    <div class="main-heading">Progress Report</div>
+    {{-- ── Main heading + user info ── --}}
+    <div style="width:100%;margin-bottom:10px;border-bottom:1px solid #e0e0e0;padding-bottom:6px;">
+        <div class="main-heading" style="float:left;border-bottom:none;margin-bottom:0;padding-bottom:0;">
+            Progress Report
+        </div>
+        <div style="float:right;text-align:right;font-size:9px;color:#444;line-height:18px;">
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="color:#888;padding-right:6px;">Name</td>
+                    <td style="color:#888;padding-right:4px;">:</td>
+                    <td style="color:#1a1a1a;font-weight:bold;">{{ Auth::user()->name }}</td>
+                </tr>
+                <tr>
+                    <td style="color:#888;padding-right:6px;">Email</td>
+                    <td style="color:#888;padding-right:4px;">:</td>
+                    <td style="color:#1a1a1a;">{{ Auth::user()->email }}</td>
+                </tr>
+                <tr>
+                    <td style="color:#888;padding-right:6px;white-space:nowrap;">Report Generated on</td>
+                    <td style="color:#888;padding-right:4px;">:</td>
+                    <td style="color:#1a1a1a;">{{ now()->format('jS F Y') }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
 
     <div class="note">
         Note: this report provides a simplified overview of learner progress across topics and objectives.
@@ -683,12 +710,14 @@
                 <td>This is what learners should be able to do or know for each part of the syllabus.</td>
                 <td colspan="3" style="text-align:left;">
                     <div class="rag-label">
-                        <strong>Red</strong> = <strong>Behind</strong> — learner is struggling and needs focused
+                        <span style="color:#c8102e;font-weight:bold;">Red</span> = <strong
+                            style="color:#c8102e;">Behind</strong> — learner is struggling and needs focused
                         support.<br><br>
-                        <span class="a-label"><strong>Amber</strong> = <strong>Practice</strong></span> — reasonably
-                        confident but needs more practice.<br><br>
-                        <span class="g-label"><strong>Green</strong> = <strong>Mastery</strong></span> — learner is very
-                        confident.
+                        <span style="color:#e07b00;font-weight:bold;">Amber</span> = <strong
+                            style="color:#e07b00;">Practice</strong> — reasonably confident but needs more
+                        practice.<br><br>
+                        <span style="color:#2e7d32;font-weight:bold;">Green</span> = <strong
+                            style="color:#2e7d32;">Mastery</strong> — learner is very confident.
                     </div>
                 </td>
                 <td>Indicates the learner's current status for each objective.</td>

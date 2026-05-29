@@ -32,10 +32,10 @@
 
 /* contact method card hover */
 .contact-card:hover .contact-icon-wrap {
-    background: #1b3a6b;
+    /* background: #1b3a6b; */
 }
 .contact-card:hover .contact-icon-wrap svg {
-    stroke: #fff;
+    /* stroke: #fff; */
 }
 
 @keyframes fadeUp {

@@ -2,27 +2,23 @@
 
     <!-- ── Hero ───────────────────────────────────── -->
     <div class="hero bg-[#1b3a6b] relative overflow-hidden">
-        <div class="absolute rounded-full pointer-events-none"
-            style="width:500px;height:500px;background:radial-gradient(circle,rgba(245,158,11,.2) 0%,transparent 65%);top:-180px;right:-100px">
+        <div class="absolute rounded-full pointer-events-none" style="width:500px;height:500px;background:radial-gradient(circle,rgba(245,158,11,.2) 0%,transparent 65%);top:-180px;right:-100px">
         </div>
-        <div class="absolute rounded-full pointer-events-none"
-            style="width:280px;height:280px;background:radial-gradient(circle,rgba(99,132,255,.12) 0%,transparent 65%);bottom:-80px;left:40px">
+        <div class="absolute rounded-full pointer-events-none" style="width:280px;height:280px;background:radial-gradient(circle,rgba(99,132,255,.12) 0%,transparent 65%);bottom:-80px;left:40px">
         </div>
 
         <div class="relative z-10 max-w-3xl mx-auto px-6 py-20 text-center">
-            <div class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6"
-                style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25)">
+            <div class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6" style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25)">
                 <span class="inline-block w-[7px] h-[7px] rounded-full bg-[#f59e0b] shrink-0"></span>
                 <span class="text-white/80 text-[.75rem] font-bold uppercase tracking-[.08em]">We'd love to hear from
                     you</span>
             </div>
-            <h1 class="font-extrabold text-white leading-[1.1] tracking-tight mb-5"
-                style="font-size:clamp(2.4rem,5vw,3.75rem)">
+            <h1 class="font-extrabold text-white leading-[1.1] tracking-tight mb-5" style="font-size:clamp(2.4rem,5vw,3.75rem)">
                 Let's
                 <span class="font-['Instrument_Serif',serif] font-normal italic text-[#f59e0b]"> talk.</span>
             </h1>
             <p class="text-white/60 text-lg max-w-lg mx-auto leading-relaxed">
-                Whether you're a student, a teacher , or an institution — we're here and happy to chat.
+                Whether you're a student, a teacher, or an institution — we're here and happy to chat.
             </p>
         </div>
     </div>
@@ -35,63 +31,105 @@
             <!-- ── Left: contact methods + info ─────── -->
             <div class="lg:col-span-2 flex flex-col gap-5">
 
-                <!-- contact method cards -->
                 @php
-                    $methods = [
-                        [
-                            'label' => 'Email us',
-                            'value' => 'hello@qaabil.com',
-                            'sub' => 'We reply within 24 hours',
-                            'href' => 'mailto:hello@qaabil.com',
-                            'icon' =>
-                                '<path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>',
-                        ],
-                        [
-                            'label' => 'For institutions',
-                            'value' => 'partners@qaabil.com',
-                            'sub' => 'Schools, universities & bootcamps',
-                            'href' => 'mailto:partners@qaabil.com',
-                            'icon' =>
-                                '<path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>',
-                        ],
-                        [
-                            'label' => 'Community Discord',
-                            'value' => 'discord.gg/qaabil',
-                            'sub' => 'Live chat with the community',
-                            'href' => '#',
-                            'icon' =>
-                                '<path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>',
-                        ],
-                    ];
+                $methods = [
+                [
+                'label' => 'Email us at',
+                'value' => 'admin@qaabil.academy',
+                'sub' => 'We reply within 24 hours',
+                'href' => 'mailto:admin@qaabil.academy',
+                'icon' => '
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />',
+                ],
+                [
+                'label' => 'WhatsApp us at',
+                'value' => '+60162924472',
+                'sub' => 'Schools, universities & bootcamps',
+                'href' => 'https://wa.me/60162924472',
+                'icon' => '
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 8.5s.5 1 1.5 2 2 1.5 2 1.5l1.5-1.5s1 .5 2 1.5v2s-1 1-3 0S8 11 7 9l1.5-1.5z" />',
+                ],
+                ];
+
+                $socials = [
+                [
+                'label' => 'LinkedIn',
+                'href' => 'https://linkedin.com/company/qaabilacademy',
+                'color' => '#0077b5',
+                'icon' => 'https://site-images.similarcdn.com/image?url=linkedin.com&t=2&s=1&h=64a0e043fc8ff74ac308e3f0e136ae7d1b6544be4e9e704ad7fd062070be48a1',
+                ],
+                [
+                'label' => 'Instagram',
+                'href' => 'https://instagram.com/qaabil.academy',
+                'color' => '#e1306c',
+                'icon' => 'https://cdn.simpleicons.org/instagram/e1306c',
+                ],
+                [
+                'label' => 'Facebook',
+                'href' => 'https://fb.com/qaabil.academy',
+                'color' => '#1877f2',
+                'icon' => 'https://cdn.simpleicons.org/facebook/1877f2',
+                ],
+                [
+                'label' => 'TikTok',
+                'href' => 'https://tiktok.com/@qaabil.academy',
+                'color' => '#010101',
+                'icon' => 'https://cdn.simpleicons.org/tiktok/010101',
+                ],
+                [
+                'label' => 'YouTube',
+                'href' => 'https://www.youtube.com/@qaabil.academy',
+                'color' => '#ff0000',
+                'icon' => 'https://cdn.simpleicons.org/youtube/ff0000',
+                ],
+                [
+                'label' => 'Threads',
+                'href' => 'https://www.threads.com/@qaabil.academy',
+                'color' => '#000000',
+                'icon' => 'https://cdn.simpleicons.org/threads/000000',
+                ],
+                ];
                 @endphp
 
+                {{-- Email + WhatsApp cards --}}
                 @foreach ($methods as $i => $m)
-                    <a href="{{ $m['href'] }}"
-                        class="contact-card fu d{{ $i + 1 }} flex items-center gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-5 no-underline text-inherit transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(27,58,107,.12)] hover:border-[rgba(27,58,107,.2)]">
-                        <div class="contact-icon-wrap w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-200"
-                            style="background:rgba(27,58,107,.07)">
-                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1b3a6b"
-                                stroke-width="1.8" class="transition-colors duration-200">
-                                {!! $m['icon'] !!}
-                            </svg>
-                        </div>
-                        <div class="min-w-0">
-                            <p class="text-[.7rem] font-extrabold uppercase tracking-[.08em] text-[#94a3b8] mb-0.5">
-                                {{ $m['label'] }}</p>
-                            <p class="text-sm font-bold text-[#0f172a] truncate">{{ $m['value'] }}</p>
-                            <p class="text-xs text-[#94a3b8] mt-0.5">{{ $m['sub'] }}</p>
-                        </div>
-                        <svg class="w-4 h-4 text-[#e2e8f0] shrink-0 ml-auto" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                <a href="{{ $m['href'] }}" class="contact-card fu d{{ $i + 1 }} flex items-center gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-5 no-underline text-inherit transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(27,58,107,.12)] hover:border-[rgba(27,58,107,.2)]">
+                    <div class="contact-icon-wrap w-11 h-11 rounded-xl flex items-center justify-center shrink-0 duration-200" style="background:rgba(27,58,107,.07)">
+                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1b3a6b" stroke-width="1.8">
+                            {!! $m['icon'] !!}
                         </svg>
-                    </a>
+                    </div>
+                    <div class="min-w-0">
+                        <p class="text-[.7rem] font-extrabold uppercase tracking-[.08em] text-[#94a3b8] mb-0.5">
+                            {{ $m['label'] }}
+                        </p>
+                        <p class="text-sm font-bold text-[#0f172a] truncate">{{ $m['value'] }}</p>
+                        <p class="text-xs text-[#94a3b8] mt-0.5">{{ $m['sub'] }}</p>
+                    </div>
+                    <svg class="w-4 h-4 text-[#e2e8f0] shrink-0 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
                 @endforeach
+
+                {{-- Follow us — social icons card --}}
+                <div class="bg-white border border-[#e2e8f0] rounded-2xl p-5">
+                    <p class="text-[.7rem] font-extrabold uppercase tracking-[.08em] text-[#94a3b8] mb-3">Follow us on
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        @foreach ($socials as $s)
+                        <a href="{{ $s['href'] }}" target="_blank" title="{{ $s['label'] }}" class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md" style="background:{{ $s['color'] }}1a;border:1px solid {{ $s['color'] }}33;">
+                            <img src="{{ $s['icon'] }}" width="20" height="20" alt="{{ $s['label'] }}" />
+                        </a>
+                        @endforeach
+                    </div>
+                    <p class="text-xs text-[#94a3b8] mt-3">Stay connected with the Qaabil community</p>
+                </div>
 
                 <!-- response time note -->
                 <div class="fu d4 bg-[#1b3a6b] rounded-2xl p-6 relative overflow-hidden">
-                    <div class="absolute rounded-full pointer-events-none"
-                        style="width:180px;height:180px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
+                    <div class="absolute rounded-full pointer-events-none" style="width:180px;height:180px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
                     </div>
                     <div class="relative z-10">
                         <div class="text-[#f59e0b] text-2xl mb-3">✦</div>
@@ -109,14 +147,12 @@
             <div class="lg:col-span-3 fu d2 bg-white border border-[#e2e8f0] rounded-3xl p-8 md:p-10">
 
                 <div class="mb-8">
-                    <div
-                        class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.1em] text-[#1b3a6b] mb-2">
-                        <span class="inline-block w-4 h-[3px] rounded-sm bg-[#f59e0b]"></span>
+                    <div class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-widest text-[#1b3a6b] mb-2">
+                        <span class="inline-block w-4 h-0.75 rounded-sm bg-[#f59e0b]"></span>
                         Send a message
                     </div>
                     <h2 class="text-[1.6rem] font-extrabold text-[#0f172a] tracking-tight leading-snug">
-                        Drop us a <span
-                            class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">note</span>
+                        Drop us a <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">note</span>
                     </h2>
                 </div>
 
@@ -126,31 +162,40 @@
                     <!-- name + email row -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div class="float-wrap">
-                            <input type="text" name="name" id="name" placeholder=" "
-                                class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all"
-                                required>
+                            <input type="text" name="name" id="name" placeholder=" " class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all" required>
                             <label for="name" class="field-label">Your name</label>
                         </div>
                         <div class="float-wrap">
-                            <input type="email" name="email" id="email" placeholder=" "
-                                class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all"
-                                required>
+                            <input type="email" name="email" id="email" placeholder=" " class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all" required>
                             <label for="email" class="field-label">Email address</label>
                         </div>
                     </div>
 
+                    <!-- phone row -->
+                    <div class="float-wrap">
+                        <div class="flex w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl overflow-hidden transition-all focus-within:border-[#1b3a6b] focus-within:ring-2 focus-within:ring-[#1b3a6b]/10">
+                            <!-- country code dropdown -->
+                            <select name="country_code" id="country_code" class="bg-[#f1f5f9] border-none text-sm text-[#0f172a] font-medium px-3 py-3.5 cursor-pointer focus:outline-none shrink-0" style="border-right:1px solid #e2e8f0;">
+                                @foreach (\App\Enums\CountryCode::cases() as $code)
+                                <option value="{{ $code->value }}" {{ $code === \App\Enums\CountryCode::default() ? 'selected' : '' }}>
+                                    {{ $code->label() }}
+                                </option>
+                                @endforeach
+                            </select>
+                            <!-- number input — no float-label here since the select takes the left side -->
+                            <input type="tel" name="phone" id="phone" placeholder="Phone number (optional)" class="flex-1 bg-transparent border-none px-4 py-3.5 text-sm text-[#0f172a] font-medium focus:outline-none placeholder:text-[#94a3b8]">
+                        </div>
+                    </div>
                     <!-- subject / type -->
                     <div>
-                        <label
-                            class="block text-[.72rem] font-extrabold uppercase tracking-[.08em] text-[#94a3b8] mb-2">
+                        <label class="block text-[.72rem] font-extrabold uppercase tracking-[.08em] text-[#94a3b8] mb-2">
                             What's this about?
                         </label>
                         <div class="flex flex-wrap gap-2" id="topic-group">
-                            @foreach (['General enquiry', 'Student support', 'Become a maintainer', 'Institution / partnership', 'Bug report', 'Other'] as $topic)
-                                <button type="button" onclick="selectTopic(this)"
-                                    class="topic-btn text-[.78rem] font-semibold px-3.5 py-1.5 rounded-full border border-[#e2e8f0] text-[#475569] bg-white transition-all hover:border-[#1b3a6b] hover:text-[#1b3a6b]">
-                                    {{ $topic }}
-                                </button>
+                            @foreach (['General enquiry', 'Student support', 'Become a Moderator/Tutor', 'Institution / partnership', 'Bug report', 'Other'] as $topic)
+                            <button type="button" onclick="selectTopic(this)" class="topic-btn text-[.78rem] font-semibold px-3.5 py-1.5 rounded-full border border-[#e2e8f0] text-[#475569] bg-white transition-all hover:border-[#1b3a6b] hover:text-[#1b3a6b]">
+                                {{ $topic }}
+                            </button>
                             @endforeach
                         </div>
                         <input type="hidden" name="topic" id="topic-val">
@@ -158,26 +203,19 @@
 
                     <!-- message -->
                     <div class="float-wrap">
-                        <textarea name="message" id="message" rows="5" placeholder=" "
-                            class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all resize-none"
-                            required></textarea>
+                        <textarea name="message" id="message" rows="5" placeholder=" " class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all resize-none" required></textarea>
                         <label for="message" class="field-label">Your message</label>
                     </div>
 
                     <!-- submit -->
-                    <button type="submit" id="submit-btn"
-                        class="w-full py-4 rounded-xl text-sm font-extrabold text-[#1b3a6b] bg-[#f59e0b] hover:bg-[#d97706] border-none cursor-pointer transition-colors flex items-center justify-center gap-2">
+                    <button type="submit" id="submit-btn" class="w-full py-4 rounded-xl text-sm font-extrabold text-[#1b3a6b] bg-[#f59e0b] hover:bg-[#d97706] border-none cursor-pointer transition-colors flex items-center justify-center gap-2">
                         <span id="btn-text">Send message</span>
-                        <svg id="btn-arrow" width="16" height="16" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2.5">
+                        <svg id="btn-arrow" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
-                        <svg id="btn-spinner" class="hidden animate-spin" width="16" height="16"
-                            viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
-                                stroke-dasharray="32" stroke-dashoffset="12" opacity=".4" />
-                            <path d="M12 2a10 10 0 0110 10" stroke="currentColor" stroke-width="3"
-                                stroke-linecap="round" />
+                        <svg id="btn-spinner" class="hidden animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="32" stroke-dashoffset="12" opacity=".4" />
+                            <path d="M12 2a10 10 0 0110 10" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
                         </svg>
                     </button>
 
@@ -196,7 +234,6 @@
     </main>
 
     <script>
-        // ── Topic pill selector ─────────────────────
         function selectTopic(btn) {
             document.querySelectorAll('.topic-btn').forEach(b => {
                 b.classList.remove('bg-[#1b3a6b]', 'text-white', 'border-[#1b3a6b]');
@@ -207,7 +244,6 @@
             document.getElementById('topic-val').value = btn.textContent.trim();
         }
 
-        // ── Form submit (demo — shows success state) ─
         function handleSubmit(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -226,6 +262,7 @@
                 success.classList.remove('hidden');
             }, 1400);
         }
+
     </script>
 
 </div>

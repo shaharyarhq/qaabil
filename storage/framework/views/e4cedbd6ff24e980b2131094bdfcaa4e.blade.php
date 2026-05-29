@@ -1,0 +1,1 @@
+@livewire('filament-ui-switcher', ['hasModeSwitcher' => true])

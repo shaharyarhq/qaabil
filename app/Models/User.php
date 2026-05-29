@@ -8,11 +8,13 @@ use App\Enums\UserRole;
 use App\Enums\UserStatus;
 use App\Notifications\BadgeEarnedNotification;
 use Database\Factories\UserFactory;
+use DutchCodingCompany\FilamentSocialite\Models\SocialiteUser;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -22,8 +24,8 @@ use QCod\Gamify\Gamify;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar
-    // ,
-    //  MustVerifyEmail
+// ,
+//  MustVerifyEmail
 {
     use Gamify;
 
@@ -75,6 +77,16 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         ];
     }
 
+    public function socialiteUser(): HasOne
+    {
+        return $this->hasOne(SocialiteUser::class);
+    }
+
+    public function getActiveProviderAttribute()
+    {
+        return $this->socialiteUsers->first()?->provider ?? 'email';
+    }
+
     public function videos(): HasMany
     {
         return $this->hasMany(Video::class, 'created_by');
@@ -85,7 +97,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->hasMany(Video::class, 'approved_by');
     }
 
-     public function userProgress()
+    public function userProgress()
     {
         return $this->hasMany(UserObjectiveProgress::class);
     }
@@ -120,8 +132,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         $avatar = $this->{$avatarColumn};
 
         if (! $avatar) {
-            return 'https://ui-avatars.com/api/?name='.urlencode($this->name ?? 'U')
-                .'&color=FFFFFF&background=oklch(0.145 0.008 326)';
+            return 'https://ui-avatars.com/api/?name=' . urlencode($this->name ?? 'U')
+                . '&color=FFFFFF&background=oklch(0.145 0.008 326)';
         }
 
         // If it's already a full URL, return as-is
@@ -151,7 +163,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         if (! empty($newBadgeIds)) {
             Badge::whereIn('id', $newBadgeIds)
                 ->get()
-                ->each(fn ($badge) => $user->notify(
+                ->each(fn($badge) => $user->notify(
                     new BadgeEarnedNotification($badge)
                 ));
         }

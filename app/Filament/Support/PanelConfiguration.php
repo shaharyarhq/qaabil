@@ -41,6 +41,7 @@ class PanelConfiguration
                 '/',
             ])
             ->brandLogo('/images/logo/qaabil.jpeg')
+            ->darkModeBrandLogo('/images/logo/qaabil-dark.png')
             ->favicon('/images/logo/favicon.png')
             ->brandLogoHeight('2.4rem')
             ->simplePageMaxContentWidth(Width::Large)

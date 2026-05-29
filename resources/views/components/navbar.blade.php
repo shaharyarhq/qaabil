@@ -6,9 +6,9 @@
             ['route' => 'home',          'label' => 'Home'],
             ['route' => 'courses.index', 'label' => 'Courses',    'pattern' => 'courses.*'],
             ['route' => 'pricing',       'label' => 'Get Access'],
+            ['route' => 'academy',       'label' => 'Education Centre'],
             ['route' => 'contact',       'label' => 'Contact'],
-            ['route' => 'academy',       'label' => 'Academy'],
-            ['route' => 'about',         'label' => 'Why Qaabil'],
+            // ['route' => 'about',         'label' => 'Why Qaabil'],
         ];
 
         $authHomeUrl = null;

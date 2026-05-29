@@ -15,14 +15,20 @@ class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->copyable()
                     ->searchable(),
                 TextColumn::make('email')
                     ->label('Email address')
+                    ->copyable()
                     ->searchable(),
                 TextColumn::make('email_verified_at')
+                    ->copyable()
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('roles.name'),
+                TextColumn::make('roles.name')
+                    ->copyable()->badge(),
+                TextColumn::make('socialiteUser.provider')
+                    ->copyable()->label('Active provider')->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

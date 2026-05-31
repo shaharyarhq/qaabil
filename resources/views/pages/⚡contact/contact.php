@@ -24,7 +24,7 @@ new class extends Component
 
         $this->validate();
 
-        Mail::to('info@qaabil.com')->send(new ContactFormMail([
+        Mail::to('admin@qaabil.com')->send(new ContactFormMail([
             'name'    => $this->name,
             'email'   => $this->email,
             'phone'   => $this->phone ?: null,

@@ -22,12 +22,12 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserCircle;
 
-    protected static bool $shouldRegisterNavigation = false;
+    // protected static bool $shouldRegisterNavigation = false;
 
-    public static function canAccess(): bool
-    {
-        return false;
-    }
+    // public static function canAccess(): bool
+    // {
+    //     return false;
+    // }
 
     protected static ?string $recordTitleAttribute = 'name';
 

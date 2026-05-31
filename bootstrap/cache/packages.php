@@ -242,6 +242,13 @@
       0 => 'OwenVoke\\BladeFontAwesome\\BladeFontAwesomeServiceProvider',
     ),
   ),
+  'propaganistas/laravel-phone' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Propaganistas\\LaravelPhone\\PhoneServiceProvider',
+    ),
+  ),
   'qcod/laravel-gamify' => 
   array (
     'providers' => 

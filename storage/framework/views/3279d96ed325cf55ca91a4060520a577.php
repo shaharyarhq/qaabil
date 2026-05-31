@@ -31,7 +31,7 @@
             <!-- ── Left: contact methods + info ─────── -->
             <div class="lg:col-span-2 flex flex-col gap-5">
 
-                @php
+                <?php
                 $methods = [
                 [
                 'label' => 'Email us at',
@@ -90,39 +90,41 @@
                 'icon' => 'https://cdn.simpleicons.org/threads/000000',
                 ],
                 ];
-                @endphp
+                ?>
 
-                {{-- Email + WhatsApp cards --}}
-                @foreach ($methods as $i => $m)
-                <a href="{{ $m['href'] }}" class="contact-card fu d{{ $i + 1 }} flex items-center gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-5 no-underline text-inherit transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(27,58,107,.12)] hover:border-[rgba(27,58,107,.2)]">
+                
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                <a href="<?php echo e($m['href']); ?>" class="contact-card fu d<?php echo e($i + 1); ?> flex items-center gap-4 bg-white border border-[#e2e8f0] rounded-2xl p-5 no-underline text-inherit transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(27,58,107,.12)] hover:border-[rgba(27,58,107,.2)]">
                     <div class="contact-icon-wrap w-11 h-11 rounded-xl flex items-center justify-center shrink-0 duration-200" style="background:rgba(27,58,107,.07)">
                         <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1b3a6b" stroke-width="1.8">
-                            {!! $m['icon'] !!}
+                            <?php echo $m['icon']; ?>
+
                         </svg>
                     </div>
                     <div class="min-w-0">
                         <p class="text-[.7rem] font-extrabold uppercase tracking-[.08em] text-[#94a3b8] mb-0.5">
-                            {{ $m['label'] }}
+                            <?php echo e($m['label']); ?>
+
                         </p>
-                        <p class="text-sm font-bold text-[#0f172a] truncate">{{ $m['value'] }}</p>
-                        <p class="text-xs text-[#94a3b8] mt-0.5">{{ $m['sub'] }}</p>
+                        <p class="text-sm font-bold text-[#0f172a] truncate"><?php echo e($m['value']); ?></p>
+                        <p class="text-xs text-[#94a3b8] mt-0.5"><?php echo e($m['sub']); ?></p>
                     </div>
                     <svg class="w-4 h-4 text-[#e2e8f0] shrink-0 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
-                @endforeach
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
 
-                {{-- Follow us — social icons card --}}
+                
                 <div class="bg-white border border-[#e2e8f0] rounded-2xl p-5">
                     <p class="text-[.7rem] font-extrabold uppercase tracking-[.08em] text-[#94a3b8] mb-3">Follow us on
                     </p>
                     <div class="flex flex-wrap gap-3">
-                        @foreach ($socials as $s)
-                        <a href="{{ $s['href'] }}" target="_blank" title="{{ $s['label'] }}" class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md" style="background:{{ $s['color'] }}1a;border:1px solid {{ $s['color'] }}33;">
-                            <img src="{{ $s['icon'] }}" width="20" height="20" alt="{{ $s['label'] }}" />
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $socials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                        <a href="<?php echo e($s['href']); ?>" target="_blank" title="<?php echo e($s['label']); ?>" class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md" style="background:<?php echo e($s['color']); ?>1a;border:1px solid <?php echo e($s['color']); ?>33;">
+                            <img src="<?php echo e($s['icon']); ?>" width="20" height="20" alt="<?php echo e($s['label']); ?>" />
                         </a>
-                        @endforeach
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                     </div>
                     <p class="text-xs text-[#94a3b8] mt-3">Stay connected with the Qaabil community</p>
                 </div>
@@ -163,12 +165,26 @@
                         <div class="float-wrap">
                             <input type="text" wire:model="name" id="name" placeholder=" " class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all">
                             <label for="name" class="field-label">Your name</label>
-                            @error('name') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="text-xs text-red-500 mt-1"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                         </div>
                         <div class="float-wrap">
                             <input type="email" wire:model="email" id="email" placeholder=" " class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all">
                             <label for="email" class="field-label">Email address</label>
-                            @error('email') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="text-xs text-red-500 mt-1"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                         </div>
                     </div>
 
@@ -176,15 +192,23 @@
                     <div>
                         <div class="flex w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl overflow-hidden transition-all focus-within:border-[#1b3a6b] focus-within:ring-2 focus-within:ring-[#1b3a6b]/10">
                             <select wire:model="country_code" id="country_code" class="bg-[#f1f5f9] border-none text-sm text-[#0f172a] font-medium px-3 py-3.5 cursor-pointer focus:outline-none shrink-0" style="border-right:1px solid #e2e8f0;">
-                                @foreach (\App\Enums\CountryCode::cases() as $code)
-                                <option value="{{ $code->value }}" {{ $code === \App\Enums\CountryCode::default() ? 'selected' : '' }}>
-                                    {{ $code->label() }}
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = \App\Enums\CountryCode::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                                <option value="<?php echo e($code->value); ?>" <?php echo e($code === \App\Enums\CountryCode::default() ? 'selected' : ''); ?>>
+                                    <?php echo e($code->label()); ?>
+
                                 </option>
-                                @endforeach
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                             </select>
                             <input type="tel" wire:model="phone" id="phone" placeholder="e.g. 3314225652" class="flex-1 bg-transparent border-none px-4 py-3.5 text-sm text-[#0f172a] font-medium focus:outline-none placeholder:text-[#94a3b8]">
                         </div>
-                        @error('phone') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="text-xs text-red-500 mt-1"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
 
                     <!-- subject / type -->
@@ -193,14 +217,15 @@
                             What's this about?
                         </label>
                         <div class="flex flex-wrap gap-2">
-                            @foreach (['General enquiry', 'Student support', 'Become a Moderator/Tutor', 'Institution / partnership', 'Bug report', 'Other'] as $t)
-                            <button type="button" wire:click="$set('topic', '{{ $t }}')" class="text-[.78rem] font-semibold px-3.5 py-1.5 rounded-full border transition-all
-                    {{ $topic === $t
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = ['General enquiry', 'Student support', 'Become a Moderator/Tutor', 'Institution / partnership', 'Bug report', 'Other']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                            <button type="button" wire:click="$set('topic', '<?php echo e($t); ?>')" class="text-[.78rem] font-semibold px-3.5 py-1.5 rounded-full border transition-all
+                    <?php echo e($topic === $t
                         ? 'bg-[#1b3a6b] text-white border-[#1b3a6b]'
-                        : 'border-[#e2e8f0] text-[#475569] bg-white hover:border-[#1b3a6b] hover:text-[#1b3a6b]' }}">
-                                {{ $t }}
+                        : 'border-[#e2e8f0] text-[#475569] bg-white hover:border-[#1b3a6b] hover:text-[#1b3a6b]'); ?>">
+                                <?php echo e($t); ?>
+
                             </button>
-                            @endforeach
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                         </div>
                     </div>
 
@@ -208,11 +233,18 @@
                     <div class="float-wrap">
                         <textarea wire:model="message" id="message" rows="5" placeholder=" " class="field w-full bg-[#f8fafd] border border-[#e2e8f0] rounded-xl px-4 py-3.5 text-sm text-[#0f172a] font-medium transition-all resize-none"></textarea>
                         <label for="message" class="field-label">Your message</label>
-                        @error('message') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['message'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="text-xs text-red-500 mt-1"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </div>
 
                     <!-- submit -->
-                    @if (!$sent)
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!$sent): ?>
                     <button type="submit" wire:loading.attr="disabled" class="w-full py-4 rounded-xl text-sm font-extrabold text-[#1b3a6b] bg-[#f59e0b] hover:bg-[#d97706] border-none cursor-pointer transition-colors flex items-center justify-center gap-2">
                         <span wire:loading.remove wire:target="send">Send message</span>
                         <svg wire:loading.remove wire:target="send" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -224,16 +256,16 @@
                             <path d="M12 2a10 10 0 0110 10" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
                         </svg>
                     </button>
-                    @endif
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
                     <!-- success state -->
-                    @if ($sent)
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($sent): ?>
                     <div class="text-center py-4">
                         <div class="text-3xl mb-2">✅</div>
                         <p class="text-sm font-bold text-[#0f172a]">Message sent!</p>
                         <p class="text-xs text-[#94a3b8] mt-1">We'll get back to you within 24 hours.</p>
                     </div>
-                    @endif
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
                 </form>
             </div>
@@ -242,4 +274,4 @@
 
     </main>
 
-</div>
+</div><?php /**PATH /var/www/html/storage/framework/views/livewire/views/778c02f5.blade.php ENDPATH**/ ?>

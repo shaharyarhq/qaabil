@@ -33,13 +33,14 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\View\View;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
+use App\Enums\Panel as EnumsPanel;
 
 class ModeratorPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return PanelConfiguration::make($panel)
-            ->id('moderator')
+            ->id(EnumsPanel::MODERATOR->value)
             ->path('moderator')
             ->login(Login::class)
             ->registration(Register::class)

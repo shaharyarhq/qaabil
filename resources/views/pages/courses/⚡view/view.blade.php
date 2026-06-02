@@ -2,7 +2,7 @@
 
     <x-courses.view.hero :course="$course"></x-courses.view.hero>
 
-    <x-courses.view.content :course="$course"></x-courses.view.content>
+    <x-courses.view.content :course="$course" :objective-progress="$objectiveProgress"></x-courses.view.content>
 
     <style>
         /* ── Shared accordion body ── */

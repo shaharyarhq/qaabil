@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\CountryCode;
 use App\Mail\ContactFormMail;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -9,25 +10,30 @@ new class extends Component
     public string $name = '';
     public string $email = '';
     public string $phone = '';
-    public string $phone_number = '';
     public string $country_code = '';
     public string $topic = '';
     public string $message = '';
     public bool $sent = false;
 
+    public function mount(): void
+    {
+        $this->country_code = CountryCode::default()->value;
+    }
+
     public function send(): void
     {
-        // merge first, then validate
-        $this->phone = empty($this->phone)
-            ? ''
-            : $this->country_code . ltrim(trim($this->phone), '+0');
-
         $this->validate();
 
-        Mail::to('admin@qaabil.com')->send(new ContactFormMail([
+        $fullPhone = null;
+        if ($this->phone && $this->country_code) {
+            $iso = CountryCode::from($this->country_code)->name;
+            $fullPhone = phone($this->phone, $iso)->formatE164();
+        }
+
+        Mail::to(config('app.admin_email'))->send(new ContactFormMail([
             'name'    => $this->name,
             'email'   => $this->email,
-            'phone'   => $this->phone ?: null,
+            'phone'   => $fullPhone,
             'topic'   => $this->topic,
             'message' => $this->message,
         ]));
@@ -37,11 +43,15 @@ new class extends Component
 
     protected function rules(): array
     {
+        $iso = $this->country_code
+            ? CountryCode::from($this->country_code)->name
+            : 'AUTO';
+
         return [
             'name'         => 'required|string|max:100',
             'email'        => 'required|email',
-            'country_code' => 'nullable|string|max:10',
-            'phone'        => ['nullable', 'phone:AUTO'],
+            'country_code' => 'nullable|string',
+            'phone'        => ['nullable', "phone:{$iso}"],
             'topic'        => 'nullable|string|max:100',
             'message'      => 'required|string|max:2000',
         ];
@@ -50,7 +60,7 @@ new class extends Component
     protected function messages(): array
     {
         return [
-            'phone.phone' => 'Please enter a valid phone number for the selected country code.',
+            'phone.phone' => 'Please enter a valid phone number for the selected country.',
         ];
     }
 };

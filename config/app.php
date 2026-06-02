@@ -310,4 +310,5 @@ return [
         'zu' => 'Zulu',
     ],
 
+    'admin_email' => env('ADMIN_EMAIL')
 ];

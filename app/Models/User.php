@@ -4,10 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Andreia\FilamentUiSwitcher\Models\Traits\HasUiPreferences;
+use App\Enums\Panel as EnumsPanel;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
 use App\Notifications\BadgeEarnedNotification;
-use Database\Factories\UserFactory;
 use DutchCodingCompany\FilamentSocialite\Models\SocialiteUser;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
@@ -119,9 +119,9 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
-            'admin' => $this->isSuperAdmin(),
-            'member' => $this->isStudent(),
-            'moderator' => $this->isModerator(),
+            EnumsPanel::ADMIN->value => $this->isSuperAdmin(),
+            EnumsPanel::MEMBER->value => $this->isStudent(),
+            EnumsPanel::MODERATOR->value => $this->isModerator(),
             default => false,
         };
     }

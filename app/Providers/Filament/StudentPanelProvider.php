@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\Panel as EnumsPanel;
 use App\Enums\UserRole;
 use App\Exceptions\SocialiteEmailAlreadyExistsException;
 use App\Exceptions\SocialiteUnableToCreateUserException;
@@ -9,6 +10,7 @@ use App\Filament\Student\Pages\Login;
 use App\Filament\Student\Pages\Register;
 use App\Filament\Support\PanelConfiguration;
 use App\Filament\Widgets\AccountWidget;
+use App\Livewire\CustomPersonalInfo;
 use App\Models\User;
 use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 use DutchCodingCompany\FilamentSocialite\Provider;
@@ -38,7 +40,7 @@ class StudentPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return PanelConfiguration::make($panel)
-            ->id('member')
+            ->id(EnumsPanel::MEMBER->value)
             ->path('member')
             ->login(Login::class)
             ->registration(Register::class)
@@ -76,7 +78,9 @@ class StudentPanelProvider extends PanelProvider
             ])
             ->plugins([
                 BreezyCore::make()
-                    // ->customMyProfilePage(Profile::class)
+                    ->myProfileComponents([
+                        'personal_info' => CustomPersonalInfo::class,
+                    ])
                     ->myProfile(hasAvatars: true),
                 FilamentSocialitePlugin::make()
                     ->slug('member')

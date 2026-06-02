@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\Panel as EnumsPanel;
 use App\Enums\UserRole;
 use App\Exceptions\SocialiteEmailAlreadyExistsException;
 use App\Exceptions\SocialiteUnableToCreateUserException;
@@ -10,6 +11,7 @@ use App\Filament\Moderator\Pages\Register;
 use App\Filament\Support\PanelConfiguration;
 use App\Filament\Widgets\AccountWidget;
 use App\Http\Middleware\EnsureModeratorIsApproved;
+use App\Livewire\CustomPersonalInfo;
 use App\Models\User;
 use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 use DutchCodingCompany\FilamentSocialite\Provider;
@@ -33,7 +35,6 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\View\View;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
-use App\Enums\Panel as EnumsPanel;
 
 class ModeratorPanelProvider extends PanelProvider
 {
@@ -79,7 +80,9 @@ class ModeratorPanelProvider extends PanelProvider
             ])
             ->plugins([
                 BreezyCore::make()
-                    // ->customMyProfilePage(Profile::class)
+                    ->myProfileComponents([
+                        'personal_info' => CustomPersonalInfo::class,
+                    ])
                     ->myProfile(hasAvatars: true),
                 FilamentSocialitePlugin::make()
                     ->slug('moderator')

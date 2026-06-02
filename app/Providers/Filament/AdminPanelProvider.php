@@ -2,9 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\Panel as EnumsPanel;
 use App\Filament\Admin\Pages\Profile;
 use App\Filament\Support\PanelConfiguration;
 use App\Filament\Widgets\AccountWidget;
+use App\Livewire\CustomPersonalInfo;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,7 +21,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
-use App\Enums\Panel as EnumsPanel;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -58,7 +59,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 BreezyCore::make()
-                    ->customMyProfilePage(Profile::class)
+                    ->myProfileComponents([
+                        'personal_info' => CustomPersonalInfo::class,
+                    ])
                     ->myProfile(hasAvatars: true),
             ]);
     }

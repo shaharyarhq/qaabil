@@ -18,7 +18,7 @@
 
             <div class="space-y-2">
                 <p class="text-lg text-gray-600 dark:text-gray-400">
-                    Your moderator account is currently under review.
+                    Your moderator account is currently under review. To proceed with your approval, kindly send your CV or resume to admin@qaabil.academy
                 </p>
 
                 <div

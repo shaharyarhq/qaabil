@@ -23,12 +23,16 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('email_verified_at')
                     ->copyable()
+                    ->placeholder('Not verified Yet')
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('roles.name')
                     ->copyable()->badge(),
                 TextColumn::make('socialiteUser.provider')
-                    ->copyable()->label('Active provider')->badge(),
+                    ->label('Active provider')
+                    ->copyable()
+                    ->default('email')
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -37,6 +41,12 @@ class UsersTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('email_verified_at')
+                    ->label('Email Verified At')
+                    ->dateTime(app_date_time_format()),
+                TextColumn::make('created_at')
+                    ->label('Registered At')
+                    ->dateTime(app_date_time_format()),
             ])
             ->filters([
                 //
@@ -44,12 +54,18 @@ class UsersTable
             ->recordActions([
                 // ViewAction::make(),
                 // EditAction::make(),
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->hidden(fn($record) => $record->isSuperAdmin()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+
                 ]),
-            ]);
+            ])
+            ->checkIfRecordIsSelectableUsing(
+                fn($record): bool => !$record->isSuperAdmin(),
+            )
+        ;
     }
 }

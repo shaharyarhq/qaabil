@@ -114,30 +114,30 @@
     {{-- ══════════════════════════════════════════════
          STATS BAR
     ══════════════════════════════════════════════ --}}
-    <div class="bg-white border-b border-[#e2e8f0]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
+    {{-- <div class="bg-white border-b border-[#e2e8f0]"> --}}
+        {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5"> --}}
             {{-- 2-col on mobile, 4-col on md — remove divide-x on mobile (it looks odd with 2-col wrap) --}}
-            <div class="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x md:divide-[#e2e8f0]">
-                @php
+            {{-- <div class="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x md:divide-[#e2e8f0]"> --}}
+                {{-- @php
                     $stats = [
                         ['500+', 'Students enrolled'],
                         ['12', 'Courses offered'],
                         ['98%', 'Satisfaction rate'],
                         ['3', 'Years running'],
                     ];
-                @endphp
-                @foreach ($stats as [$num, $label])
+                @endphp --}}
+                {{-- @foreach ($stats as [$num, $label])
                     <div
-                        class="px-3 sm:px-6 py-3 border-b border-[#e2e8f0] md:border-b-0 last:border-b-0 [&:nth-child(2)]:border-b [&:nth-child(2)]:md:border-b-0">
+                        class="px-3 sm:px-6 py-3 border-b border-[#e2e8f0] md:border-b-0 last:border-b-0 nth-2:border-b nth-2:md:border-b-0">
                         <div class="text-[1.35rem] sm:text-[1.6rem] font-extrabold text-[#1b3a6b] leading-none">
                             {{ $num }}</div>
                         <div class="text-[.68rem] sm:text-[.72rem] font-semibold text-[#94a3b8] mt-0.5">
                             {{ $label }}</div>
                     </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
+                @endforeach --}}
+            {{-- </div> --}}
+        {{-- </div> --}}
+    {{-- </div> --}}
     <main class="flex flex-col gap-16 sm:gap-20 md:gap-24 pb-20 sm:pb-28">
         {{-- ══════════════════════════════════════════════
              ABOUT QAABIL ACADEMY

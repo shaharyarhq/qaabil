@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Andreia\FilamentUiSwitcher\Models\Traits\HasUiPreferences;
 use App\Enums\Panel as EnumsPanel;
 use App\Enums\UserRole;
@@ -23,7 +23,7 @@ use QCod\Gamify\Badge;
 use QCod\Gamify\Gamify;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar
+class User extends Authenticatable implements FilamentUser, HasAvatar, MustVerifyEmail
 // ,
 //  MustVerifyEmail
 {

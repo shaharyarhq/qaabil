@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class VideoAccessService
 {
     const GUEST_SESSION_KEY = 'watched_video_ids';
-    const FREE_LIMIT = 1;
+    const FREE_LIMIT = 10;
 
     /**
      * Did the current member upload at least one video this calendar month?

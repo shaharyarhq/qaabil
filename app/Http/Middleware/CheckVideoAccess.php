@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Video;
 
 class CheckVideoAccess
 {
@@ -17,8 +18,8 @@ class CheckVideoAccess
     {
         $video = $request->route('video');
 
-        if (! $video instanceof \App\Models\Video) {
-            $video = \App\Models\Video::findOrFail($video);
+        if (! $video instanceof Video) {
+            $video = Video::findOrFail($video);
         }
 
         // ── GUEST ────────────────────────────────────────────────────────

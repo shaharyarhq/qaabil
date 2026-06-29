@@ -1,6 +1,6 @@
 <div>
     {{-- ══════════════════════════════════════════════
-         HERO SLIDER
+    HERO SLIDER
     ══════════════════════════════════════════════ --}}
     @php
         $academySlides = [
@@ -77,8 +77,8 @@
                                                 {{ $slide['cta1']['label'] }}
                                                 <svg class="w-4 h-4 ml-2 shrink-0" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2.5" d="M9 5l7 7-7 7" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                        d="M9 5l7 7-7 7" />
                                                 </svg>
                                             </a>
                                             <a href="{{ $slide['cta2']['href'] }}"
@@ -112,35 +112,36 @@
         </div>
     </div>
     {{-- ══════════════════════════════════════════════
-         STATS BAR
+    STATS BAR
     ══════════════════════════════════════════════ --}}
     {{-- <div class="bg-white border-b border-[#e2e8f0]"> --}}
         {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5"> --}}
             {{-- 2-col on mobile, 4-col on md — remove divide-x on mobile (it looks odd with 2-col wrap) --}}
             {{-- <div class="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x md:divide-[#e2e8f0]"> --}}
                 {{-- @php
-                    $stats = [
-                        ['500+', 'Students enrolled'],
-                        ['12', 'Courses offered'],
-                        ['98%', 'Satisfaction rate'],
-                        ['3', 'Years running'],
-                    ];
+                $stats = [
+                ['500+', 'Students enrolled'],
+                ['12', 'Courses offered'],
+                ['98%', 'Satisfaction rate'],
+                ['3', 'Years running'],
+                ];
                 @endphp --}}
                 {{-- @foreach ($stats as [$num, $label])
-                    <div
-                        class="px-3 sm:px-6 py-3 border-b border-[#e2e8f0] md:border-b-0 last:border-b-0 nth-2:border-b nth-2:md:border-b-0">
-                        <div class="text-[1.35rem] sm:text-[1.6rem] font-extrabold text-[#1b3a6b] leading-none">
-                            {{ $num }}</div>
-                        <div class="text-[.68rem] sm:text-[.72rem] font-semibold text-[#94a3b8] mt-0.5">
-                            {{ $label }}</div>
-                    </div>
+                <div
+                    class="px-3 sm:px-6 py-3 border-b border-[#e2e8f0] md:border-b-0 last:border-b-0 nth-2:border-b nth-2:md:border-b-0">
+                    <div class="text-[1.35rem] sm:text-[1.6rem] font-extrabold text-[#1b3a6b] leading-none">
+                        {{ $num }}</div>
+                    <div class="text-[.68rem] sm:text-[.72rem] font-semibold text-[#94a3b8] mt-0.5">
+                        {{ $label }}</div>
+                </div>
                 @endforeach --}}
+                {{--
+            </div> --}}
             {{-- </div> --}}
         {{-- </div> --}}
-    {{-- </div> --}}
     <main class="flex flex-col gap-16 sm:gap-20 md:gap-24 pb-20 sm:pb-28">
         {{-- ══════════════════════════════════════════════
-             ABOUT QAABIL ACADEMY
+        ABOUT QAABIL ACADEMY
         ══════════════════════════════════════════════ --}}
         <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 md:pt-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -196,7 +197,7 @@
             </div>
         </section>
         {{-- ══════════════════════════════════════════════
-             WHAT WE OFFER (SERVICES)
+        WHAT WE OFFER (SERVICES)
         ══════════════════════════════════════════════ --}}
         <section id="offerings" class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="text-center max-w-xl mx-auto mb-10 sm:mb-14">
@@ -296,62 +297,60 @@
             {{-- 1-col mobile, 2-col tablet, 3-col desktop --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 @foreach ($offerings as $i => $o)
-                    <div
-                        class="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                        {{ $o['dark']
-                            ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
-                            : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
-                        @if ($o['dark'])
-                            <div class="absolute rounded-full pointer-events-none"
-                                style="width:220px;height:220px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
-                            </div>
-                        @endif
-                        @if ($o['badge'])
-                            <div class="absolute top-4 right-4 sm:top-5 sm:right-5">
-                                <span
-                                    class="text-[.6rem] font-extrabold uppercase tracking-[.06em] bg-[#f59e0b] text-[#1b3a6b] rounded-full px-2.5 py-1">
-                                    {{ $o['badge'] }}
-                                </span>
-                            </div>
-                        @endif
-                        <div class="relative z-10 flex flex-col flex-1">
-                            <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">{{ $o['icon'] }}</div>
                             <div
-                                class="text-[.68rem] sm:text-[.7rem] font-bold uppercase tracking-wider mb-1 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
-                                {{ $o['sub'] }}
-                            </div>
-                            <h3
-                                class="text-base sm:text-lg font-extrabold mb-2 sm:mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}">
-                                {{ $o['title'] }}
-                            </h3>
-                            <p
-                                class="text-sm leading-relaxed flex-1 mb-5 sm:mb-6 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
-                                {{ $o['desc'] }}
-                            </p>
-                            <ul class="space-y-2 mb-5 sm:mb-6">
-                                @foreach ($o['features'] as $f)
-                                    <li
-                                        class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
+                                class="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
+                                                                                                {{ $o['dark']
+                    ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
+                    : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
+                                @if ($o['dark'])
+                                    <div class="absolute rounded-full pointer-events-none"
+                                        style="width:220px;height:220px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
+                                    </div>
+                                @endif
+                                @if ($o['badge'])
+                                    <div class="absolute top-4 right-4 sm:top-5 sm:right-5">
                                         <span
-                                            class="inline-block w-1.5 h-1.5 rounded-full bg-[#f59e0b] shrink-0"></span>
-                                        {{ $f }}
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <a href="#contact"
-                                class="no-underline text-center py-2.5 rounded-xl text-sm font-extrabold transition-colors
-                                {{ $o['dark']
-                                    ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
-                                    : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
-                                Enquire →
-                            </a>
-                        </div>
-                    </div>
+                                            class="text-[.6rem] font-extrabold uppercase tracking-[.06em] bg-[#f59e0b] text-[#1b3a6b] rounded-full px-2.5 py-1">
+                                            {{ $o['badge'] }}
+                                        </span>
+                                    </div>
+                                @endif
+                                <div class="relative z-10 flex flex-col flex-1">
+                                    <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">{{ $o['icon'] }}</div>
+                                    <div
+                                        class="text-[.68rem] sm:text-[.7rem] font-bold uppercase tracking-wider mb-1 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
+                                        {{ $o['sub'] }}
+                                    </div>
+                                    <h3
+                                        class="text-base sm:text-lg font-extrabold mb-2 sm:mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}">
+                                        {{ $o['title'] }}
+                                    </h3>
+                                    <p
+                                        class="text-sm leading-relaxed flex-1 mb-5 sm:mb-6 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
+                                        {{ $o['desc'] }}
+                                    </p>
+                                    <ul class="space-y-2 mb-5 sm:mb-6">
+                                        @foreach ($o['features'] as $f)
+                                            <li
+                                                class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
+                                                <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#f59e0b] shrink-0"></span>
+                                                {{ $f }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <a href="#contact" class="no-underline text-center py-2.5 rounded-xl text-sm font-extrabold transition-colors
+                                                                                                        {{ $o['dark']
+                    ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
+                    : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
+                                        Enquire →
+                                    </a>
+                                </div>
+                            </div>
                 @endforeach
             </div>
         </section>
         {{-- ══════════════════════════════════════════════
-             WHY CHOOSE QAABIL ACADEMY
+        WHY CHOOSE QAABIL ACADEMY
         ══════════════════════════════════════════════ --}}
         <section class="bg-[#f8fafc] border-y border-[#e2e8f0]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
@@ -419,7 +418,7 @@
             </div>
         </section>
         {{-- ══════════════════════════════════════════════
-             GALLERY SLIDER
+        GALLERY SLIDER
         ══════════════════════════════════════════════ --}}
         <section id="gallery" class="w-full">
             {{-- header — max-w-7xl mein --}}
@@ -441,16 +440,14 @@
                     <div class="flex gap-2 shrink-0">
                         <button
                             class="gallery-prev w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button
                             class="gallery-next w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
@@ -509,7 +506,7 @@
             </div>
         </section>
         {{-- ══════════════════════════════════════════════
-             TUTORS SLIDER
+        TUTORS SLIDER
         ══════════════════════════════════════════════ --}}
         <section id="tutors" class="w-full">
             {{-- header — max-w-7xl mein --}}
@@ -531,16 +528,14 @@
                     <div class="flex gap-2 shrink-0">
                         <button
                             class="tutors-prev w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button
                             class="tutors-next w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
@@ -609,13 +604,15 @@
                                         </div>
                                         <div>
                                             <div class="text-sm sm:text-base font-extrabold text-[#0f172a]">
-                                                {{ $name }}</div>
+                                                {{ $name }}
+                                            </div>
                                             <div class="text-xs font-semibold text-[#94a3b8]">{{ $role }}
                                             </div>
                                         </div>
                                     </div>
                                     <p class="text-sm text-[#475569] leading-relaxed flex-1 mb-4 sm:mb-5">
-                                        {{ $bio }}</p>
+                                        {{ $bio }}
+                                    </p>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($tags as $tag)
                                             <span
@@ -632,7 +629,7 @@
             </div>
         </section>
         {{-- ══════════════════════════════════════════════
-             TESTIMONIALS
+        TESTIMONIALS
         ══════════════════════════════════════════════ --}}
         <section class="bg-[#1b3a6b] relative overflow-hidden">
             <div class="absolute rounded-full pointer-events-none"
@@ -651,8 +648,7 @@
                     <h2 class="font-extrabold text-white tracking-tight leading-snug"
                         style="font-size:clamp(1.6rem,4vw,2rem)">
                         Heard from our
-                        <span
-                            class="font-['Instrument_Serif',serif] font-normal italic text-[#f59e0b]">graduates</span>
+                        <span class="font-['Instrument_Serif',serif] font-normal italic text-[#f59e0b]">graduates</span>
                     </h2>
                 </div>
                 @php
@@ -695,11 +691,11 @@
                             <div class="swiper-slide !h-auto">
                                 <div class="rounded-2xl sm:rounded-3xl p-5 sm:p-7 h-full flex flex-col"
                                     style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">
-                                    <div
-                                        class="text-[#f59e0b] text-2xl sm:text-3xl font-serif mb-3 sm:mb-4 leading-none">
+                                    <div class="text-[#f59e0b] text-2xl sm:text-3xl font-serif mb-3 sm:mb-4 leading-none">
                                         "</div>
                                     <p class="text-white/75 text-sm leading-relaxed flex-1 mb-5 sm:mb-6 italic">
-                                        {{ $quote }}</p>
+                                        {{ $quote }}
+                                    </p>
                                     <div class="flex items-center gap-3">
                                         <div
                                             class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f59e0b] flex items-center justify-center text-[#1b3a6b] font-extrabold text-sm shrink-0">
@@ -719,128 +715,7 @@
             </div>
         </section>
         {{-- ══════════════════════════════════════════════
-             CONTACT US
-        ══════════════════════════════════════════════ --}}
-        <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
-                {{-- info panel --}}
-                <div
-                    class="bg-[#1b3a6b] rounded-2xl sm:rounded-3xl p-7 sm:p-10 md:p-14 flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute rounded-full pointer-events-none"
-                        style="width:300px;height:300px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-80px;right:-60px">
-                    </div>
-                    <div class="relative z-10">
-                        <div class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.1em] mb-3 sm:mb-4"
-                            style="color:rgba(245,158,11,.8)">
-                            <span class="inline-block w-4 h-[3px] rounded-sm bg-[#f59e0b]"></span>
-                            Contact Us
-                        </div>
-                        <h2 class="font-extrabold text-white tracking-tight leading-snug mb-3"
-                            style="font-size:clamp(1.4rem,3.5vw,1.9rem)">
-                            Let's talk about
-                            <span class="font-['Instrument_Serif',serif] font-normal italic text-[#f59e0b]">your
-                                goals.</span>
-                        </h2>
-                        <p class="text-white/55 text-sm leading-relaxed mb-7 sm:mb-10">
-                            Not sure which track is right for you? Drop us a message and we'll help you figure it out —
-                            no sales pitch, just an honest conversation.
-                        </p>
-                        <div class="space-y-4 sm:space-y-5">
-                            @php
-                                $contactInfo = [
-                                    ['📍', 'Location', 'Block 7, PECHS, Karachi, Pakistan'],
-                                    ['📞', 'Phone', '+92 300 0000000'],
-                                    ['✉️', 'Email', 'academy@qaabil.com'],
-                                    ['⏰', 'Hours', 'Mon–Sat, 9 AM – 7 PM'],
-                                ];
-                            @endphp
-                            @foreach ($contactInfo as [$icon, $label, $val])
-                                <div class="flex items-start gap-3">
-                                    <span class="text-base shrink-0 mt-0.5">{{ $icon }}</span>
-                                    <div>
-                                        <div
-                                            class="text-[.68rem] font-bold uppercase tracking-wider text-white/35 mb-0.5">
-                                            {{ $label }}</div>
-                                        <div class="text-sm font-semibold text-white">{{ $val }}</div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="relative z-10 mt-8 sm:mt-10">
-                        <a href="https://wa.me/923000000000" target="_blank"
-                            class="no-underline inline-flex items-center gap-2 bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] font-extrabold rounded-xl px-5 py-3 text-sm transition-colors">
-                            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                            </svg>
-                            WhatsApp us
-                        </a>
-                    </div>
-                </div>
-                {{-- form panel --}}
-                <div class="bg-white border border-[#e2e8f0] rounded-2xl sm:rounded-3xl p-7 sm:p-10 md:p-14">
-                    <h3 class="text-lg sm:text-xl font-extrabold text-[#0f172a] mb-1">Send us a message</h3>
-                    <p class="text-sm text-[#94a3b8] mb-6 sm:mb-8">We reply within one business day.</p>
-                    <div class="space-y-4 sm:space-y-5">
-                        {{-- name + phone: 2-col on sm+, stack on xs --}}
-                        <div class="grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-5">
-                            <div>
-                                <label
-                                    class="block text-xs font-bold text-[#0f172a] mb-1.5 uppercase tracking-wider">Full
-                                    name</label>
-                                <input type="text" placeholder="Your name"
-                                    class="w-full border border-[#e2e8f0] rounded-xl px-4 py-3 text-sm text-[#0f172a] placeholder-[#94a3b8] focus:outline-none focus:border-[#1b3a6b]/40 focus:ring-2 focus:ring-[#1b3a6b]/10 transition-all">
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-xs font-bold text-[#0f172a] mb-1.5 uppercase tracking-wider">Phone
-                                    / WhatsApp</label>
-                                <input type="tel" placeholder="+92 3xx xxxxxxx"
-                                    class="w-full border border-[#e2e8f0] rounded-xl px-4 py-3 text-sm text-[#0f172a] placeholder-[#94a3b8] focus:outline-none focus:border-[#1b3a6b]/40 focus:ring-2 focus:ring-[#1b3a6b]/10 transition-all">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-[#0f172a] mb-1.5 uppercase tracking-wider">Email
-                                address</label>
-                            <input type="email" placeholder="you@example.com"
-                                class="w-full border border-[#e2e8f0] rounded-xl px-4 py-3 text-sm text-[#0f172a] placeholder-[#94a3b8] focus:outline-none focus:border-[#1b3a6b]/40 focus:ring-2 focus:ring-[#1b3a6b]/10 transition-all">
-                        </div>
-                        <div>
-                            <label
-                                class="block text-xs font-bold text-[#0f172a] mb-1.5 uppercase tracking-wider">Interested
-                                track</label>
-                            <select
-                                class="w-full border border-[#e2e8f0] rounded-xl px-4 py-3 text-sm text-[#0f172a] focus:outline-none focus:border-[#1b3a6b]/40 focus:ring-2 focus:ring-[#1b3a6b]/10 transition-all appearance-none bg-white">
-                                <option value="" disabled selected>Select a track…</option>
-                                <option>Web Development</option>
-                                <option>UI/UX Design</option>
-                                <option>Digital Marketing</option>
-                                <option>AI & Automation</option>
-                                <option>Mobile Development</option>
-                                <option>Corporate Training</option>
-                                <option>Not sure yet</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-[#0f172a] mb-1.5 uppercase tracking-wider">
-                                Message <span
-                                    class="text-[#94a3b8] font-normal normal-case tracking-normal">(optional)</span>
-                            </label>
-                            <textarea rows="4" placeholder="Tell us a bit about your background and what you're hoping to achieve…"
-                                class="w-full border border-[#e2e8f0] rounded-xl px-4 py-3 text-sm text-[#0f172a] placeholder-[#94a3b8] focus:outline-none focus:border-[#1b3a6b]/40 focus:ring-2 focus:ring-[#1b3a6b]/10 transition-all resize-none"></textarea>
-                        </div>
-                        <button type="button"
-                            class="w-full bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] font-extrabold rounded-xl py-3.5 text-sm transition-colors">
-                            Send message →
-                        </button>
-                        <p class="text-center text-xs text-[#94a3b8]">Or just WhatsApp us — we're faster there.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        {{-- ══════════════════════════════════════════════
-             MANIFESTO / CLOSING CTA
+        MANIFESTO / CLOSING CTA
         ══════════════════════════════════════════════ --}}
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div
@@ -851,22 +726,16 @@
                 <div class="relative z-10">
                     <p class="font-['Instrument_Serif',serif] italic text-white leading-[1.45] max-w-[620px] mx-auto mb-4"
                         style="font-size:clamp(1.25rem,3.5vw,2.1rem)">
-                        "The academy is where the platform's philosophy gets a physical form.
-                        <span class="text-[#f59e0b]"> ✦ </span>
-                        Show up, do the work, earn your seat."
+                        The education centre is where the platform's philosophy gets a physical form.
                     </p>
                     <div class="w-10 h-[2px] rounded mx-auto mb-5 sm:mb-6" style="background:rgba(245,158,11,.4)">
                     </div>
-                    <p class="text-sm text-white/45 max-w-[420px] mx-auto leading-relaxed mb-7 sm:mb-8">
-                        Next batch starts soon. Seats are limited to 15. Once they're gone, they're gone until the next
-                        cohort.
-                    </p>
                     <div class="flex flex-col xs:flex-row flex-wrap gap-3 justify-center">
-                        <a href="#contact"
+                        <a href="{{ route('contact') }}#contact"
                             class="no-underline text-center bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] font-extrabold rounded-xl px-7 sm:px-8 py-3 text-sm transition-colors">
-                            Reserve your seat →
+                            Contact us →
                         </a>
-                        <a href="https://wa.me/923000000000" target="_blank"
+                        <a href="https://wa.me/601167424472" target="_blank"
                             class="no-underline text-center text-white/80 font-semibold rounded-xl px-7 sm:px-8 py-3 text-sm transition-all hover:bg-white/10"
                             style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18)">
                             Ask on WhatsApp
@@ -877,7 +746,7 @@
         </div>
     </main>
     {{-- ══════════════════════════════════════════════
-         WHATSAPP FLOATING BUTTON
+    WHATSAPP FLOATING BUTTON
     ══════════════════════════════════════════════ --}}
     <a href="https://wa.me/923000000000?text=Hi%2C%20I%27m%20interested%20in%20Qaabil%20Academy." target="_blank"
         class="wa-float fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-13 h-13 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_8px_24px_-4px_rgba(37,211,102,.5)] transition-all hover:scale-110 hover:shadow-[0_12px_32px_-4px_rgba(37,211,102,.65)]"
@@ -889,163 +758,163 @@
         <span class="absolute inset-0 rounded-full animate-ping opacity-30" style="background:#25d366"></span>
     </a>
     @script
-        <script>
-            // ── Hero ──
-            new Swiper('.academyHeroSwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false
-                },
-                speed: 800,
-                navigation: {
-                    nextEl: '.acad-hero-next',
-                    prevEl: '.acad-hero-prev'
-                },
-                pagination: {
-                    el: '.acad-hero-pagination',
-                    clickable: true,
-                    renderBullet: (index, className) =>
-                        `<span class="${className} w-3 h-3 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.3)"></span>`,
-                },
+    <script>
+        // ── Hero ──
+        new Swiper('.academyHeroSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            speed: 800,
+            navigation: {
+                nextEl: '.acad-hero-next',
+                prevEl: '.acad-hero-prev'
+            },
+            pagination: {
+                el: '.acad-hero-pagination',
+                clickable: true,
+                renderBullet: (index, className) =>
+                    `<span class="${className} w-3 h-3 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.3)"></span>`,
+            },
+        });
+        const acadHeroPag = document.querySelector('.acad-hero-pagination');
+        if (acadHeroPag) {
+            new MutationObserver(() => {
+                acadHeroPag.querySelectorAll('.swiper-pagination-bullet').forEach(b => {
+                    if (b.classList.contains('swiper-pagination-bullet-active')) {
+                        b.style.background = '#f59e0b';
+                        b.style.width = '28px';
+                        b.style.borderRadius = '999px';
+                    } else {
+                        b.style.background = 'rgba(255,255,255,.3)';
+                        b.style.width = '12px';
+                        b.style.borderRadius = '50%';
+                    }
+                });
+            }).observe(acadHeroPag, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['class']
             });
-            const acadHeroPag = document.querySelector('.acad-hero-pagination');
-            if (acadHeroPag) {
-                new MutationObserver(() => {
-                    acadHeroPag.querySelectorAll('.swiper-pagination-bullet').forEach(b => {
-                        if (b.classList.contains('swiper-pagination-bullet-active')) {
-                            b.style.background = '#f59e0b';
-                            b.style.width = '28px';
-                            b.style.borderRadius = '999px';
-                        } else {
-                            b.style.background = 'rgba(255,255,255,.3)';
-                            b.style.width = '12px';
-                            b.style.borderRadius = '50%';
-                        }
-                    });
-                }).observe(acadHeroPag, {
+        }
+        // ── Gallery ──
+        new Swiper('.gallerySwiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false
+            },
+            speed: 700,
+            slidesPerView: 1.1,
+            spaceBetween: 12,
+            navigation: {
+                nextEl: '.gallery-next',
+                prevEl: '.gallery-prev'
+            },
+            breakpoints: {
+                480: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 14
+                },
+                640: {
+                    slidesPerView: 2.1,
+                    spaceBetween: 16
+                },
+                1024: {
+                    slidesPerView: 3.1,
+                    spaceBetween: 16
+                },
+            },
+        });
+        // ── Tutors ──
+        new Swiper('.tutorsSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false
+            },
+            speed: 700,
+            slidesPerView: 1,
+            spaceBetween: 16,
+            navigation: {
+                nextEl: '.tutors-next',
+                prevEl: '.tutors-prev'
+            },
+            breakpoints: {
+                480: {
+                    slidesPerView: 1.2
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                },
+            },
+        });
+        // ── Testimonials ──
+        function updateTestimonialDots() {
+            document.querySelectorAll('.testimonials-pagination .swiper-pagination-bullet').forEach(b => {
+                if (b.classList.contains('swiper-pagination-bullet-active')) {
+                    b.style.background = '#f59e0b';
+                    b.style.width = '24px';
+                    b.style.borderRadius = '999px';
+                } else {
+                    b.style.background = 'rgba(255,255,255,.25)';
+                    b.style.width = '10px';
+                    b.style.borderRadius = '50%';
+                }
+            });
+        }
+        new Swiper('.testimonialsSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            speed: 700,
+            slidesPerView: 1,
+            spaceBetween: 16,
+            pagination: {
+                el: '.testimonials-pagination',
+                clickable: true,
+                renderBullet: (index, className) =>
+                    `<span class="${className} w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.25)"></span>`,
+            },
+            on: {
+                init() {
+                    updateTestimonialDots();
+                },
+                slideChange() {
+                    updateTestimonialDots();
+                },
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                },
+            },
+        });
+        const testPag = document.querySelector('.testimonials-pagination');
+        if (testPag) {
+            new MutationObserver(updateTestimonialDots)
+                .observe(testPag, {
                     childList: true,
                     subtree: true,
                     attributes: true,
                     attributeFilter: ['class']
                 });
-            }
-            // ── Gallery ──
-            new Swiper('.gallerySwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false
-                },
-                speed: 700,
-                slidesPerView: 1.1,
-                spaceBetween: 12,
-                navigation: {
-                    nextEl: '.gallery-next',
-                    prevEl: '.gallery-prev'
-                },
-                breakpoints: {
-                    480: {
-                        slidesPerView: 1.5,
-                        spaceBetween: 14
-                    },
-                    640: {
-                        slidesPerView: 2.1,
-                        spaceBetween: 16
-                    },
-                    1024: {
-                        slidesPerView: 3.1,
-                        spaceBetween: 16
-                    },
-                },
-            });
-            // ── Tutors ──
-            new Swiper('.tutorsSwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 4500,
-                    disableOnInteraction: false
-                },
-                speed: 700,
-                slidesPerView: 1,
-                spaceBetween: 16,
-                navigation: {
-                    nextEl: '.tutors-next',
-                    prevEl: '.tutors-prev'
-                },
-                breakpoints: {
-                    480: {
-                        slidesPerView: 1.2
-                    },
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    },
-                },
-            });
-            // ── Testimonials ──
-            function updateTestimonialDots() {
-                document.querySelectorAll('.testimonials-pagination .swiper-pagination-bullet').forEach(b => {
-                    if (b.classList.contains('swiper-pagination-bullet-active')) {
-                        b.style.background = '#f59e0b';
-                        b.style.width = '24px';
-                        b.style.borderRadius = '999px';
-                    } else {
-                        b.style.background = 'rgba(255,255,255,.25)';
-                        b.style.width = '10px';
-                        b.style.borderRadius = '50%';
-                    }
-                });
-            }
-            new Swiper('.testimonialsSwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false
-                },
-                speed: 700,
-                slidesPerView: 1,
-                spaceBetween: 16,
-                pagination: {
-                    el: '.testimonials-pagination',
-                    clickable: true,
-                    renderBullet: (index, className) =>
-                        `<span class="${className} w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.25)"></span>`,
-                },
-                on: {
-                    init() {
-                        updateTestimonialDots();
-                    },
-                    slideChange() {
-                        updateTestimonialDots();
-                    },
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    },
-                },
-            });
-            const testPag = document.querySelector('.testimonials-pagination');
-            if (testPag) {
-                new MutationObserver(updateTestimonialDots)
-                    .observe(testPag, {
-                        childList: true,
-                        subtree: true,
-                        attributes: true,
-                        attributeFilter: ['class']
-                    });
-            }
-        </script>
+        }
+    </script>
     @endscript
     <style>
         .acad-hero-slider .swiper-slide {

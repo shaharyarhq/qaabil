@@ -271,10 +271,10 @@
                         'dark' => false,
                     ],
                     [
-                        'icon' => '🌐',
+                        'icon_img' => asset('images/academy/ib-logo.webp'),
                         'badge' => null,
                         'title' => 'IB',
-                        'sub' => 'International Baccalaureate',
+                        'sub' => '',
                         'desc' => 'Subject support across the IB Diploma Programme, tailored to your specific syllabus and assessment style.',
                         'features' => [
                             'Business Management',
@@ -309,7 +309,7 @@
                             @php $isLongList = count($o['features']) > 8; @endphp
                             <div
                                 class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                    {{ $o['dark']
+                                                                                                    {{ $o['dark']
                     ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
                     : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
 
@@ -372,7 +372,7 @@
 
                                     {{-- CTA --}}
                                     <a href="#contact" class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
-                                                            {{ $o['dark']
+                                                                                                            {{ $o['dark']
                     ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
                     : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
                                         Enquire →

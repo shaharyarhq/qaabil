@@ -212,7 +212,7 @@
             @php
                 $offerings = [
                     [
-                        'icon' => '🎓',
+                        'icon_img' => asset('images/academy/exam-board-logo.webp'),
                         'badge' => null,
                         'title' => 'IGCSE',
                         'sub' => '',
@@ -239,17 +239,18 @@
                             'Chinese',
                             'Malay',
                         ],
-                        'dark' => true,
+                        'dark' => false,
                     ],
                     [
-                        'icon' => '🎨',
+                        // 'icon' => '🎨',
+                        'icon_img' => asset('images/academy/exam-board-logo.webp'),
                         'badge' => null,
                         'title' => 'UI/UX Design',
                         'sub' => '8-week cohort',
                         'desc' =>
                             'Figma-first, user-centered design. You leave with a professional portfolio of case studies reviewed by working designers.',
                         'features' => ['Figma & Prototyping', 'User research', 'Design systems', 'Portfolio review'],
-                        'dark' => false,
+                        'dark' => true,
                     ],
                     [
                         'icon' => '📊',
@@ -317,7 +318,7 @@
                             @endphp
                             <div
                                 class="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                                                                                                                                                                                                                                                                                                                {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ $o['dark']
                     ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
                     : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
                                 @if ($o['dark'])
@@ -334,7 +335,14 @@
                                     </div>
                                 @endif
                                 <div class="relative z-10 flex flex-col flex-1">
-                                    <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">{{ $o['icon'] }}</div>
+
+                                    @if (isset($o['icon_img']))
+                                        <img src="{{ $o['icon_img'] }}" width="260" height="40" alt="IGCSE"
+                                            class="mb-3 sm:mb-4 object-contain" alt="{{ $o['title'] }}" class="mb-3 sm:mb-4" />
+                                    @else
+                                        <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">{{ $o['icon'] }}</div>
+                                    @endif
+
                                     <div
                                         class="text-[.68rem] sm:text-[.7rem] font-bold uppercase tracking-wider mb-1 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
                                         {{ $o['sub'] }}
@@ -357,7 +365,7 @@
                                         @endforeach
                                     </ul>
                                     <a href="#contact" class="no-underline text-center py-2.5 rounded-xl text-sm font-extrabold transition-colors
-                                                                                                                                                                                                                                                                                                                                                                                                        {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ $o['dark']
                     ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
                     : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
                                         Enquire →

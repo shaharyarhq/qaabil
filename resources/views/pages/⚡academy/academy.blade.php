@@ -154,20 +154,21 @@
                     </div>
                     <h2 class="font-extrabold text-[#0f172a] tracking-tight leading-snug mb-5 sm:mb-6"
                         style="font-size:clamp(1.6rem,4vw,2rem)">
-                        The platform, but
-                        <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">in real
-                            life.</span>
+                        Where personalised learning
+                        <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">takes
+                            shape.</span>
                     </h2>
                     <div class="space-y-3 sm:space-y-4 text-[#475569] leading-relaxed text-sm">
-                        <p>Qaabil Academy is the physical extension of the Qaabil platform. Same philosophy — earn
-                            access through proof, not payment — but now with real classrooms, real tutors, and real
-                            accountability.</p>
-                        <p>We built the academy because some learners thrive with structure. A fixed schedule, a
-                            face-to-face mentor, a cohort of peers going through the same thing — these things matter.
-                            The platform never goes away, but for those who want more, the academy is here.</p>
-                        <p>Located in Karachi, we run small-batch cohorts across technology, design, and business
-                            tracks. Every graduate leaves with a portfolio of peer-reviewed work — not just a
-                            certificate.</p>
+                        <p>Qaabil Academy is the physical extension of Qaabil, an online learning platform founded by
+                            Mr. Zain — an education professional with 18 years of experience in the teaching and
+                            learning industry.</p>
+                        <p>Located at Plaza Damas, Sri Hartamas, Kuala Lumpur, we focus on one-to-one classes because we
+                            believe individual attention produces the strongest results. Every student learns
+                            differently, so our approach is tailored to each learner's pace, ability, goals, and
+                            challenges.</p>
+                        <p>We specialise in IGCSE and A Level programmes, while also supporting IB students and English
+                            Language learners. Students don't just attend lessons — they receive focused mentorship,
+                            structured guidance, and continuous accountability.</p>
                     </div>
                     <div class="flex flex-col xs:flex-row flex-wrap gap-3 mt-7 sm:mt-8">
                         <a href="#contact"
@@ -183,16 +184,11 @@
                 {{-- image collage --}}
                 <div class="relative h-[280px] sm:h-[340px] mt-4 lg:mt-0 lg:h-[420px] block">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                        alt="Students at academy"
+                        alt="Students at Qaabil Academy"
                         class="absolute top-0 left-0 w-[65%] h-[75%] object-cover rounded-2xl shadow-[0_20px_40px_-12px_rgba(27,58,107,.2)]">
                     <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                        alt="Academy classroom"
+                        alt="One-to-one tutoring session"
                         class="absolute bottom-0 right-0 w-[52%] h-[58%] object-cover rounded-2xl shadow-[0_20px_40px_-12px_rgba(27,58,107,.2)] border-4 border-white">
-                    <div
-                        class="absolute top-[46%] left-[52%] -translate-x-1/2 -translate-y-1/2 bg-[#f59e0b] rounded-xl sm:rounded-2xl px-4 py-2 sm:px-5 sm:py-3 shadow-xl z-10 text-center">
-                        <div class="text-[#1b3a6b] text-base sm:text-xl font-extrabold">Since</div>
-                        <div class="text-[#1b3a6b] text-2xl sm:text-3xl font-extrabold leading-none">2022</div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -299,7 +295,7 @@
                 @foreach ($offerings as $i => $o)
                             <div
                                 class="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                {{ $o['dark']
+                                                                                                                                                                                                                                                                        {{ $o['dark']
                     ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
                     : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
                                 @if ($o['dark'])
@@ -339,7 +335,7 @@
                                         @endforeach
                                     </ul>
                                     <a href="#contact" class="no-underline text-center py-2.5 rounded-xl text-sm font-extrabold transition-colors
-                                                                                                        {{ $o['dark']
+                                                                                                                                                                                                                                                                                {{ $o['dark']
                     ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
                     : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
                                         Enquire →
@@ -647,41 +643,54 @@
                     </div>
                     <h2 class="font-extrabold text-white tracking-tight leading-snug"
                         style="font-size:clamp(1.6rem,4vw,2rem)">
-                        Heard from our
-                        <span class="font-['Instrument_Serif',serif] font-normal italic text-[#f59e0b]">graduates</span>
+                        Hear from our
+                        <span class="font-['Instrument_Serif',serif] font-normal italic text-[#f59e0b]">satisfied
+                            students</span>
                     </h2>
                 </div>
                 @php
                     $testimonials = [
                         [
-                            'F',
-                            'Fatima K.',
-                            'Web Dev Cohort — Batch 3',
-                            'I\'d tried three other institutes. The difference at Qaabil Academy is that no one lets you coast. My tutor reviewed my code every single day. I got a job within 6 weeks of graduating.',
-                        ],
-                        [
                             'A',
-                            'Ali R.',
-                            'UI/UX Design — Batch 2',
-                            'I came in knowing nothing about design. I left with a portfolio that got me freelance projects before the cohort even ended. The peer review culture is addictive.',
-                        ],
-                        [
-                            'M',
-                            'Mariam N.',
-                            'Digital Marketing — Batch 4',
-                            'My family was skeptical. "Why not get a degree?" Three months after graduating, I\'m running campaigns for two businesses and earning more than most fresh graduates.',
+                            'Arman Dev',
+                            'Business & Economics — CIMP',
+                            'I\'ve been learning Business and Economics with Mr Zain for over a year now, and he always makes my learning experience interesting and engaging. His teaching style is very clear and he makes sure I end the class with full understanding. This has helped me consistently achieve scores above 80 in every exam.',
                         ],
                         [
                             'Z',
-                            'Zubair H.',
-                            'AI & Automation — Batch 1',
-                            'The AI track is genuinely cutting-edge. We weren\'t just learning theory — by week three I\'d already automated my client\'s reporting pipeline. That\'s what makes it different.',
+                            'Zaina Ahamed',
+                            'Business Studies — IGCSE',
+                            'Mr Zain has been the most supportive teacher ever! He has helped me improve in business studies by a lot and I am very grateful for this achievement — all thanks to him!',
+                        ],
+                        [
+                            'K',
+                            'Kaamil Sayeed',
+                            'Business Studies — IGCSE',
+                            'Very nice environment and teachers. Mr Zain from business has got me from a D to an A in Business Studies IGCSE.',
                         ],
                         [
                             'S',
-                            'Sana M.',
-                            'Web Dev Cohort — Batch 5',
-                            'The platform access is a huge bonus. Even after the cohort I kept coming back to the Qaabil platform to unlock more chapters. It\'s like the academy never really ends.',
+                            'Saifullah Sawban',
+                            'Business & Economics — International Baccalaureate',
+                            'I got 85% in my business exam after I enrolled with Mr Zain. He is highly recommended for Business and Economics.',
+                        ],
+                        [
+                            'D',
+                            'Dewi',
+                            'Accounting — IGCSE',
+                            'I started with zero knowledge, but Mr Zain explained everything clearly and made accounting feel easy. His notes and shortcuts were super helpful, and he genuinely cares about his students.',
+                        ],
+                        [
+                            'H',
+                            'Harith Abdillah',
+                            'Economics — IGCSE',
+                            'Mr Zain is the best economics teacher! He helped me understand the concepts of each section in the syllabus and prepared me to have confidence for the exam, while also using fun acronyms.',
+                        ],
+                        [
+                            'A',
+                            'Amrissh Soo',
+                            'Accounting — IGCSE',
+                            'Mr Zain helped me go from a barely pass in my mocks to an A* in my Accounting IGCSE in just 4 months. If it wasn\'t for him I would not have been able to get even close to this result!',
                         ],
                     ];
                 @endphp
@@ -748,7 +757,7 @@
     {{-- ══════════════════════════════════════════════
     WHATSAPP FLOATING BUTTON
     ══════════════════════════════════════════════ --}}
-    <a href="https://wa.me/923000000000?text=Hi%2C%20I%27m%20interested%20in%20Qaabil%20Academy." target="_blank"
+    <a href="https://wa.me/601167424472?text=Hi%2C%20I%27m%20interested%20in%20Qaabil%20Academy." target="_blank"
         class="wa-float fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-13 h-13 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_8px_24px_-4px_rgba(37,211,102,.5)] transition-all hover:scale-110 hover:shadow-[0_12px_32px_-4px_rgba(37,211,102,.65)]"
         style="background:#25d366;width:52px;height:52px" title="Chat with us on WhatsApp">
         <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="white" viewBox="0 0 24 24">

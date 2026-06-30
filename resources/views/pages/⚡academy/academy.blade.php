@@ -212,13 +212,33 @@
             @php
                 $offerings = [
                     [
-                        'icon' => '💻',
-                        'badge' => 'Most popular',
-                        'title' => 'Web Development',
-                        'sub' => '12-week cohort',
-                        'desc' =>
-                            'From HTML to full-stack Laravel. You build four real projects that live on the web by the time you graduate.',
-                        'features' => ['HTML, CSS & Tailwind', 'PHP & Laravel', 'Database & APIs', 'Deployment & Git'],
+                        'icon' => '🎓',
+                        'badge' => null,
+                        'title' => 'IGCSE',
+                        'sub' => '',
+                        'desc' => '',
+                        'features' => [
+                            'Business Studies',
+                            'Accounting',
+                            'Economics',
+                            'Mathematics',
+                            'Additional Mathematics',
+                            'Biology',
+                            'Chemistry',
+                            'Physics',
+                            'Combined / Co-ordinated Science',
+                            'Geography',
+                            'History',
+                            'ICT',
+                            'Computer Science',
+                            'Travel & Tourism',
+                            'Sociology',
+                            'Psychology',
+                            'English',
+                            'Spanish',
+                            'Chinese',
+                            'Malay',
+                        ],
                         'dark' => true,
                     ],
                     [
@@ -291,9 +311,13 @@
             {{-- 1-col mobile, 2-col tablet, 3-col desktop --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 @foreach ($offerings as $i => $o)
+                            @php
+                                // once a card has more than ~8 features, switch its list to a 2-col grid
+                                $isLongList = count($o['features']) > 8;
+                            @endphp
                             <div
                                 class="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                                                                                                                                                                                                                                                    {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                                                    {{ $o['dark']
                     ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
                     : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
                                 @if ($o['dark'])
@@ -323,7 +347,7 @@
                                         class="text-sm leading-relaxed flex-1 mb-5 sm:mb-6 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
                                         {{ $o['desc'] }}
                                     </p>
-                                    <ul class="space-y-2 mb-5 sm:mb-6">
+                                    <ul class="{{ $isLongList ? 'grid grid-cols-2 gap-x-3 gap-y-2' : 'space-y-2' }} mb-5 sm:mb-6">
                                         @foreach ($o['features'] as $f)
                                             <li
                                                 class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
@@ -333,7 +357,7 @@
                                         @endforeach
                                     </ul>
                                     <a href="#contact" class="no-underline text-center py-2.5 rounded-xl text-sm font-extrabold transition-colors
-                                                                                                                                                                                                                                                                                                                                            {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                                                            {{ $o['dark']
                     ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
                     : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
                                         Enquire →

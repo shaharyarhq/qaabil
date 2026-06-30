@@ -194,6 +194,11 @@
         WHAT WE OFFER (SERVICES)
         ══════════════════════════════════════════════ --}}
         <section id="offerings" class="max-w-7xl mx-auto px-4 sm:px-6">
+
+            {{-- Load Fredoka --}}
+            <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+                rel="stylesheet">
+
             <div class="text-center max-w-xl mx-auto mb-10 sm:mb-14">
                 <div
                     class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.1em] text-[#1b3a6b] mb-3">
@@ -202,13 +207,14 @@
                 </div>
                 <h2 class="font-extrabold text-[#0f172a] tracking-tight leading-snug"
                     style="font-size:clamp(1.6rem,4vw,2rem)">
-                    Tracks built for
-                    <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">real outcomes</span>
+                    Subjects built for
+                    <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]">real results</span>
                 </h2>
                 <p class="text-[#475569] mt-3 leading-relaxed text-sm">
-                    Every track is a structured cohort with live sessions, peer reviews, and a final project week.
+                    One-to-one tutoring tailored to your syllabus, your pace, and your goals.
                 </p>
             </div>
+
             @php
                 $offerings = [
                     [
@@ -242,90 +248,77 @@
                         'dark' => false,
                     ],
                     [
-                        // 'icon' => '🎨',
                         'icon_img' => asset('images/academy/exam-board-logo.webp'),
                         'badge' => null,
-                        'title' => 'UI/UX Design',
-                        'sub' => '8-week cohort',
-                        'desc' =>
-                            'Figma-first, user-centered design. You leave with a professional portfolio of case studies reviewed by working designers.',
-                        'features' => ['Figma & Prototyping', 'User research', 'Design systems', 'Portfolio review'],
-                        'dark' => true,
-                    ],
-                    [
-                        'icon' => '📊',
-                        'badge' => null,
-                        'title' => 'Digital Marketing',
-                        'sub' => '6-week cohort',
-                        'desc' =>
-                            'Paid ads, SEO, content strategy — taught by marketers running live campaigns, not just lecturing from slides.',
+                        'title' => 'A Level',
+                        'sub' => '',
+                        'desc' => '',
                         'features' => [
-                            'Meta & Google Ads',
-                            'SEO & content',
-                            'Analytics & reporting',
-                            'Client campaigns',
+                            'Business Studies',
+                            'Accounting',
+                            'Economics',
+                            'Mathematics',
+                            'Biology',
+                            'Chemistry',
+                            'Physics',
+                            'Geography',
+                            'History',
+                            'Computer Science',
+                            'Sociology',
+                            'Psychology',
+                            'English',
                         ],
                         'dark' => false,
                     ],
                     [
-                        'icon' => '🤖',
-                        'badge' => 'New',
-                        'title' => 'AI & Automation',
-                        'sub' => '8-week cohort',
-                        'desc' =>
-                            'Practical AI integration for builders. Automate workflows, build AI-powered products, and understand LLMs without the hype.',
+                        'icon' => '🌐',
+                        'badge' => null,
+                        'title' => 'IB',
+                        'sub' => 'International Baccalaureate',
+                        'desc' => 'Subject support across the IB Diploma Programme, tailored to your specific syllabus and assessment style.',
                         'features' => [
-                            'Prompt engineering',
-                            'API integrations',
-                            'Workflow automation',
-                            'AI product design',
+                            'Business Management',
+                            'Economics',
+                            'Mathematics',
+                            'Biology',
+                            'Chemistry',
+                            'Physics',
+                            'English',
                         ],
                         'dark' => false,
                     ],
                     [
-                        'icon' => '📱',
+                        'icon' => '🗣️',
                         'badge' => null,
-                        'title' => 'Mobile Development',
-                        'sub' => '10-week cohort',
-                        'desc' =>
-                            'Build and ship real Android and iOS apps using Flutter. You graduate with two published apps.',
-                        'features' => ['Dart & Flutter', 'State management', 'Firebase backend', 'App Store release'],
-                        'dark' => false,
-                    ],
-                    [
-                        'icon' => '🏫',
-                        'badge' => null,
-                        'title' => 'Corporate Training',
-                        'sub' => 'Custom duration',
-                        'desc' =>
-                            'We come to you. Custom curriculum for your team, delivered at your office or here at the academy.',
+                        'title' => 'English Language',
+                        'sub' => 'All levels welcome',
+                        'desc' => 'Conversational fluency, academic writing, and exam preparation — structured to your current level and target goal.',
                         'features' => [
-                            'Needs assessment',
-                            'Custom curriculum',
-                            'On-site or at academy',
-                            'Post-training support',
+                            'IELTS preparation',
+                            'Academic writing',
+                            'Spoken English',
+                            'Grammar foundations',
                         ],
-                        'dark' => true,
+                        'dark' => false,
                     ],
                 ];
             @endphp
-            {{-- 1-col mobile, 2-col tablet, 3-col desktop --}}
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                @foreach ($offerings as $i => $o)
-                            @php
-                                // once a card has more than ~8 features, switch its list to a 2-col grid
-                                $isLongList = count($o['features']) > 8;
-                            @endphp
+                @foreach ($offerings as $o)
+                            @php $isLongList = count($o['features']) > 8; @endphp
                             <div
-                                class="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ $o['dark']
+                                class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
+                                                    {{ $o['dark']
                     ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
                     : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
+
                                 @if ($o['dark'])
                                     <div class="absolute rounded-full pointer-events-none"
                                         style="width:220px;height:220px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
                                     </div>
                                 @endif
+
                                 @if ($o['badge'])
                                     <div class="absolute top-4 right-4 sm:top-5 sm:right-5">
                                         <span
@@ -334,28 +327,40 @@
                                         </span>
                                     </div>
                                 @endif
+
                                 <div class="relative z-10 flex flex-col flex-1">
 
+                                    {{-- Icon --}}
                                     @if (isset($o['icon_img']))
-                                        <img src="{{ $o['icon_img'] }}" width="260" height="40" alt="IGCSE"
-                                            class="mb-3 sm:mb-4 object-contain" alt="{{ $o['title'] }}" class="mb-3 sm:mb-4" />
+                                        <img src="{{ $o['icon_img'] }}" width="260" height="40" alt="{{ $o['title'] }}"
+                                            class="mb-5 object-contain object-left" />
                                     @else
-                                        <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">{{ $o['icon'] }}</div>
+                                        <div class="text-3xl mb-5">{{ $o['icon'] }}</div>
                                     @endif
 
-                                    <div
-                                        class="text-[.68rem] sm:text-[.7rem] font-bold uppercase tracking-wider mb-1 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
-                                        {{ $o['sub'] }}
-                                    </div>
-                                    <h3
-                                        class="text-base sm:text-lg font-extrabold mb-2 sm:mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}">
+                                    {{-- Sub --}}
+                                    @if ($o['sub'])
+                                        <div
+                                            class="text-[.68rem] font-bold uppercase tracking-wider mb-1.5 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
+                                            {{ $o['sub'] }}
+                                        </div>
+                                    @endif
+
+                                    {{-- Title --}}
+                                    <h3 class="font-semibold leading-tight mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}"
+                                        style="font-family:'Fredoka',sans-serif; font-size:clamp(1.6rem,3.5vw,2rem); letter-spacing:-.01em;">
                                         {{ $o['title'] }}
                                     </h3>
-                                    <p
-                                        class="text-sm leading-relaxed flex-1 mb-5 sm:mb-6 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
-                                        {{ $o['desc'] }}
-                                    </p>
-                                    <ul class="{{ $isLongList ? 'grid grid-cols-2 gap-x-3 gap-y-2' : 'space-y-2' }} mb-5 sm:mb-6">
+
+                                    {{-- Desc --}}
+                                    @if ($o['desc'])
+                                        <p class="text-sm leading-relaxed mb-5 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
+                                            {{ $o['desc'] }}
+                                        </p>
+                                    @endif
+
+                                    {{-- Features --}}
+                                    <ul class="{{ $isLongList ? 'grid grid-cols-2 gap-x-3 gap-y-2' : 'space-y-2' }} mb-6 flex-1">
                                         @foreach ($o['features'] as $f)
                                             <li
                                                 class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
@@ -364,8 +369,10 @@
                                             </li>
                                         @endforeach
                                     </ul>
-                                    <a href="#contact" class="no-underline text-center py-2.5 rounded-xl text-sm font-extrabold transition-colors
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ $o['dark']
+
+                                    {{-- CTA --}}
+                                    <a href="#contact" class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
+                                                            {{ $o['dark']
                     ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
                     : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
                                         Enquire →

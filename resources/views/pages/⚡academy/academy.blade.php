@@ -310,7 +310,7 @@
                             @php $isLongList = count($o['features']) > 8; @endphp
                             <div
                                 class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                                                                                {{ $o['dark']
+                                                                                                                                                                                                                {{ $o['dark']
                     ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
                     : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
 
@@ -341,7 +341,7 @@
                                     @endif
 
                                     {{-- Sub --}}
-                                    @if ($o['sub'])
+                                    @if (isset($o['sub']))
                                         <div
                                             class="text-[.68rem] font-bold uppercase tracking-wider mb-1.5 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
                                             {{ $o['sub'] }}
@@ -355,7 +355,7 @@
                                     </h3>
 
                                     {{-- Desc --}}
-                                    @if ($o['desc'])
+                                    @if (isset($o['desc']))
                                         <p class="text-sm leading-relaxed mb-5 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
                                             {{ $o['desc'] }}
                                         </p>
@@ -373,8 +373,8 @@
                                     </ul>
 
                                     {{-- CTA --}}
-                                    <a href="#contact" class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
-                                                                                                                                                                        {{ $o['dark']
+                                    <a href="{{ route('contact') }}" class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
+                                                                                                                                                                                                                        {{ $o['dark']
                     ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
                     : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
                                         Enquire →

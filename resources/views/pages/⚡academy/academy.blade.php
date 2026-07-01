@@ -77,8 +77,8 @@
                                                 {{ $slide['cta1']['label'] }}
                                                 <svg class="w-4 h-4 ml-2 shrink-0" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2.5" d="M9 5l7 7-7 7" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                        d="M9 5l7 7-7 7" />
                                                 </svg>
                                             </a>
                                             <a href="{{ $slide['cta2']['href'] }}"
@@ -115,10 +115,10 @@
     STATS BAR
     ══════════════════════════════════════════════ --}}
     {{-- <div class="bg-white border-b border-[#e2e8f0]"> --}}
-    {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5"> --}}
-    {{-- 2-col on mobile, 4-col on md — remove divide-x on mobile (it looks odd with 2-col wrap) --}}
-    {{-- <div class="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x md:divide-[#e2e8f0]"> --}}
-    {{-- @php
+        {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5"> --}}
+            {{-- 2-col on mobile, 4-col on md — remove divide-x on mobile (it looks odd with 2-col wrap) --}}
+            {{-- <div class="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x md:divide-[#e2e8f0]"> --}}
+                {{-- @php
                 $stats = [
                 ['500+', 'Students enrolled'],
                 ['12', 'Courses offered'],
@@ -126,7 +126,7 @@
                 ['3', 'Years running'],
                 ];
                 @endphp --}}
-    {{-- @foreach ($stats as [$num, $label])
+                {{-- @foreach ($stats as [$num, $label])
                 <div
                     class="px-3 sm:px-6 py-3 border-b border-[#e2e8f0] md:border-b-0 last:border-b-0 nth-2:border-b nth-2:md:border-b-0">
                     <div class="text-[1.35rem] sm:text-[1.6rem] font-extrabold text-[#1b3a6b] leading-none">
@@ -135,10 +135,10 @@
                         {{ $label }}</div>
                 </div>
                 @endforeach --}}
-    {{--
+                {{--
             </div> --}}
-    {{-- </div> --}}
-    {{-- </div> --}}
+            {{-- </div> --}}
+        {{-- </div> --}}
     <main class="flex flex-col gap-16 sm:gap-20 md:gap-24 pb-20 sm:pb-28">
         {{-- ══════════════════════════════════════════════
         ABOUT QAABIL ACADEMY
@@ -278,6 +278,8 @@
                         'sub' => '',
                         'desc' =>
                             'Subject support across the IB Diploma Programme, tailored to your specific syllabus and assessment style.',
+                        'icon_width' => 140,
+                        'icon_height' => 40,
                         'features' => [
                             'Business Management',
                             'Economics',
@@ -307,83 +309,80 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 @foreach ($offerings as $o)
-                    @php $isLongList = count($o['features']) > 8; @endphp
-                    <div
-                        class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                    {{ $o['dark']
-                                                                                                        ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
-                                                                                                        : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
+                            @php $isLongList = count($o['features']) > 8; @endphp
+                            <div
+                                class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
+                                                                                                                                        {{ $o['dark']
+                    ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
+                    : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
 
-                        @if ($o['dark'])
-                            <div class="absolute rounded-full pointer-events-none"
-                                style="width:220px;height:220px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
-                            </div>
-                        @endif
+                                @if ($o['dark'])
+                                    <div class="absolute rounded-full pointer-events-none"
+                                        style="width:220px;height:220px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
+                                    </div>
+                                @endif
 
-                        @if ($o['badge'])
-                            <div class="absolute top-4 right-4 sm:top-5 sm:right-5">
-                                <span
-                                    class="text-[.6rem] font-extrabold uppercase tracking-[.06em] bg-[#f59e0b] text-[#1b3a6b] rounded-full px-2.5 py-1">
-                                    {{ $o['badge'] }}
-                                </span>
-                            </div>
-                        @endif
-
-                        <div class="relative z-10 flex flex-col flex-1">
-
-                            {{-- Icon --}}
-                            @if (isset($o['icon_img']))
-                                <img src="{{ $o['icon_img'] }}" width="260" height="40"
-                                    alt="{{ $o['title'] }}" class="mb-5 object-contain object-left" />
-                            @else
-                                <div class="text-3xl mb-5">{{ $o['icon'] }}</div>
-                            @endif
-
-                            {{-- Sub --}}
-                            @if ($o['sub'])
-                                <div
-                                    class="text-[.68rem] font-bold uppercase tracking-wider mb-1.5 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
-                                    {{ $o['sub'] }}
-                                </div>
-                            @endif
-
-                            {{-- Title --}}
-                            <h3 class="font-semibold leading-tight mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}"
-                                style="font-family:'Fredoka',sans-serif; font-size:clamp(1.6rem,3.5vw,2rem); letter-spacing:-.01em;">
-                                {{ $o['title'] }}
-                            </h3>
-
-                            {{-- Desc --}}
-                            @if ($o['desc'])
-                                <p
-                                    class="text-sm leading-relaxed mb-5 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
-                                    {{ $o['desc'] }}
-                                </p>
-                            @endif
-
-                            {{-- Features --}}
-                            <ul
-                                class="{{ $isLongList ? 'grid grid-cols-2 gap-x-3 gap-y-2' : 'space-y-2' }} mb-6 flex-1">
-                                @foreach ($o['features'] as $f)
-                                    <li
-                                        class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
+                                @if ($o['badge'])
+                                    <div class="absolute top-4 right-4 sm:top-5 sm:right-5">
                                         <span
-                                            class="inline-block w-1.5 h-1.5 rounded-full bg-[#f59e0b] shrink-0"></span>
-                                        {{ $f }}
-                                    </li>
-                                @endforeach
-                            </ul>
+                                            class="text-[.6rem] font-extrabold uppercase tracking-[.06em] bg-[#f59e0b] text-[#1b3a6b] rounded-full px-2.5 py-1">
+                                            {{ $o['badge'] }}
+                                        </span>
+                                    </div>
+                                @endif
 
-                            {{-- CTA --}}
-                            <a href="#contact"
-                                class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
-                                                                                                            {{ $o['dark']
-                                                                                                                ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
-                                                                                                                : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
-                                Enquire →
-                            </a>
-                        </div>
-                    </div>
+                                <div class="relative z-10 flex flex-col flex-1">
+
+                                    {{-- Icon --}}
+                                    @if (isset($o['icon_img']))
+                                        <img src="{{ $o['icon_img'] }}" @if (isset($o['icon_width'])) width="{{ $o['icon_width'] }}"
+                                        @else width="260" @endif @if (isset($o['icon_height'])) height="{{ $o['icon_height'] }}"
+                                            @else height="40" @endif alt="{{ $o['title'] }}" class="mb-5 object-contain object-left" />
+                                    @else
+                                        <div class="text-3xl mb-5">{{ $o['icon'] }}</div>
+                                    @endif
+
+                                    {{-- Sub --}}
+                                    @if ($o['sub'])
+                                        <div
+                                            class="text-[.68rem] font-bold uppercase tracking-wider mb-1.5 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
+                                            {{ $o['sub'] }}
+                                        </div>
+                                    @endif
+
+                                    {{-- Title --}}
+                                    <h3 class="font-semibold leading-tight mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}"
+                                        style="font-family:'Fredoka',sans-serif; font-size:clamp(1.6rem,3.5vw,2rem); letter-spacing:-.01em;">
+                                        {{ $o['title'] }}
+                                    </h3>
+
+                                    {{-- Desc --}}
+                                    @if ($o['desc'])
+                                        <p class="text-sm leading-relaxed mb-5 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
+                                            {{ $o['desc'] }}
+                                        </p>
+                                    @endif
+
+                                    {{-- Features --}}
+                                    <ul class="{{ $isLongList ? 'grid grid-cols-2 gap-x-3 gap-y-2' : 'space-y-2' }} mb-6 flex-1">
+                                        @foreach ($o['features'] as $f)
+                                            <li
+                                                class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
+                                                <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#f59e0b] shrink-0"></span>
+                                                {{ $f }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+
+                                    {{-- CTA --}}
+                                    <a href="#contact" class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
+                                                                                                                                                {{ $o['dark']
+                    ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
+                    : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
+                                        Enquire →
+                                    </a>
+                                </div>
+                            </div>
                 @endforeach
             </div>
         </section>
@@ -478,16 +477,14 @@
                     <div class="flex gap-2 shrink-0">
                         <button
                             class="gallery-prev w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button
                             class="gallery-next w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
@@ -568,16 +565,14 @@
                     <div class="flex gap-2 shrink-0">
                         <button
                             class="tutors-prev w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button
                             class="tutors-next w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
@@ -746,8 +741,7 @@
                             <div class="swiper-slide !h-auto">
                                 <div class="rounded-2xl sm:rounded-3xl p-5 sm:p-7 h-full flex flex-col"
                                     style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">
-                                    <div
-                                        class="text-[#f59e0b] text-2xl sm:text-3xl font-serif mb-3 sm:mb-4 leading-none">
+                                    <div class="text-[#f59e0b] text-2xl sm:text-3xl font-serif mb-3 sm:mb-4 leading-none">
                                         "</div>
                                     <p class="text-white/75 text-sm leading-relaxed flex-1 mb-5 sm:mb-6 italic">
                                         {{ $quote }}
@@ -814,163 +808,163 @@
         <span class="absolute inset-0 rounded-full animate-ping opacity-30" style="background:#25d366"></span>
     </a>
     @script
-        <script>
-            // ── Hero ──
-            new Swiper('.academyHeroSwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false
-                },
-                speed: 800,
-                navigation: {
-                    nextEl: '.acad-hero-next',
-                    prevEl: '.acad-hero-prev'
-                },
-                pagination: {
-                    el: '.acad-hero-pagination',
-                    clickable: true,
-                    renderBullet: (index, className) =>
-                        `<span class="${className} w-3 h-3 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.3)"></span>`,
-                },
+    <script>
+        // ── Hero ──
+        new Swiper('.academyHeroSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            speed: 800,
+            navigation: {
+                nextEl: '.acad-hero-next',
+                prevEl: '.acad-hero-prev'
+            },
+            pagination: {
+                el: '.acad-hero-pagination',
+                clickable: true,
+                renderBullet: (index, className) =>
+                    `<span class="${className} w-3 h-3 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.3)"></span>`,
+            },
+        });
+        const acadHeroPag = document.querySelector('.acad-hero-pagination');
+        if (acadHeroPag) {
+            new MutationObserver(() => {
+                acadHeroPag.querySelectorAll('.swiper-pagination-bullet').forEach(b => {
+                    if (b.classList.contains('swiper-pagination-bullet-active')) {
+                        b.style.background = '#f59e0b';
+                        b.style.width = '28px';
+                        b.style.borderRadius = '999px';
+                    } else {
+                        b.style.background = 'rgba(255,255,255,.3)';
+                        b.style.width = '12px';
+                        b.style.borderRadius = '50%';
+                    }
+                });
+            }).observe(acadHeroPag, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['class']
             });
-            const acadHeroPag = document.querySelector('.acad-hero-pagination');
-            if (acadHeroPag) {
-                new MutationObserver(() => {
-                    acadHeroPag.querySelectorAll('.swiper-pagination-bullet').forEach(b => {
-                        if (b.classList.contains('swiper-pagination-bullet-active')) {
-                            b.style.background = '#f59e0b';
-                            b.style.width = '28px';
-                            b.style.borderRadius = '999px';
-                        } else {
-                            b.style.background = 'rgba(255,255,255,.3)';
-                            b.style.width = '12px';
-                            b.style.borderRadius = '50%';
-                        }
-                    });
-                }).observe(acadHeroPag, {
+        }
+        // ── Gallery ──
+        new Swiper('.gallerySwiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false
+            },
+            speed: 700,
+            slidesPerView: 1.1,
+            spaceBetween: 12,
+            navigation: {
+                nextEl: '.gallery-next',
+                prevEl: '.gallery-prev'
+            },
+            breakpoints: {
+                480: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 14
+                },
+                640: {
+                    slidesPerView: 2.1,
+                    spaceBetween: 16
+                },
+                1024: {
+                    slidesPerView: 3.1,
+                    spaceBetween: 16
+                },
+            },
+        });
+        // ── Tutors ──
+        new Swiper('.tutorsSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false
+            },
+            speed: 700,
+            slidesPerView: 1,
+            spaceBetween: 16,
+            navigation: {
+                nextEl: '.tutors-next',
+                prevEl: '.tutors-prev'
+            },
+            breakpoints: {
+                480: {
+                    slidesPerView: 1.2
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                },
+            },
+        });
+        // ── Testimonials ──
+        function updateTestimonialDots() {
+            document.querySelectorAll('.testimonials-pagination .swiper-pagination-bullet').forEach(b => {
+                if (b.classList.contains('swiper-pagination-bullet-active')) {
+                    b.style.background = '#f59e0b';
+                    b.style.width = '24px';
+                    b.style.borderRadius = '999px';
+                } else {
+                    b.style.background = 'rgba(255,255,255,.25)';
+                    b.style.width = '10px';
+                    b.style.borderRadius = '50%';
+                }
+            });
+        }
+        new Swiper('.testimonialsSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            speed: 700,
+            slidesPerView: 1,
+            spaceBetween: 16,
+            pagination: {
+                el: '.testimonials-pagination',
+                clickable: true,
+                renderBullet: (index, className) =>
+                    `<span class="${className} w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.25)"></span>`,
+            },
+            on: {
+                init() {
+                    updateTestimonialDots();
+                },
+                slideChange() {
+                    updateTestimonialDots();
+                },
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                },
+            },
+        });
+        const testPag = document.querySelector('.testimonials-pagination');
+        if (testPag) {
+            new MutationObserver(updateTestimonialDots)
+                .observe(testPag, {
                     childList: true,
                     subtree: true,
                     attributes: true,
                     attributeFilter: ['class']
                 });
-            }
-            // ── Gallery ──
-            new Swiper('.gallerySwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false
-                },
-                speed: 700,
-                slidesPerView: 1.1,
-                spaceBetween: 12,
-                navigation: {
-                    nextEl: '.gallery-next',
-                    prevEl: '.gallery-prev'
-                },
-                breakpoints: {
-                    480: {
-                        slidesPerView: 1.5,
-                        spaceBetween: 14
-                    },
-                    640: {
-                        slidesPerView: 2.1,
-                        spaceBetween: 16
-                    },
-                    1024: {
-                        slidesPerView: 3.1,
-                        spaceBetween: 16
-                    },
-                },
-            });
-            // ── Tutors ──
-            new Swiper('.tutorsSwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 4500,
-                    disableOnInteraction: false
-                },
-                speed: 700,
-                slidesPerView: 1,
-                spaceBetween: 16,
-                navigation: {
-                    nextEl: '.tutors-next',
-                    prevEl: '.tutors-prev'
-                },
-                breakpoints: {
-                    480: {
-                        slidesPerView: 1.2
-                    },
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    },
-                },
-            });
-            // ── Testimonials ──
-            function updateTestimonialDots() {
-                document.querySelectorAll('.testimonials-pagination .swiper-pagination-bullet').forEach(b => {
-                    if (b.classList.contains('swiper-pagination-bullet-active')) {
-                        b.style.background = '#f59e0b';
-                        b.style.width = '24px';
-                        b.style.borderRadius = '999px';
-                    } else {
-                        b.style.background = 'rgba(255,255,255,.25)';
-                        b.style.width = '10px';
-                        b.style.borderRadius = '50%';
-                    }
-                });
-            }
-            new Swiper('.testimonialsSwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false
-                },
-                speed: 700,
-                slidesPerView: 1,
-                spaceBetween: 16,
-                pagination: {
-                    el: '.testimonials-pagination',
-                    clickable: true,
-                    renderBullet: (index, className) =>
-                        `<span class="${className} w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.25)"></span>`,
-                },
-                on: {
-                    init() {
-                        updateTestimonialDots();
-                    },
-                    slideChange() {
-                        updateTestimonialDots();
-                    },
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    },
-                },
-            });
-            const testPag = document.querySelector('.testimonials-pagination');
-            if (testPag) {
-                new MutationObserver(updateTestimonialDots)
-                    .observe(testPag, {
-                        childList: true,
-                        subtree: true,
-                        attributes: true,
-                        attributeFilter: ['class']
-                    });
-            }
-        </script>
+        }
+    </script>
     @endscript
     <style>
         .acad-hero-slider .swiper-slide {

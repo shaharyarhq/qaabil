@@ -337,7 +337,7 @@
                             @php $isLongList = count($o['features']) > 8; @endphp
                             <div
                                 class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                                                                                                                                                                                                                                                        {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                    {{ $o['dark']
                     ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
                     : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
 
@@ -401,7 +401,7 @@
 
                                     {{-- CTA --}}
                                     <a href="{{ route('contact') }}" class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
-                                                                                                                                                                                                                                                                                                                                                {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                            {{ $o['dark']
                     ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
                     : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
                                         Enquire →
@@ -435,34 +435,34 @@
                 @php
                     $whys = [
                         [
+                            '📘',
+                            'Exam Based Learning',
+                            'Our lessons are designed around exam requirements, marking schemes, past paper trends, and question-solving techniques so students know exactly how to approach their assessments with confidence.',
+                        ],
+                        [
+                            '🏆',
+                            'Proven Track Record',
+                            'Our tutors have helped produce numerous successful results through consistent guidance, structured preparation, and a strong understanding of what students need to perform well.',
+                        ],
+                        [
                             '🎯',
-                            'Proof-based learning',
-                            'You don\'t pass a test — you build something real. Every cohort ends with a public portfolio project reviewed by industry practitioners, not just your tutor.',
+                            'Tailored Lessons',
+                            'Every student learns differently. Our tutors adapt lessons according to each learner\'s strengths, weaknesses, pace, and academic goals to make learning more effective.',
                         ],
                         [
-                            '👥',
-                            'Cohort sizes capped at 15',
-                            'We refuse to scale at the cost of quality. Small groups mean your tutor knows your name, your blockers, and your progress.',
+                            '💻',
+                            'Platform Access Included',
+                            'Every academy student receives access to the Qaabil online learning platform, allowing them to revise lessons, watch learning content, and continue studying beyond the classroom.',
                         ],
                         [
-                            '🔗',
-                            'Platform access included',
-                            'Every academy student gets full Qaabil platform access. Your learning doesn\'t stop when the cohort ends — you keep the library forever.',
+                            '🚀',
+                            '21st Century Learning Methods',
+                            'We combine traditional teaching with modern learning strategies such as active recall, visual learning, digital resources, project-based tasks, and practical application.',
                         ],
                         [
-                            '📍',
-                            'globally relevant',
-                            'Curriculum built for the Pakistani job market — but benchmarked against international standards. Local context, global ambition.',
-                        ],
-                        [
-                            '💸',
-                            'Honest pricing, no hidden fees',
-                            'The price you see is the price you pay. No "certification fees". No "placement fee". No subscriptions after graduation.',
-                        ],
-                        [
-                            '🔄',
-                            'Repeat until you\'re ready',
-                            'Not satisfied with your output? Come back next cohort, on us. We don\'t hand out certificates to people who aren\'t ready.',
+                            '🏫',
+                            'Technology Equipped Classrooms',
+                            'Our classrooms are equipped with modern teaching tools to create a more engaging, interactive, and effective learning environment for students.',
                         ],
                     ];
                 @endphp

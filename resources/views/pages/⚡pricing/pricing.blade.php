@@ -23,18 +23,19 @@
                     everyone.</span>
             </h1>
             <p class="text-white/60 text-lg max-w-xl mx-auto leading-relaxed mb-8">
-                Qaabil runs on community contributions. Submit a video, get it approved, unlock any chapter . Upgrade only if you want instant access.
+                Qaabil runs on community contributions. Submit a video, get it approved, unlock any chapter . Upgrade
+                only if you want instant access.
             </p>
 
             {{-- social proof chips --}}
+
             <div class="flex flex-wrap justify-center gap-3">
                 @foreach ([
-                    // '🎓 100% free base tier',
-                    '🔓 Unlock by contributing',
-                    // '✦ No ads, ever',
-                    '🌍 Community maintained'
-                    ]
-                     as $chip)
+        // '🎓 100% free base tier',
+        '🔓 Unlock by contributing',
+        // '✦ No ads, ever',
+        '🌍 Community maintained',
+    ] as $chip)
                     <span class="text-[.78rem] font-semibold text-white/75 rounded-full px-3.5 py-1.5"
                         style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)">
                         {{ $chip }}
@@ -45,7 +46,7 @@
     </div>
 
     <!-- ── Billing toggle ─────────────────────────── -->
-    <div class="bg-white border-b border-[#e2e8f0]">
+    {{-- <div class="bg-white border-b border-[#e2e8f0]">
         <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-center gap-3">
             <span id="lbl-m" class="text-sm font-extrabold text-[#0f172a]">Monthly</span>
             <div id="tog" class="tog-track" onclick="flipBilling()">
@@ -58,168 +59,12 @@
                     30%</span>
             </span>
         </div>
-    </div>
+    </div> --}}
 
     <!-- ── Plans ──────────────────────────────────── -->
     <main class="max-w-6xl mx-auto px-6 py-16 pb-28">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-
-            {{-- ── FREE ── --}}
-            <div
-                class="fu d1 bg-white border border-[#e2e8f0] rounded-[28px] p-8 flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.2)]">
-                <div class="mb-7">
-                    <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5"
-                        style="background:rgba(27,58,107,.08)">
-                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1b3a6b"
-                            stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                    </div>
-                    <p class="text-[.72rem] font-extrabold uppercase tracking-[.1em] text-[#94a3b8] mb-1">Community</p>
-                    <h3 class="text-xl font-extrabold text-[#0f172a] mb-2">Free Every Month</h3>
-                    <p class="text-sm text-[#475569] leading-relaxed">Join, browse, and earn access by submitting video
-                        solutions. The Qaabil way.</p>
-                </div>
-
-                <div class="mb-7">
-                    <div class="flex items-end gap-1.5 mb-1">
-                        <span class="text-[3rem] font-extrabold text-[#0f172a] leading-none price-num" data-m="$0"
-                            data-a="$0">$0</span>
-                        <span class="text-[#94a3b8] text-sm mb-2 font-medium">/ month</span>
-                    </div>
-                    <p class="text-xs text-[#94a3b8]">No credit card · no commitment</p>
-                </div>
-
-                <ul class="space-y-3 flex-1 mb-8">
-                    @foreach ([['Browse all courses & chapters', true], ['Submit video solutions', true], ['Unlock chapters via approval', true], ['Community discussion access', true], ['Personal progress dashboard', true], ['Instant full access', false], ['Priority review queue', false]] as [$feat, $inc])
-                        <li class="flex items-start gap-2.5">
-                            @if ($inc)
-                                <svg class="w-[17px] h-[17px] text-[#1b3a6b] shrink-0 mt-0.5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
-                            @else
-                                <svg class="w-[17px] h-[17px] text-[#e2e8f0] shrink-0 mt-0.5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            @endif
-                            <span
-                                class="text-sm {{ $inc ? 'text-[#475569]' : 'text-[#cbd5e1]' }}">{{ $feat }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-
-                <a href="{{ route('home') }}"
-                    class="block w-full py-3.5 rounded-2xl text-sm font-bold text-center text-[#1b3a6b] no-underline border-[1.5px] border-[#e2e8f0] bg-transparent cursor-pointer transition-all hover:border-[#1b3a6b] hover:bg-[#eff6ff]">
-                    Get started free
-                </a>
-            </div>
-
-            {{-- ── PRO (featured, taller) ── --}}
-            <div class="card-featured-plan fu d2 relative bg-[#1b3a6b] rounded-[28px] p-8 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_28px_56px_-12px_rgba(27,58,107,.5)]"
-                style="margin-top:-24px;margin-bottom:-24px">
-                <div class="absolute rounded-full pointer-events-none"
-                    style="width:250px;height:250px;background:radial-gradient(circle,rgba(245,158,11,.22) 0%,transparent 70%);top:-80px;right:-60px">
-                </div>
-
-                {{-- badge --}}
-                <div class="absolute top-6 right-6 z-10">
-                    <span
-                        class="text-[.65rem] font-extrabold uppercase tracking-[.07em] bg-[#f59e0b] text-[#1b3a6b] rounded-full px-3 py-1">
-                        Most popular
-                    </span>
-                </div>
-
-                <div class="relative z-10 mb-7">
-                    <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5"
-                        style="background:rgba(245,158,11,.15)">
-                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#f59e0b"
-                            stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                    </div>
-                    <p class="text-[.72rem] font-extrabold uppercase tracking-[.1em] text-white/50 mb-1">Student Pro</p>
-                    <h3 class="text-xl font-extrabold text-white mb-2">Instant access</h3>
-                    <p class="text-sm text-white/55 leading-relaxed">Skip the queue. Get immediate, full access to every
-                        chapter across every course.</p>
-                </div>
-
-                <div class="relative z-10 mb-7">
-                    <div class="flex items-end gap-1.5 mb-1">
-                        <span class="text-[3rem] font-extrabold text-white leading-none price-num" data-m="$9"
-                            data-a="$6">$9</span>
-                        <span class="text-white/50 text-sm mb-2 font-medium price-period">/ month</span>
-                    </div>
-                    <p class="text-xs text-white/35 price-cycle">Billed monthly · cancel anytime</p>
-                </div>
-
-                <ul class="relative z-10 space-y-3 flex-1 mb-8">
-                    @foreach (['Everything in Community', 'Instant full access to all content', 'Priority video review (48h SLA)', 'Download course notes & materials', 'Certificate of completion', 'Early access to new courses', '7-day free trial'] as $feat)
-                        <li class="flex items-start gap-2.5">
-                            <svg class="w-[17px] h-[17px] text-[#f59e0b] shrink-0 mt-0.5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-sm text-white/80">{{ $feat }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-
-                <button
-                    class="relative z-10 w-full py-3.5 rounded-2xl text-sm font-extrabold bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] border-none cursor-pointer transition-colors">
-                    Start free trial
-                </button>
-                <p class="relative z-10 text-center text-[.7rem] text-white/30 mt-3">No card needed for trial</p>
-            </div>
-
-            {{-- ── INSTITUTION ── --}}
-            <div
-                class="fu d3 bg-white border border-[#e2e8f0] rounded-[28px] p-8 flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.2)]">
-                <div class="mb-7">
-                    <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5"
-                        style="background:rgba(27,58,107,.08)">
-                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1b3a6b"
-                            stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                    </div>
-                    <p class="text-[.72rem] font-extrabold uppercase tracking-[.1em] text-[#94a3b8] mb-1">Institution
-                    </p>
-                    <h3 class="text-xl font-extrabold text-[#0f172a] mb-2">For schools & orgs</h3>
-                    <p class="text-sm text-[#475569] leading-relaxed">Private courses, bulk student seats, admin
-                        controls, and a dedicated account manager.</p>
-                </div>
-
-                <div class="mb-7">
-                    <div class="flex items-end gap-1.5 mb-1">
-                        <span class="text-[3rem] font-extrabold text-[#0f172a] leading-none">Custom</span>
-                    </div>
-                    <p class="text-xs text-[#94a3b8]">Tailored to your headcount</p>
-                </div>
-
-                <ul class="space-y-3 flex-1 mb-8">
-                    @foreach ([['Everything in Student Pro', true], ['Unlimited student seats', true], ['Private & branded courses', true], ['SSO + LMS integration', true], ['Admin analytics dashboard', true], ['Dedicated account manager', true], ['Priority SLA support', true]] as [$feat, $inc])
-                        <li class="flex items-start gap-2.5">
-                            <svg class="w-[17px] h-[17px] text-[#f59e0b] shrink-0 mt-0.5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-sm text-[#475569]">{{ $feat }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-
-                <a href="mailto:hello@qaabil.com"
-                    class="block w-full py-3.5 rounded-2xl text-sm font-bold text-center text-white no-underline bg-[#1b3a6b] cursor-pointer transition-colors hover:bg-[#122952]">
-                    Get in touch
-                </a>
-            </div>
-
-        </div>
+        {{-- Plans are deleted from here --}}
 
         {{-- ── Trust bar ──
         <div class="mt-12 py-8 border-y border-[#e2e8f0]">
@@ -326,8 +171,8 @@
                             class="w-full flex items-center justify-between gap-4 px-6 py-4 bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#eff6ff]"
                             onclick="toggleFaq(this)">
                             <span class="text-sm font-bold text-[#0f172a]">{{ $faq[0] }}</span>
-                            <svg class="faq-chevron w-4 h-4 shrink-0 text-[#94a3b8]" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg class="faq-chevron w-4 h-4 shrink-0 text-[#94a3b8]" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
@@ -357,10 +202,10 @@
                     Qaabil is free because knowledge should be. Start learning today — no card, no catch, no expiry.
                 </p>
                 <div class="flex flex-wrap gap-3 justify-center">
-                    <button
+                    {{-- <button
                         class="bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b] font-extrabold border-none rounded-xl px-8 py-3 text-sm cursor-pointer transition-colors">
                         Join the community →
-                    </button>
+                    </button> --}}
                     <a href="{{ route('courses.index') }}"
                         class="no-underline text-white/80 font-semibold rounded-xl px-8 py-3 text-sm cursor-pointer transition-all hover:bg-white/10"
                         style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18)">

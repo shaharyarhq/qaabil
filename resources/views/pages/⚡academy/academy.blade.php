@@ -8,10 +8,9 @@
                 'image' =>
                     'https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
                 'alt' => 'Qaabil Academy classroom',
-                'tag' => 'Now Enrolling — Batch 2025',
-                'title' => 'Where capability meets community.',
-                'sub' =>
-                    'Qaabil Academy is a physical learning centre built on the same values as the platform — peer-driven, proof-based, and free of ego.',
+                'tag' => 'Now Enrolling',
+                'title' => 'Built to help Students Succeed.',
+                'sub' => 'Qaabil Academy is a physical learning centre built on the same values as the platform.',
                 'cta1' => ['label' => 'Enrol Now', 'href' => '#contact'],
                 'cta2' => ['label' => 'Explore Courses', 'href' => '#offerings'],
             ],
@@ -20,9 +19,8 @@
                     'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
                 'alt' => 'Tutors teaching',
                 'tag' => 'Expert-Led · In-Person',
-                'title' => 'Taught by people who actually do.',
-                'sub' =>
-                    'Every tutor at Qaabil Academy is a practitioner. No textbook-only instructors — just real people with real work to show for it.',
+                'title' => 'Taught by expert tutors',
+                'sub' => 'Every tutor at Qaabil Academy is an expert with proven track record.',
                 'cta1' => ['label' => 'Meet the Tutors', 'href' => '#tutors'],
                 'cta2' => ['label' => 'Our Story', 'href' => '#about'],
             ],
@@ -30,9 +28,9 @@
                 'image' =>
                     'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
                 'alt' => 'Students at work',
-                'tag' => 'In-Person & Hybrid',
-                'title' => 'Small batches. Serious results.',
-                'sub' => 'We cap every cohort deliberately. More feedback. More accountability. Better outcomes.',
+                'tag' => 'Individual Focus',
+                'title' => 'One to One classes. Serious results.',
+                'sub' => 'More feedback. More accountability. Better outcomes.',
                 'cta1' => ['label' => 'View Batches', 'href' => '#offerings'],
                 'cta2' => ['label' => 'See the Gallery', 'href' => '#gallery'],
             ],
@@ -77,8 +75,8 @@
                                                 {{ $slide['cta1']['label'] }}
                                                 <svg class="w-4 h-4 ml-2 shrink-0" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                        d="M9 5l7 7-7 7" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2.5" d="M9 5l7 7-7 7" />
                                                 </svg>
                                             </a>
                                             <a href="{{ $slide['cta2']['href'] }}"
@@ -115,10 +113,10 @@
     STATS BAR
     ══════════════════════════════════════════════ --}}
     {{-- <div class="bg-white border-b border-[#e2e8f0]"> --}}
-        {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5"> --}}
-            {{-- 2-col on mobile, 4-col on md — remove divide-x on mobile (it looks odd with 2-col wrap) --}}
-            {{-- <div class="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x md:divide-[#e2e8f0]"> --}}
-                {{-- @php
+    {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5"> --}}
+    {{-- 2-col on mobile, 4-col on md — remove divide-x on mobile (it looks odd with 2-col wrap) --}}
+    {{-- <div class="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x md:divide-[#e2e8f0]"> --}}
+    {{-- @php
                 $stats = [
                 ['500+', 'Students enrolled'],
                 ['12', 'Courses offered'],
@@ -126,7 +124,7 @@
                 ['3', 'Years running'],
                 ];
                 @endphp --}}
-                {{-- @foreach ($stats as [$num, $label])
+    {{-- @foreach ($stats as [$num, $label])
                 <div
                     class="px-3 sm:px-6 py-3 border-b border-[#e2e8f0] md:border-b-0 last:border-b-0 nth-2:border-b nth-2:md:border-b-0">
                     <div class="text-[1.35rem] sm:text-[1.6rem] font-extrabold text-[#1b3a6b] leading-none">
@@ -135,10 +133,10 @@
                         {{ $label }}</div>
                 </div>
                 @endforeach --}}
-                {{--
+    {{--
             </div> --}}
-            {{-- </div> --}}
-        {{-- </div> --}}
+    {{-- </div> --}}
+    {{-- </div> --}}
     <main class="flex flex-col gap-16 sm:gap-20 md:gap-24 pb-20 sm:pb-28">
         {{-- ══════════════════════════════════════════════
         ABOUT QAABIL ACADEMY
@@ -308,7 +306,8 @@
                         'badge' => null,
                         'title' => 'University Subjects',
                         // 'sub' => 'Major subjects',
-                        'desc' => 'Support across core university-level coursework, from foundational theory to exam and assignment prep.',
+                        'desc' =>
+                            'Support across core university-level coursework, from foundational theory to exam and assignment prep.',
                         'features' => [
                             'Financial Accounting',
                             'Management Accounting',
@@ -334,80 +333,87 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 @foreach ($offerings as $o)
-                            @php $isLongList = count($o['features']) > 8; @endphp
-                            <div
-                                class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
-                                                                                                                                                                                                                                                                                                                                                    {{ $o['dark']
-                    ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
-                    : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
+                    @php $isLongList = count($o['features']) > 8; @endphp
+                    <div
+                        class="relative rounded-2xl sm:rounded-3xl p-7 sm:p-9 flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1
+                                                                                                                                                                                                                                                                                                                                                                {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                                    ? 'bg-[#1b3a6b] hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.45)]'
+                                                                                                                                                                                                                                                                                                                                                                    : 'bg-white border border-[#e2e8f0] hover:shadow-[0_16px_32px_-12px_rgba(27,58,107,.1)] hover:border-[rgba(27,58,107,.18)]' }}">
 
-                                @if ($o['dark'])
-                                    <div class="absolute rounded-full pointer-events-none"
-                                        style="width:220px;height:220px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
-                                    </div>
-                                @endif
-
-                                @if ($o['badge'])
-                                    <div class="absolute top-4 right-4 sm:top-5 sm:right-5">
-                                        <span
-                                            class="text-[.6rem] font-extrabold uppercase tracking-[.06em] bg-[#f59e0b] text-[#1b3a6b] rounded-full px-2.5 py-1">
-                                            {{ $o['badge'] }}
-                                        </span>
-                                    </div>
-                                @endif
-
-                                <div class="relative z-10 flex flex-col flex-1">
-
-                                    {{-- Icon --}}
-                                    @if (isset($o['icon_img']))
-                                        <img src="{{ $o['icon_img'] }}" @if (isset($o['icon_width'])) width="{{ $o['icon_width'] }}"
-                                        @else width="260" @endif @if (isset($o['icon_height'])) height="{{ $o['icon_height'] }}"
-                                            @else height="40" @endif alt="{{ $o['title'] }}" class="mb-5 object-contain object-left" />
-                                    @else
-                                        <div class="text-3xl mb-5">{{ $o['icon'] }}</div>
-                                    @endif
-
-                                    {{-- Sub --}}
-                                    @if (isset($o['sub']))
-                                        <div
-                                            class="text-[.68rem] font-bold uppercase tracking-wider mb-1.5 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
-                                            {{ $o['sub'] }}
-                                        </div>
-                                    @endif
-
-                                    {{-- Title --}}
-                                    <h3 class="font-semibold leading-tight mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}"
-                                        style="font-family:'Fredoka',sans-serif; font-size:clamp(1.6rem,3.5vw,2rem); letter-spacing:-.01em;">
-                                        {{ $o['title'] }}
-                                    </h3>
-
-                                    {{-- Desc --}}
-                                    @if (isset($o['desc']))
-                                        <p class="text-sm leading-relaxed mb-5 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
-                                            {{ $o['desc'] }}
-                                        </p>
-                                    @endif
-
-                                    {{-- Features --}}
-                                    <ul class="{{ $isLongList ? 'grid grid-cols-2 gap-x-3 gap-y-2' : 'space-y-2' }} mb-6 flex-1">
-                                        @foreach ($o['features'] as $f)
-                                            <li
-                                                class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
-                                                <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#f59e0b] shrink-0"></span>
-                                                {{ $f }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-
-                                    {{-- CTA --}}
-                                    <a href="{{ route('contact') }}" class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
-                                                                                                                                                                                                                                                                                                                                                            {{ $o['dark']
-                    ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
-                    : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
-                                        Enquire →
-                                    </a>
-                                </div>
+                        @if ($o['dark'])
+                            <div class="absolute rounded-full pointer-events-none"
+                                style="width:220px;height:220px;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);bottom:-60px;right:-40px">
                             </div>
+                        @endif
+
+                        @if ($o['badge'])
+                            <div class="absolute top-4 right-4 sm:top-5 sm:right-5">
+                                <span
+                                    class="text-[.6rem] font-extrabold uppercase tracking-[.06em] bg-[#f59e0b] text-[#1b3a6b] rounded-full px-2.5 py-1">
+                                    {{ $o['badge'] }}
+                                </span>
+                            </div>
+                        @endif
+
+                        <div class="relative z-10 flex flex-col flex-1">
+
+                            {{-- Icon --}}
+                            @if (isset($o['icon_img']))
+                                <img src="{{ $o['icon_img'] }}"
+                                    @if (isset($o['icon_width'])) width="{{ $o['icon_width'] }}"
+                                        @else width="260" @endif
+                                    @if (isset($o['icon_height'])) height="{{ $o['icon_height'] }}"
+                                            @else height="40" @endif
+                                    alt="{{ $o['title'] }}" class="mb-5 object-contain object-left" />
+                            @else
+                                <div class="text-3xl mb-5">{{ $o['icon'] }}</div>
+                            @endif
+
+                            {{-- Sub --}}
+                            @if (isset($o['sub']))
+                                <div
+                                    class="text-[.68rem] font-bold uppercase tracking-wider mb-1.5 {{ $o['dark'] ? 'text-[#f59e0b]' : 'text-[#94a3b8]' }}">
+                                    {{ $o['sub'] }}
+                                </div>
+                            @endif
+
+                            {{-- Title --}}
+                            <h3 class="font-semibold leading-tight mb-3 {{ $o['dark'] ? 'text-white' : 'text-[#0f172a]' }}"
+                                style="font-family:'Fredoka',sans-serif; font-size:clamp(1.6rem,3.5vw,2rem); letter-spacing:-.01em;">
+                                {{ $o['title'] }}
+                            </h3>
+
+                            {{-- Desc --}}
+                            @if (isset($o['desc']))
+                                <p
+                                    class="text-sm leading-relaxed mb-5 {{ $o['dark'] ? 'text-white/55' : 'text-[#475569]' }}">
+                                    {{ $o['desc'] }}
+                                </p>
+                            @endif
+
+                            {{-- Features --}}
+                            <ul
+                                class="{{ $isLongList ? 'grid grid-cols-2 gap-x-3 gap-y-2' : 'space-y-2' }} mb-6 flex-1">
+                                @foreach ($o['features'] as $f)
+                                    <li
+                                        class="flex items-center gap-2 text-xs font-semibold {{ $o['dark'] ? 'text-white/70' : 'text-[#1b3a6b]' }}">
+                                        <span
+                                            class="inline-block w-1.5 h-1.5 rounded-full bg-[#f59e0b] shrink-0"></span>
+                                        {{ $f }}
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                            {{-- CTA --}}
+                            <a href="{{ route('contact') }}"
+                                class="no-underline text-center py-3 rounded-xl text-sm font-extrabold transition-colors mt-auto
+                                                                                                                                                                                                                                                                                                                                                                        {{ $o['dark']
+                                                                                                                                                                                                                                                                                                                                                                            ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#1b3a6b]'
+                                                                                                                                                                                                                                                                                                                                                                            : 'bg-[#1b3a6b]/5 hover:bg-[#1b3a6b]/10 text-[#1b3a6b] border border-[#1b3a6b]/15' }}">
+                                Enquire →
+                            </a>
+                        </div>
+                    </div>
                 @endforeach
             </div>
         </section>
@@ -502,14 +508,16 @@
                     <div class="flex gap-2 shrink-0">
                         <button
                             class="gallery-prev w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button
                             class="gallery-next w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
@@ -520,50 +528,76 @@
 
             @php
                 $galleryImages = [
-                    [
-                        'https://images.unsplash.com/photo-1605711285791-0219e80e43a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                        'Workshop session',
-                    ],
-                    [
-                        'https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                        'Students coding',
-                    ],
-                    [
-                        'https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                        'Collaboration session',
-                    ],
-                    [
-                        'https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                        'Team discussion',
-                    ],
-                    [
-                        'https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                        'Classroom',
-                    ],
-                    [
-                        'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                        'Presentation day',
-                    ],
-                    [
-                        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                        'Group project',
-                    ],
+                    [asset('images/academy/gallery-1.jpeg'), 'Workshop session'],
+                    [asset('images/academy/gallery-2.jpeg'), 'Students coding'],
+                    [asset('images/academy/gallery-3.jpeg'), 'Collaboration session'],
+                    [asset('images/academy/gallery-4.jpeg'), 'Team discussion'],
+                    [asset('images/academy/gallery-5.jpeg'), 'Classroom'],
+                    [asset('images/academy/gallery-6.jpeg'), 'Presentation day'],
+                    [asset('images/academy/gallery-7.jpeg'), 'Group project'],
+                    [asset('images/academy/gallery-8.jpeg'), 'Hands-on training'],
+                    [asset('images/academy/gallery-9.jpeg'), 'Peer mentoring'],
+                    [asset('images/academy/gallery-10.jpeg'), 'Code review'],
+                    [asset('images/academy/gallery-11.jpeg'), 'Graduation day'],
+                    [asset('images/academy/gallery-12.jpeg'), 'Industry visit'],
+                    [asset('images/academy/gallery-13.jpeg'), 'Networking event'],
                 ];
             @endphp
 
             {{-- Swiper full width pe, px sirf visual ke liye --}}
-            <div class="px-4 sm:px-6" style="overflow:hidden">
+            <div class="px-4 sm:px-6" style="overflow:hidden" x-data="{
+                open: false,
+                activeIndex: 0,
+                images: {{ Js::from($galleryImages) }},
+                next() { this.activeIndex = (this.activeIndex + 1) % this.images.length },
+                prev() { this.activeIndex = (this.activeIndex - 1 + this.images.length) % this.images.length }
+            }"
+                @keydown.escape.window="open = false" @keydown.arrow-right.window="if (open) next()"
+                @keydown.arrow-left.window="if (open) prev()">
+
                 <div class="swiper gallerySwiper">
                     <div class="swiper-wrapper">
-                        @foreach ($galleryImages as [$src, $alt])
+                        @foreach ($galleryImages as $index => [$src, $alt])
                             <div class="swiper-slide">
-                                <div class="h-52 sm:h-64 md:h-80 rounded-xl sm:rounded-2xl overflow-hidden">
+                                <div class="h-52 sm:h-64 md:h-80 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer"
+                                    @click="open = true; activeIndex = {{ $index }}">
                                     <img src="{{ $src }}" alt="{{ $alt }}"
                                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
                                 </div>
                             </div>
                         @endforeach
                     </div>
+                </div>
+
+                {{-- Lightbox popup --}}
+                <div x-show="open" x-cloak
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" @click="open = false"
+                    x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+
+                    <button @click.stop="open = false"
+                        class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white text-3xl leading-none hover:opacity-70 z-10">
+                        &times;
+                    </button>
+
+                    {{-- Prev arrow --}}
+                    <button @click.stop="prev()"
+                        class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 text-white text-4xl leading-none hover:opacity-70 z-10 px-2">
+                        &#8249;
+                    </button>
+
+                    <img :src="images[activeIndex][0]" :alt="images[activeIndex][1]" @click.stop
+                        class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain">
+
+                    {{-- Next arrow --}}
+                    <button @click.stop="next()"
+                        class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 text-white text-4xl leading-none hover:opacity-70 z-10 px-2">
+                        &#8250;
+                    </button>
+
+                    <p x-show="images[activeIndex][1]" x-text="images[activeIndex][1]"
+                        class="absolute bottom-4 sm:bottom-6 text-white text-sm sm:text-base"></p>
                 </div>
             </div>
         </section>
@@ -590,14 +624,16 @@
                     <div class="flex gap-2 shrink-0">
                         <button
                             class="tutors-prev w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
                         <button
                             class="tutors-next w-10 h-10 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center hover:border-[#1b3a6b]/30 transition-all shadow-sm">
-                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-[#1b3a6b]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5l7 7-7 7" />
                             </svg>
@@ -609,44 +645,60 @@
             @php
                 $tutors = [
                     [
-                        'Z',
+                        'SZ',
                         '#f59e0b',
-                        'Zain Malik',
-                        'Lead — Web Development',
-                        'Full-stack developer with 8 years of Laravel experience. Has shipped products for clients across the UK, UAE, and Pakistan.',
-                        ['Laravel', 'Vue.js', 'System Design'],
+                        'Syed Zain',
+                        'Business, Economics & Accounting',
+                        'Highly knowledgeable educator with 18 years of experience teaching Business Studies, Economics, Accounting, Finance, and Management from IGCSE/O-Level up to Master’s degree level.',
+                        ['Business Studies', 'Economics', 'Accounting'],
                     ],
                     [
                         'A',
                         '#1b3a6b',
-                        'Ayesha Siddiqui',
-                        'UI/UX Design',
-                        'Senior product designer at a Karachi-based fintech. Teaching is her way of giving back — she\'s been doing it for 4 years.',
-                        ['Figma', 'User Research', 'Design Systems'],
+                        'Anita',
+                        'English & English Literature',
+                        'Highly experienced English and Literature educator with over 23 years of teaching experience across IGCSE, A-Level, IB, AP, and Australian curricula.',
+                        ['English', 'Literature', 'IGCSE / A-Level'],
                     ],
                     [
                         'H',
                         '#0f172a',
-                        'Hassan Raza',
-                        'Digital Marketing',
-                        'Runs his own performance marketing agency. He\'s managed ad budgets in the tens of millions — and he\'ll tell you what actually works.',
-                        ['Meta Ads', 'SEO', 'Analytics'],
+                        'Hamdan',
+                        'Mathematics, Add Math & Statistics',
+                        'Experienced Mathematics educator with 20+ years of teaching experience, known for clear explanations, structured lessons, and strong problem-solving support.',
+                        ['Mathematics', 'Add Math', 'Statistics'],
                     ],
                     [
-                        'S',
+                        'M',
                         '#f59e0b',
-                        'Sara Ahmed',
-                        'AI & Automation',
-                        'ML engineer at a global tech company. Obsessed with making AI practical for builders — not just impressive on slides.',
-                        ['Python', 'LLM APIs', 'Automation'],
+                        'Mahesvaran',
+                        'Science, Physics & Chemistry',
+                        'Senior lecturer with over 20 years of experience teaching Physics, Chemistry, and Mathematics across IGCSE, IB, IBDP, and A-Level curricula.',
+                        ['Physics', 'Chemistry', 'Mathematics'],
                     ],
                     [
-                        'U',
+                        'MO',
                         '#1b3a6b',
-                        'Usman Tariq',
-                        'Mobile Development',
-                        'Ships Flutter apps for a living. Three of his apps have over 100k downloads on the Play Store.',
-                        ['Flutter', 'Dart', 'Firebase'],
+                        'Mo',
+                        'English Communication',
+                        'Dynamic English educator with over 10 years of experience, including leading international English immersion camps and helping students build confidence and communication skills.',
+                        ['English', 'Communication', 'A-Level'],
+                    ],
+                    [
+                        'RH',
+                        '#0f172a',
+                        'Raheela',
+                        'Physics, Chemistry & Mathematics',
+                        'PhD researcher in Electrical Engineering at the University of Malaya with 10 years of university-level academic teaching experience across science and technical subjects.',
+                        ['Physics', 'Chemistry', 'Mathematics'],
+                    ],
+                    [
+                        'RN',
+                        '#f59e0b',
+                        'Renu',
+                        'Bahasa Melayu',
+                        'Passionate Bahasa Melayu educator with 13 years of teaching experience, helping students improve speaking, writing, comprehension, and overall language confidence.',
+                        ['Bahasa Melayu', 'Speaking', 'Writing'],
                     ],
                 ];
             @endphp
@@ -766,7 +818,8 @@
                             <div class="swiper-slide !h-auto">
                                 <div class="rounded-2xl sm:rounded-3xl p-5 sm:p-7 h-full flex flex-col"
                                     style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">
-                                    <div class="text-[#f59e0b] text-2xl sm:text-3xl font-serif mb-3 sm:mb-4 leading-none">
+                                    <div
+                                        class="text-[#f59e0b] text-2xl sm:text-3xl font-serif mb-3 sm:mb-4 leading-none">
                                         "</div>
                                     <p class="text-white/75 text-sm leading-relaxed flex-1 mb-5 sm:mb-6 italic">
                                         {{ $quote }}
@@ -833,163 +886,163 @@
         <span class="absolute inset-0 rounded-full animate-ping opacity-30" style="background:#25d366"></span>
     </a>
     @script
-    <script>
-        // ── Hero ──
-        new Swiper('.academyHeroSwiper', {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false
-            },
-            speed: 800,
-            navigation: {
-                nextEl: '.acad-hero-next',
-                prevEl: '.acad-hero-prev'
-            },
-            pagination: {
-                el: '.acad-hero-pagination',
-                clickable: true,
-                renderBullet: (index, className) =>
-                    `<span class="${className} w-3 h-3 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.3)"></span>`,
-            },
-        });
-        const acadHeroPag = document.querySelector('.acad-hero-pagination');
-        if (acadHeroPag) {
-            new MutationObserver(() => {
-                acadHeroPag.querySelectorAll('.swiper-pagination-bullet').forEach(b => {
-                    if (b.classList.contains('swiper-pagination-bullet-active')) {
-                        b.style.background = '#f59e0b';
-                        b.style.width = '28px';
-                        b.style.borderRadius = '999px';
-                    } else {
-                        b.style.background = 'rgba(255,255,255,.3)';
-                        b.style.width = '12px';
-                        b.style.borderRadius = '50%';
-                    }
-                });
-            }).observe(acadHeroPag, {
-                childList: true,
-                subtree: true,
-                attributes: true,
-                attributeFilter: ['class']
+        <script>
+            // ── Hero ──
+            new Swiper('.academyHeroSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false
+                },
+                speed: 800,
+                navigation: {
+                    nextEl: '.acad-hero-next',
+                    prevEl: '.acad-hero-prev'
+                },
+                pagination: {
+                    el: '.acad-hero-pagination',
+                    clickable: true,
+                    renderBullet: (index, className) =>
+                        `<span class="${className} w-3 h-3 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.3)"></span>`,
+                },
             });
-        }
-        // ── Gallery ──
-        new Swiper('.gallerySwiper', {
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false
-            },
-            speed: 700,
-            slidesPerView: 1.1,
-            spaceBetween: 12,
-            navigation: {
-                nextEl: '.gallery-next',
-                prevEl: '.gallery-prev'
-            },
-            breakpoints: {
-                480: {
-                    slidesPerView: 1.5,
-                    spaceBetween: 14
-                },
-                640: {
-                    slidesPerView: 2.1,
-                    spaceBetween: 16
-                },
-                1024: {
-                    slidesPerView: 3.1,
-                    spaceBetween: 16
-                },
-            },
-        });
-        // ── Tutors ──
-        new Swiper('.tutorsSwiper', {
-            loop: true,
-            autoplay: {
-                delay: 4500,
-                disableOnInteraction: false
-            },
-            speed: 700,
-            slidesPerView: 1,
-            spaceBetween: 16,
-            navigation: {
-                nextEl: '.tutors-next',
-                prevEl: '.tutors-prev'
-            },
-            breakpoints: {
-                480: {
-                    slidesPerView: 1.2
-                },
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 20
-                },
-            },
-        });
-        // ── Testimonials ──
-        function updateTestimonialDots() {
-            document.querySelectorAll('.testimonials-pagination .swiper-pagination-bullet').forEach(b => {
-                if (b.classList.contains('swiper-pagination-bullet-active')) {
-                    b.style.background = '#f59e0b';
-                    b.style.width = '24px';
-                    b.style.borderRadius = '999px';
-                } else {
-                    b.style.background = 'rgba(255,255,255,.25)';
-                    b.style.width = '10px';
-                    b.style.borderRadius = '50%';
-                }
-            });
-        }
-        new Swiper('.testimonialsSwiper', {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false
-            },
-            speed: 700,
-            slidesPerView: 1,
-            spaceBetween: 16,
-            pagination: {
-                el: '.testimonials-pagination',
-                clickable: true,
-                renderBullet: (index, className) =>
-                    `<span class="${className} w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.25)"></span>`,
-            },
-            on: {
-                init() {
-                    updateTestimonialDots();
-                },
-                slideChange() {
-                    updateTestimonialDots();
-                },
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 20
-                },
-            },
-        });
-        const testPag = document.querySelector('.testimonials-pagination');
-        if (testPag) {
-            new MutationObserver(updateTestimonialDots)
-                .observe(testPag, {
+            const acadHeroPag = document.querySelector('.acad-hero-pagination');
+            if (acadHeroPag) {
+                new MutationObserver(() => {
+                    acadHeroPag.querySelectorAll('.swiper-pagination-bullet').forEach(b => {
+                        if (b.classList.contains('swiper-pagination-bullet-active')) {
+                            b.style.background = '#f59e0b';
+                            b.style.width = '28px';
+                            b.style.borderRadius = '999px';
+                        } else {
+                            b.style.background = 'rgba(255,255,255,.3)';
+                            b.style.width = '12px';
+                            b.style.borderRadius = '50%';
+                        }
+                    });
+                }).observe(acadHeroPag, {
                     childList: true,
                     subtree: true,
                     attributes: true,
                     attributeFilter: ['class']
                 });
-        }
-    </script>
+            }
+            // ── Gallery ──
+            new Swiper('.gallerySwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false
+                },
+                speed: 700,
+                slidesPerView: 1.1,
+                spaceBetween: 12,
+                navigation: {
+                    nextEl: '.gallery-next',
+                    prevEl: '.gallery-prev'
+                },
+                breakpoints: {
+                    480: {
+                        slidesPerView: 1.5,
+                        spaceBetween: 14
+                    },
+                    640: {
+                        slidesPerView: 2.1,
+                        spaceBetween: 16
+                    },
+                    1024: {
+                        slidesPerView: 3.1,
+                        spaceBetween: 16
+                    },
+                },
+            });
+            // ── Tutors ──
+            new Swiper('.tutorsSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 4500,
+                    disableOnInteraction: false
+                },
+                speed: 700,
+                slidesPerView: 1,
+                spaceBetween: 16,
+                navigation: {
+                    nextEl: '.tutors-next',
+                    prevEl: '.tutors-prev'
+                },
+                breakpoints: {
+                    480: {
+                        slidesPerView: 1.2
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    },
+                },
+            });
+            // ── Testimonials ──
+            function updateTestimonialDots() {
+                document.querySelectorAll('.testimonials-pagination .swiper-pagination-bullet').forEach(b => {
+                    if (b.classList.contains('swiper-pagination-bullet-active')) {
+                        b.style.background = '#f59e0b';
+                        b.style.width = '24px';
+                        b.style.borderRadius = '999px';
+                    } else {
+                        b.style.background = 'rgba(255,255,255,.25)';
+                        b.style.width = '10px';
+                        b.style.borderRadius = '50%';
+                    }
+                });
+            }
+            new Swiper('.testimonialsSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false
+                },
+                speed: 700,
+                slidesPerView: 1,
+                spaceBetween: 16,
+                pagination: {
+                    el: '.testimonials-pagination',
+                    clickable: true,
+                    renderBullet: (index, className) =>
+                        `<span class="${className} w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300" style="background:rgba(255,255,255,.25)"></span>`,
+                },
+                on: {
+                    init() {
+                        updateTestimonialDots();
+                    },
+                    slideChange() {
+                        updateTestimonialDots();
+                    },
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    },
+                },
+            });
+            const testPag = document.querySelector('.testimonials-pagination');
+            if (testPag) {
+                new MutationObserver(updateTestimonialDots)
+                    .observe(testPag, {
+                        childList: true,
+                        subtree: true,
+                        attributes: true,
+                        attributeFilter: ['class']
+                    });
+            }
+        </script>
     @endscript
     <style>
         .acad-hero-slider .swiper-slide {

@@ -5,8 +5,16 @@
     @php
         $academySlides = [
             [
-                'image' =>
-                    'https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
+                'image' => asset('images/academy/academy-hero-1.jpeg'),
+                'alt' => 'Students at work',
+                'tag' => 'Individual Focus',
+                'title' => 'One to One classes. Serious results.',
+                'sub' => 'More feedback. More accountability. Better outcomes.',
+                'cta1' => ['label' => 'View Batches', 'href' => '#offerings'],
+                'cta2' => ['label' => 'See the Gallery', 'href' => '#gallery'],
+            ],
+            [
+                'image' => asset('images/academy/academy-hero-2.jpeg'),
                 'alt' => 'Qaabil Academy classroom',
                 'tag' => 'Now Enrolling',
                 'title' => 'Built to help Students Succeed.',
@@ -15,24 +23,13 @@
                 'cta2' => ['label' => 'Explore Courses', 'href' => '#offerings'],
             ],
             [
-                'image' =>
-                    'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
+                'image' => asset('images/academy/academy-hero-3.jpeg'),
                 'alt' => 'Tutors teaching',
                 'tag' => 'Expert-Led · In-Person',
                 'title' => 'Taught by expert tutors',
                 'sub' => 'Every tutor at Qaabil Academy is an expert with proven track record.',
                 'cta1' => ['label' => 'Meet the Tutors', 'href' => '#tutors'],
                 'cta2' => ['label' => 'Our Story', 'href' => '#about'],
-            ],
-            [
-                'image' =>
-                    'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
-                'alt' => 'Students at work',
-                'tag' => 'Individual Focus',
-                'title' => 'One to One classes. Serious results.',
-                'sub' => 'More feedback. More accountability. Better outcomes.',
-                'cta1' => ['label' => 'View Batches', 'href' => '#offerings'],
-                'cta2' => ['label' => 'See the Gallery', 'href' => '#gallery'],
             ],
         ];
     @endphp

@@ -4,25 +4,25 @@
     @php
         $heroSlides = [
             [
-                'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600',
+                'image' => asset('images/academy/hero-1.jpeg'),
                 'alt' => 'Students collaborating',
                 'title' => 'Learn anything, together.',
                 'sub' => 'Submit a video, unlock all courses for 30 days.',
-                'cta' => ['label' => 'Get Started', 'href' => '#'],
+                'cta' => ['label' => 'Get Started', 'href' => route('contact')],
             ],
             [
                 'image' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1600',
                 'alt' => 'Workspace',
-                'title' => '10K+ Active Learners',
+                'title' => 'Thousands of Active Learners',
                 'sub' => 'Join a community of knowledge sharers worldwide.',
-                'cta' => ['label' => 'Browse Courses', 'href' => '#'],
+                'cta' => ['label' => 'Browse Courses', 'href' => route('academy') . '#offerings'],
             ],
             [
                 'image' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600',
                 'alt' => 'Online learning',
                 'title' => 'Peer Reviewed Content',
                 'sub' => 'Quality content validated by top contributors.',
-                'cta' => ['label' => 'Learn More', 'href' => '#'],
+                'cta' => ['label' => 'Learn More', 'href' => route('contact')],
             ],
         ];
     @endphp

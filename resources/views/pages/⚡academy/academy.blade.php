@@ -19,7 +19,7 @@
                 'tag' => 'Now Enrolling',
                 'title' => 'Built to help Students Succeed.',
                 'sub' => 'Qaabil Academy is a physical learning centre built on the same values as the platform.',
-                'cta1' => ['label' => 'Enrol Now', 'href' => '#contact'],
+                'cta1' => ['label' => 'Enrol Now', 'href' => route('contact')],
                 'cta2' => ['label' => 'Explore Courses', 'href' => '#offerings'],
             ],
             [

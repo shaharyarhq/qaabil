@@ -284,7 +284,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                             ->label('Title')
                                             ->required(),
 
-                                        RichEditor::make('features.description')
+                                        TextInput::make('features.description')
                                             ->columnSpanFull(),
 
                                         Repeater::make('features.items')

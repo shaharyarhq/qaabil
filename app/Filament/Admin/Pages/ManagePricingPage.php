@@ -40,7 +40,7 @@ class ManagePricingPage extends SettingsPage
                                             ->columnSpanFull()
                                             ->required(),
 
-                                        RichEditor::make('hero.title')
+                                        TextInput::make('hero.title')
                                             // ->toolbarButtons([
                                             //     'bold',
                                             //     'italic',

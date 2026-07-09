@@ -47,6 +47,7 @@ class ManageHomePage extends SettingsPage
                                     ->preserveFilenames()
                                     ->nullable()
                                     ->removeUploadedFileButtonPosition('right')
+                                    ->imageEditor()
                                     ->downloadable()
                                     ->columnSpanFull()
                                     ->openable(),

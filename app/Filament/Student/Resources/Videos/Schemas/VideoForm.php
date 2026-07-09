@@ -147,6 +147,7 @@ class VideoForm
                             ->preserveFilenames()
                             ->nullable()
                             ->removeUploadedFileButtonPosition('right')
+                            ->imageEditor()
                             ->downloadable()
                             ->columnSpanFull()
                             ->openable(),

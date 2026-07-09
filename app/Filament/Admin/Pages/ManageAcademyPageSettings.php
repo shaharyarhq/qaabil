@@ -63,6 +63,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                                     ->preserveFilenames()
                                                     ->nullable()
                                                     ->removeUploadedFileButtonPosition('right')
+                                                    ->imageEditor()
                                                     ->downloadable()
                                                     ->columnSpanFull()
                                                     ->openable(),
@@ -160,6 +161,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                             ->preserveFilenames()
                                             ->nullable()
                                             ->removeUploadedFileButtonPosition('right')
+                                            ->imageEditor()
                                             ->downloadable()
                                             ->columnSpanFull()
                                             ->openable(),
@@ -176,6 +178,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                             ->preserveFilenames()
                                             ->nullable()
                                             ->removeUploadedFileButtonPosition('right')
+                                            ->imageEditor()
                                             ->downloadable()
                                             ->columnSpanFull()
                                             ->openable(),
@@ -239,6 +242,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                                     ->preserveFilenames()
                                                     ->nullable()
                                                     ->removeUploadedFileButtonPosition('right')
+                                                    ->imageEditor()
                                                     ->downloadable()
                                                     ->columnSpanFull()
                                                     ->openable(),
@@ -346,6 +350,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                                     ->preserveFilenames()
                                                     ->nullable()
                                                     ->removeUploadedFileButtonPosition('right')
+                                                    ->imageEditor()
                                                     ->downloadable()
                                                     ->columnSpanFull()
                                                     ->openable(),
@@ -393,6 +398,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                                     ->preserveFilenames()
                                                     ->nullable()
                                                     ->removeUploadedFileButtonPosition('right')
+                                                    ->imageEditor()
                                                     ->downloadable()
                                                     ->columnSpanFull()
                                                     ->openable(),
@@ -453,6 +459,7 @@ class ManageAcademyPageSettings extends SettingsPage
                                                     ->preserveFilenames()
                                                     ->nullable()
                                                     ->removeUploadedFileButtonPosition('right')
+                                                    ->imageEditor()
                                                     ->downloadable()
                                                     ->columnSpanFull()
                                                     ->openable(),

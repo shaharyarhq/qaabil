@@ -183,8 +183,9 @@
                         <div class="relative z-10 flex flex-col flex-1">
 
                             @if (!empty($o['logo']))
-                                <img src="{{ $imgUrl($o['logo']) }}" width="260" height="40"
-                                    alt="{{ $o['title'] }}" class="mb-5 object-contain object-left" />
+                                <img src="{{ $imgUrl($o['logo']) }}" width="{{ $o['logo_width'] ?? 260 }}"
+                                    height="{{ $o['logo_height'] ?? 40 }}" alt="{{ $o['title'] }}"
+                                    class="mb-5 object-contain object-left" />
                             @elseif (!empty($o['icon']))
                                 <div class="text-3xl mb-5">{{ $o['icon'] }}</div>
                             @endif

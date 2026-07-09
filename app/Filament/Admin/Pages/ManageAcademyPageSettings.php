@@ -243,6 +243,10 @@ class ManageAcademyPageSettings extends SettingsPage
                                                     ->columnSpanFull()
                                                     ->openable(),
 
+                                                TextInput::make('logo_height'),
+
+                                                TextInput::make('logo_width')->numeric(),
+
                                                 Repeater::make('features')
                                                     ->label('Feature List')
                                                     ->simple(

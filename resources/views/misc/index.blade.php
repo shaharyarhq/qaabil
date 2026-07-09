@@ -249,7 +249,7 @@
                         ['icon' => '🌍', 'label' => 'Community built', 'sub' => 'by students, for students'],
                     ];
                 @endphp
-                @foreach($heroStats as $s)
+                @foreach ($heroStats as $s)
                     <div class="rounded-2xl p-4 backdrop-blur-md"
                         style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)">
                         <div class="text-[1.4rem] mb-1.5">{{ $s['icon'] }}</div>
@@ -274,7 +274,7 @@
                         ['num' => '∞', 'label' => 'Knowledge unlocked'],
                     ];
                 @endphp
-                @foreach($trustItems as $t)
+                @foreach ($trustItems as $t)
                     <div class="text-center px-6 first:pl-0 last:pr-0">
                         <div class="text-[1.25rem] font-extrabold text-[#1b3a6b] leading-none">{{ $t['num'] }}</div>
                         <div class="text-[.72rem] font-medium text-[#94a3b8] mt-0.5">{{ $t['label'] }}</div>
@@ -317,7 +317,8 @@
                     data-course-id="{{ $course->id }}">
 
                     {{-- Accent bar — view-transition-name for morph --}}
-                    <div class="h-[5px] bg-[#1b3a6b] shrink-0" style="view-transition-name: course-bar-{{ $course->id }};">
+                    <div class="h-[5px] bg-[#1b3a6b] shrink-0"
+                        style="view-transition-name: course-bar-{{ $course->id }};">
                     </div>
 
                     <div class="p-6 flex flex-col flex-1">
@@ -335,7 +336,8 @@
                         <h3 class="mb-2 text-[1.3rem] font-extrabold text-[#0f172a] leading-snug tracking-tight transition-transform duration-300 group-hover:translate-x-0.5"
                             style="view-transition-name: course-title-{{ $course->id }};">
                             {{ $course->name }}
-                            <span class="text-[#f59e0b] opacity-0 group-hover:opacity-100 transition-opacity ml-1">✦</span>
+                            <span
+                                class="text-[#f59e0b] opacity-0 group-hover:opacity-100 transition-opacity ml-1">✦</span>
                         </h3>
 
                         <p class="text-sm leading-relaxed mb-5 flex-1 text-[#475569]">
@@ -347,7 +349,8 @@
                                 📚 {{ $course->chapters_count }} {{ Str::plural('chapter', $course->chapters_count) }}
                             </span>
                             <span class="underline-amber text-sm font-bold text-[#1b3a6b]">
-                                🔥 {{ $course->videos_count ?? 0 }} {{ Str::plural('video', $course->videos_count ?? 0) }}
+                                🔥 {{ $course->videos_count ?? 0 }}
+                                {{ Str::plural('video', $course->videos_count ?? 0) }}
                             </span>
                         </div>
                     </div>
@@ -360,7 +363,8 @@
                 <div class="relative z-10">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5 shrink-0"
                         style="background:rgba(245,158,11,.15)">
-                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#f59e0b" stroke-width="2.5">
+                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#f59e0b"
+                            stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                         </svg>
                     </div>
@@ -409,4 +413,31 @@
     <x-footer></x-footer>
 </body>
 
+
 </html>
+
+@php
+    $heroSlides = [
+        [
+            'image' => asset('images/academy/hero-1.jpeg'),
+            'alt' => 'Students collaborating',
+            'title' => 'Learn anything, together.',
+            'sub' => 'Submit a video, unlock all courses for 30 days.',
+            'cta' => ['label' => 'Get Started', 'href' => route('contact')],
+        ],
+        [
+            'image' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1600',
+            'alt' => 'Workspace',
+            'title' => 'Thousands of Active Learners',
+            'sub' => 'Join a community of knowledge sharers worldwide.',
+            'cta' => ['label' => 'Browse Courses', 'href' => route('academy') . '#offerings'],
+        ],
+        [
+            'image' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600',
+            'alt' => 'Online learning',
+            'title' => 'Peer Reviewed Content',
+            'sub' => 'Quality content validated by top contributors.',
+            'cta' => ['label' => 'Learn More', 'href' => route('contact')],
+        ],
+    ];
+@endphp

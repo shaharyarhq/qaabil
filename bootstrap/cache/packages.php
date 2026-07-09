@@ -6,6 +6,13 @@
       0 => 'Andreia\\FilamentUiSwitcher\\FilamentUiSwitcherServiceProvider',
     ),
   ),
+  'anourvalar/eloquent-serialize' => 
+  array (
+    'aliases' => 
+    array (
+      'EloquentSerialize' => 'AnourValar\\EloquentSerialize\\Facades\\EloquentSerializeFacade',
+    ),
+  ),
   'barryvdh/laravel-debugbar' => 
   array (
     'aliases' => 
@@ -108,6 +115,13 @@
     'providers' => 
     array (
       0 => 'Filament\\Schemas\\SchemasServiceProvider',
+    ),
+  ),
+  'filament/spatie-laravel-settings-plugin' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Filament\\SpatieLaravelSettingsPluginServiceProvider',
     ),
   ),
   'filament/support' => 
@@ -272,6 +286,13 @@
     'providers' => 
     array (
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
+    ),
+  ),
+  'spatie/laravel-settings' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\LaravelSettings\\LaravelSettingsServiceProvider',
     ),
   ),
   'staudenmeir/eloquent-has-many-deep' => 

@@ -9,6 +9,7 @@ use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
 use Filament\View\PanelsRenderHook;
 use Illuminate\View\View;
+use JeffersonGoncalves\Filament\Topbar\TopbarPlugin;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 
 class PanelConfiguration
@@ -49,23 +50,23 @@ class PanelConfiguration
             ->databaseNotifications()
             ->renderHook(
                 PanelsRenderHook::FOOTER,
-                fn (): View => view('partials.global-loading-indicator'),
+                fn(): View => view('partials.global-loading-indicator'),
             )
             ->renderHook(
                 PanelsRenderHook::BODY_END,
-                hook: fn (): View => view('partials.light-switch')
+                hook: fn(): View => view('partials.light-switch')
             )
             ->renderHook(
                 PanelsRenderHook::BODY_END,
-                hook: fn (): View => view('partials.about-me')
+                hook: fn(): View => view('partials.about-me')
             )
             ->renderHook(
                 PanelsRenderHook::BODY_END,
-                hook: fn (): View => view('partials.drag-modals')
+                hook: fn(): View => view('partials.drag-modals')
             )
             ->renderHook(
                 PanelsRenderHook::STYLES_AFTER,
-                hook: fn (): View => view('partials.bprogress')
+                hook: fn(): View => view('partials.bprogress')
             )
             ->colors([
                 'primary' => Color::Blue,
@@ -78,7 +79,7 @@ class PanelConfiguration
             ->plugins([
                 FilamentUiSwitcherPlugin::make()
                     ->withModeSwitcher(),
-                FilamentApexChartsPlugin::make()
+                FilamentApexChartsPlugin::make(),
             ]);
 
         return $panel;

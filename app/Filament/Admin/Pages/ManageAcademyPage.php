@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Pages;
 
+use App\Filament\Support\Components\Tab\RouteDetailsTab;
 use App\Settings\AcademyPageSettings;
 use BackedEnum;
 use Filament\Forms\Components\FileUpload;
@@ -19,7 +20,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Storage;
 
-class ManageAcademyPageSettings extends SettingsPage
+class ManageAcademyPage extends SettingsPage
 {
     protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
@@ -36,6 +37,7 @@ class ManageAcademyPageSettings extends SettingsPage
                     ->columnSpanFull()
                     ->contained(false)
                     ->tabs([
+                        RouteDetailsTab::make(),
                         Tab::make('Hero Slider')
                             ->schema([
                                 Section::make()

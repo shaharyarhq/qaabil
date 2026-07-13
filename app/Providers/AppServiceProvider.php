@@ -5,12 +5,16 @@ namespace App\Providers;
 use App\Filament\Support\View\LucideLoadingIndicator;
 use App\Http\Response\LoginResponse;
 use App\Models\User;
+use App\Notifications\CustomVerifyEmail;
 use App\Services\VideoAccessService;
 use Codebyray\ReviewRateable\Models\Review;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Auth\Http\Responses\LoginResponse as BaseLoginResponse;
+use Filament\Auth\Notifications\VerifyEmail;
 use Filament\Forms\Components\Select;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Filament\Notifications\Notification;
 use Filament\Support\Contracts\LoadingIndicator;
 use Filament\Tables\Columns\TextColumn;
@@ -35,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(VideoAccessService::class);
         $this->app->bind(LoadingIndicator::class, LucideLoadingIndicator::class);
+        $this->app->bind(VerifyEmail::class, CustomVerifyEmail::class);
     }
 
     /**

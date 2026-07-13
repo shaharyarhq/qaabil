@@ -2,7 +2,7 @@
 
 namespace App\Filament\Moderator\Pages;
 
-use Filament\Auth\Pages\Login as BaseLogin;
+use Caresome\FilamentAuthDesigner\Pages\Auth\Login as BaseLogin;
 use Illuminate\Contracts\Support\Htmlable;
 
 class Login extends BaseLogin

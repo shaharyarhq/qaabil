@@ -2,44 +2,50 @@
 
 namespace App\Providers\Filament;
 
-use App\Enums\Panel as EnumsPanel;
+use Exception;
+use Filament\Panel;
+use App\Models\User;
 use App\Enums\UserRole;
+use Illuminate\View\View;
+use Filament\PanelProvider;
+use Illuminate\Support\Str;
+use Filament\Pages\Dashboard;
+use App\Enums\Panel as EnumsPanel;
+use Illuminate\Support\Facades\DB;
+use Filament\View\PanelsRenderHook;
+use App\Livewire\CustomPersonalInfo;
+use App\Filament\Student\Pages\Login;
+use App\Filament\Widgets\AccountWidget;
+use Illuminate\Support\Facades\Storage;
+use App\Filament\Student\Pages\Register;
+use Filament\Http\Middleware\Authenticate;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Filament\Plugins\CoreSettingsPlugin;
+use App\Filament\Support\PanelConfiguration;
+use Filament\FontProviders\GoogleFontProvider;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Filament\Http\Middleware\AuthenticateSession;
+use DutchCodingCompany\FilamentSocialite\Provider;
+use Caresome\FilamentAuthDesigner\AuthDesignerPlugin;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Caresome\FilamentAuthDesigner\Data\AuthPageConfig;
+use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Exceptions\SocialiteEmailAlreadyExistsException;
 use App\Exceptions\SocialiteUnableToCreateUserException;
-use App\Filament\Student\Pages\Login;
-use App\Filament\Student\Pages\Register;
-use App\Filament\Support\PanelConfiguration;
-use App\Filament\Widgets\AccountWidget;
-use App\Livewire\CustomPersonalInfo;
-use App\Models\User;
-use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
-use DutchCodingCompany\FilamentSocialite\Provider;
-use Exception;
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
-use Filament\Panel;
-use Filament\PanelProvider;
-use Filament\View\PanelsRenderHook;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Illuminate\View\View;
-use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
+use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 
 class StudentPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return PanelConfiguration::make($panel)
+        return $panel
             ->id(EnumsPanel::MEMBER->value)
             ->path('member')
             ->login(Login::class)
@@ -76,12 +82,39 @@ class StudentPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->plugin(new CoreSettingsPlugin())
             ->plugins([
-                BreezyCore::make()
-                    ->myProfileComponents([
-                        'personal_info' => CustomPersonalInfo::class,
-                    ])
-                    ->myProfile(hasAvatars: true),
+                AuthDesignerPlugin::make()
+                    ->login(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                            ->usingPage(Login::class)
+                    )
+                    ->registration(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                            ->usingPage(Register::class)
+                    )
+                    ->emailVerification(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                    )
+                    ->passwordReset(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                    ),
                 FilamentSocialitePlugin::make()
                     ->slug('member')
                     ->registration()

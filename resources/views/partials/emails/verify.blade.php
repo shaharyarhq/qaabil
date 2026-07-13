@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You earned a badge!</title>
+    <title>Verify Your Email</title>
     <style>
         * {
             margin: 0;
@@ -24,27 +24,25 @@
             padding: 0 16px 60px;
         }
 
-        /* ── Top bar ── */
+        /* ── Top bar (now white, holds the logo) ── */
         .topbar {
-            background: #1b3a6b;
+            background: #ffffff;
             border-radius: 16px 16px 0 0;
             padding: 20px 36px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .topbar-logo {
-            font-family: Georgia, serif;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #fff;
-            letter-spacing: -.01em;
+            border-bottom: 1px solid #eef1f6;
         }
 
         .topbar-dot {
             color: #f59e0b;
-            font-size: .6rem;
+            font-size: .7rem;
+        }
+
+        .topbar-name {
+            font-family: Georgia, serif;
+            font-size: .95rem;
+            font-weight: bold;
+            color: #1b3a6b;
+            letter-spacing: -.01em;
         }
 
         /* ── Main card ── */
@@ -121,8 +119,11 @@
             margin: 0 auto 24px;
             position: relative;
             z-index: 1;
-            padding: 12px;
-            /* give the image breathing room */
+        }
+
+        .badge-circle svg {
+            width: 44px;
+            height: 44px;
         }
 
         .hero-title {
@@ -164,7 +165,7 @@
             margin-bottom: 20px;
         }
 
-        /* ── Badge highlight box ── */
+        /* ── Info box ── */
         .badge-box {
             background: #f8fafd;
             border: 1px solid rgba(27, 58, 107, .12);
@@ -176,7 +177,7 @@
 
         .badge-box-name {
             font-family: Georgia, serif;
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: bold;
             color: #1b3a6b;
             margin-bottom: 6px;
@@ -210,6 +211,18 @@
 
         .cta-accent {
             color: #f59e0b;
+        }
+
+        .fallback-link {
+            font-size: .78rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 16px;
+            word-break: break-all;
+        }
+
+        .fallback-link a {
+            color: #1b3a6b;
         }
 
         /* ── Divider ── */
@@ -247,83 +260,67 @@
 
 <body>
     <div class="wrapper">
-
-        {{-- Top bar --}}
-        <div class="topbar">
-            <span class="topbar-logo">{{ config('app.name') }}</span>
-            <span class="topbar-dot">✦</span>
-        </div>
-
+        {{-- Top bar — logo lives here now, white bg, table-based so it's bulletproof --}}
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="topbar">
+            <tr>
+                {{-- <td align="left" valign="middle"> --}}
+                {{-- @if ($logoUrl ?? 'false') --}}
+                <img src="https://qaabil.io/images/logo/qaabil.jpeg" alt="{{ config('app.name') }}" height="28"
+                    style="height:36px;width:auto;display:block;border:0;">
+                {{-- @else --}}
+                {{-- <span class="topbar-name">{{ config('app.name') }} <span class="topbar-dot">✦</span></span> --}}
+                {{-- @endif --}}
+                </td>
+            </tr>
+        </table>
         {{-- Main card --}}
         <div class="card">
-
-            {{-- Hero --}}
+            {{-- Hero — icon only, no photo logo, so nothing to center/position --}}
             <div class="hero">
                 <div class="hero-eyebrow">
-                    <span class="hero-eyebrow-line"></span>
-                    Achievement Unlocked
-                    <span class="hero-eyebrow-line"></span>
+                    One Step To Go
                 </div>
-
-                {{-- Badge image instead of emoji --}}
-                <div class="badge-circle">
-                    <img src="{{ $iconDataUri }}" alt="{{ $badge->name }}"
-                        style="width:64px;height:auto;display:block;">
-                </div>
-
                 <h1 class="hero-title">
-                    You earned<br>
-                    <em>{{ $badge->name }}</em>
+                    Verify your<br>
+                    <em>email address</em>
                 </h1>
             </div>
-
             {{-- Body --}}
             <div class="body">
-                <p class="greeting">Hey {{ $notifiable->name }} 👋</p>
-
+                <p class="greeting">Hey {{ $user->name ?? 'there' }} 👋</p>
                 <p class="body-text">
-                    Congratulations — you just unlocked a new badge on your profile.
-                    This is a reflection of your dedication and hard work on the platform.
+                    Thanks for signing up. Before you can access your account, we just need to
+                    confirm this is really you. Click the button below to verify your email address.
                 </p>
-
                 <div class="badge-box">
-                    <div style="display:flex;align-items:center;gap:14px;">
-                        <img src="{{ url($badge->icon) }}" alt="{{ $badge->name }}"
-                            style="width:48px;height:auto;flex-shrink:0;">
-                        <div>
-                            <div class="badge-box-name">{{ $badge->name }}</div>
-                            <div class="badge-box-desc">{{ $badge->description }}</div>
-                        </div>
+                    <div class="badge-box-name">Why verify?</div>
+                    <div class="badge-box-desc">
+                        Verifying your email keeps your account secure and lets us reach you
+                        if you ever need to reset your password.
                     </div>
                 </div>
-
-                <p class="body-text">
-                    Keep submitting, keep learning, and keep pushing forward.
-                    Every badge is a milestone — and there are more ahead. 🚀
-                </p>
-
                 {{-- CTA --}}
                 <div class="cta-wrap">
-                    <a href="{{ url('/member') }}" class="cta-btn">
-                        View Your Badges <span class="cta-accent">✦</span>
+                    <a href="{{ $url }}" class="cta-btn">
+                        Verify Email Address <span class="cta-accent">✦</span>
                     </a>
                 </div>
-
+                <p class="fallback-link">
+                    Button not working? Copy and paste this link into your browser:<br>
+                    <a href="{{ $url }}">{{ $url }}</a>
+                </p>
                 <hr class="divider">
-
                 <p class="footer-text">
-                    You received this email because you have an account on
-                    <a href="{{ url('/') }}">{{ config('app.name') }}</a>.<br>
-                    If you have any questions, just reply to this email.
+                    You received this email because someone signed up for an account on
+                    <a href="{{ url('/') }}">{{ config('app.name') }}</a> using this address.
+                    If this wasn't you, you can safely ignore this email.
                 </p>
             </div>
         </div>
-
         {{-- Bottom strip --}}
         <div class="bottom-strip">
             {{ config('app.name') }} <span>✦</span> {{ date('Y') }}
         </div>
-
     </div>
 </body>
 

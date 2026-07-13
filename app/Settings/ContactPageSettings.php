@@ -6,6 +6,7 @@ use Spatie\LaravelSettings\Settings;
 
 class ContactPageSettings extends Settings
 {
+    public array $route;
     public array $hero;
     public array $methods;
     public array $socials;

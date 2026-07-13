@@ -4,9 +4,13 @@ namespace App\Providers\Filament;
 
 use App\Enums\Panel as EnumsPanel;
 use App\Filament\Admin\Pages\Profile;
+use App\Filament\Plugins\CoreSettingsPlugin;
 use App\Filament\Support\PanelConfiguration;
 use App\Filament\Widgets\AccountWidget;
 use App\Livewire\CustomPersonalInfo;
+use Caresome\FilamentAuthDesigner\AuthDesignerPlugin;
+use Caresome\FilamentAuthDesigner\Data\AuthPageConfig;
+use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,6 +23,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 
@@ -26,11 +31,10 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return PanelConfiguration::make($panel)
+        return $panel
             ->default()
             ->id(EnumsPanel::ADMIN->value)
-            ->path('admin')
-            ->homeUrl('/')
+            ->path(EnumsPanel::ADMIN->value)
             ->login()
             // ->profile(Profile::class)
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
@@ -57,12 +61,16 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->plugin(new CoreSettingsPlugin())
             ->plugins([
-                BreezyCore::make()
-                    ->myProfileComponents([
-                        'personal_info' => CustomPersonalInfo::class,
-                    ])
-                    ->myProfile(hasAvatars: true),
+                AuthDesignerPlugin::make()
+                    ->login(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                    )
             ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Pages;
 
+use App\Filament\Support\Components\Tab\RouteDetailsTab;
 use App\Settings\PricingPageSettings;
 use BackedEnum;
 use Filament\Forms\Components\Repeater;
@@ -30,6 +31,7 @@ class ManagePricingPage extends SettingsPage
                     ->columnSpanFull()
                     ->contained(false)
                     ->tabs([
+                        RouteDetailsTab::make(),
                         Tab::make('Hero Section')
                             ->schema([
                                 Section::make()

@@ -50,6 +50,13 @@
       0 => 'BladeUI\\Icons\\BladeIconsServiceProvider',
     ),
   ),
+  'caresome/filament-auth-designer' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Caresome\\FilamentAuthDesigner\\AuthDesignerServiceProvider',
+    ),
+  ),
   'codebyray/laravel-review-rateable' => 
   array (
     'providers' => 
@@ -226,6 +233,13 @@
     'providers' => 
     array (
       0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    ),
+  ),
+  'martin6363/filament-sidebar-resize' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Martin6363\\SidebarResize\\SidebarResizeServiceProvider',
     ),
   ),
   'nesbot/carbon' => 

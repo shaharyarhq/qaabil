@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Pages;
 
+use App\Filament\Support\Components\Tab\RouteDetailsTab;
 use App\Settings\ContactPageSettings;
 use BackedEnum;
 use Filament\Forms\Components\Repeater;
@@ -15,7 +16,7 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
-class ManageContactPageSettings extends SettingsPage
+class ManageContactPage extends SettingsPage
 {
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Phone;
 
@@ -32,6 +33,7 @@ class ManageContactPageSettings extends SettingsPage
                     ->columnSpanFull()
                     ->contained(false)
                     ->tabs([
+                        RouteDetailsTab::make(),
                         Tab::make('Hero')
                             ->schema([
                                 Section::make()

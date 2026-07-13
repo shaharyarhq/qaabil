@@ -5,8 +5,8 @@
         <div class="flex items-end justify-between mb-8">
             <div>
                 <div
-                    class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-[.1em] text-[#1b3a6b] mb-2">
-                    <span class="inline-block w-[18px] h-[3px] rounded-sm bg-[#f59e0b]"></span>
+                    class="inline-flex items-center gap-2 text-[.7rem] font-extrabold uppercase tracking-widest text-[#1b3a6b] mb-2">
+                    <span class="inline-block w-4.5 h-0.75 rounded-sm bg-[#f59e0b]"></span>
                     All Courses
                 </div>
                 <h2 class="text-[2.25rem] font-extrabold text-[#0f172a] tracking-tight leading-snug">
@@ -125,7 +125,7 @@
                 wire:loading.class="loading" wire:target="search, sort">
 
                 @foreach ($this->courses() as $i => $course)
-                  <livewire:courses.course-card :course="$course" :i="$i" :key="$course->id" />
+                    <livewire:courses.course-card :course="$course" :i="$i" :key="$course->id" />
                 @endforeach
 
                 {{-- CTA dark card
@@ -180,14 +180,14 @@
         {{-- Manifesto --}}
         <div class="manifesto relative mt-16 bg-[#1b3a6b] rounded-3xl overflow-hidden px-8 md:px-16 py-14 text-center">
             <div class="relative z-10">
-                <p class="font-['Instrument_Serif',serif] italic text-white leading-relaxed max-w-[600px] mx-auto"
+                <p class="font-['Instrument_Serif',serif] italic text-white leading-relaxed max-w-150 mx-auto"
                     style="font-size:clamp(1.5rem,2.5vw,2rem)">
                     " upload an approved video
                     <span class="text-[#f59e0b]"> ✦ </span>
                     unlock any chapter "
                 </p>
-                <div class="w-10 h-[2px] rounded mx-auto my-[18px]" style="background:rgba(245,158,11,.4)"></div>
-                <p class="text-[.85rem] text-white/45 max-w-[500px] mx-auto leading-relaxed">
+                <div class="w-10 h-0.5 rounded mx-auto my-4.5" style="background:rgba(245,158,11,.4)"></div>
+                <p class="text-[.85rem] text-white/45 max-w-125 mx-auto leading-relaxed">
                     Every course contains sections and chapters with clear objectives. Students submit video solutions.
                     Maintainers review and accept. One approved video unlocks the rest —
                     crowdsourced, peer-validated, forever free.

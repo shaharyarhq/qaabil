@@ -6,6 +6,8 @@ use Spatie\LaravelSettings\Settings;
 
 class PricingPageSettings extends Settings
 {
+    public array $route;
+
     public array $hero;
 
     public array $how_it_works;

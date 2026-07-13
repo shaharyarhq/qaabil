@@ -6,6 +6,7 @@ use Spatie\LaravelSettings\Settings;
 
 class AcademyPageSettings extends Settings
 {
+    public array $route;
     public array $hero;
     public array $about;
     public array $courses;

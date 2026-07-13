@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/@bprogress/core/dist/index.css" />
 <style>
     :root {
-        --bprogress-color: #000;
+        --bprogress-color: {{ Filament\Support\Colors\Color::Blue[500] }};
     }
 </style>
 <script type="module">
@@ -47,5 +47,3 @@
         BProgress.done();
     });
 </script>
-
-

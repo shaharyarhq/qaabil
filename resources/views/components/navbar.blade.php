@@ -3,21 +3,21 @@
 
     @php
         $links = [
-            ['route' => 'home',          'label' => 'Home'],
-            ['route' => 'courses.index', 'label' => 'Courses',    'pattern' => 'courses.*'],
-            ['route' => 'pricing',       'label' => 'Get Access'],
-            ['route' => 'academy',       'label' => 'Education Centre'],
-            ['route' => 'contact',       'label' => 'Contact'],
-            // ['route' => 'about',         'label' => 'Why Qaabil'],
+            ['route' => 'home', 'label' => getHomePageSettings()->route['label']],
+            ['route' => 'courses.index', 'label' => 'Courses', 'pattern' => 'courses.*'],
+            ['route' => 'pricing', 'label' => getPricingPageSettings()->route['label']],
+            ['route' => 'academy', 'label' => getAcademyPageSettings()->route['label']],
+            ['route' => 'contact', 'label' => getContactPageSettings()->route['label']],
+            // ['route' => 'about', 'label' => 'Why Qaabil'],
         ];
 
         $authHomeUrl = null;
         if (auth()->check()) {
             $authHomeUrl = match (true) {
                 auth()->user()->isSuperAdmin() => filament()->getPanel('admin')->getUrl(),
-                auth()->user()->isModerator()  => filament()->getPanel('moderator')->getUrl(),
-                auth()->user()->isStudent()    => filament()->getPanel('member')->getUrl(),
-                default                        => '/',
+                auth()->user()->isModerator() => filament()->getPanel('moderator')->getUrl(),
+                auth()->user()->isStudent() => filament()->getPanel('member')->getUrl(),
+                default => '/',
             };
         }
     @endphp
@@ -27,7 +27,7 @@
 
         {{-- Logo --}}
         <a {{ spa() }} href="/" class="shrink-0">
-            <img src="{{ asset('/images/logo/qaabil.jpeg') }}" alt="Qaabil"
+            <img src="{{ Storage::disk('public')->url(getSiteSettings()['logo']) }}" alt="Qaabil"
                 class="h-10 sm:h-12 lg:h-14 w-auto object-contain">
         </a>
 
@@ -36,7 +36,7 @@
             @foreach ($links as $link)
                 @php
                     $pattern = $link['pattern'] ?? $link['route'];
-                    $active  = request()->routeIs($pattern);
+                    $active = request()->routeIs($pattern);
                 @endphp
                 <a {{ spa() }} href="{{ route($link['route']) }}"
                     class="text-[.95rem] font-semibold px-4 py-[.6rem] rounded-lg no-underline transition-colors whitespace-nowrap
@@ -51,7 +51,7 @@
             @foreach ($links as $link)
                 @php
                     $pattern = $link['pattern'] ?? $link['route'];
-                    $active  = request()->routeIs($pattern);
+                    $active = request()->routeIs($pattern);
                 @endphp
                 <a {{ spa() }} href="{{ route($link['route']) }}"
                     class="text-[.78rem] font-semibold px-2 py-2 rounded-lg no-underline transition-colors whitespace-nowrap
@@ -84,9 +84,7 @@
                     <img class="w-7 h-7 rounded-full object-cover border border-[#e2e8f0]"
                         src="{{ auth()->user()->getFilamentAvatarUrl() }}" alt="avatar">
                 </a>
-
             @else
-
                 {{-- Log in button — desktop full, tablet compact --}}
                 <a href="{{ filament()->getPanel('member')->getLoginUrl() }}?redirectTo={{ url()->current() }}"
                     class="hidden md:inline-block font-semibold text-[#475569]
@@ -125,22 +123,17 @@
     </div>
 
     {{-- ── Mobile dropdown (< 768px only) ── --}}
-    <div x-show="open"
-        x-transition:enter="transition ease-out duration-150"
-        x-transition:enter-start="opacity-0 -translate-y-2"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-100"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        @click.outside="open = false"
-        class="md:hidden border-t border-[#e2e8f0] bg-white px-4 pb-4 pt-3"
-        style="display:none">
+    <div x-show="open" x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2" @click.outside="open = false"
+        class="md:hidden border-t border-[#e2e8f0] bg-white px-4 pb-4 pt-3" style="display:none">
 
         <div class="flex flex-col gap-1">
             @foreach ($links as $link)
                 @php
                     $pattern = $link['pattern'] ?? $link['route'];
-                    $active  = request()->routeIs($pattern);
+                    $active = request()->routeIs($pattern);
                 @endphp
                 <a {{ spa() }} href="{{ route($link['route']) }}" @click="open = false"
                     class="text-[1rem] font-semibold px-4 py-3.5 rounded-lg no-underline transition-colors

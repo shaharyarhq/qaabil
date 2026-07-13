@@ -265,15 +265,6 @@ table.fi-ta-table th {
     }
 }
 
-/* wrapper */
-.auth-theme-switcher {
-    @apply fixed top-0 z-50 flex w-full justify-end p-4;
-}
-
-.auth-theme-switcher__box {
-    @apply rounded-lg bg-gray-50 dark:bg-gray-950;
-}
-
 .theme-switcher {
     @apply grid grid-flow-col gap-x-1;
 }
@@ -310,15 +301,6 @@ table.fi-ta-table th {
 .fi-btn.fi-color-primary:hover:is([class*="fi-bg-color-"]) {
     --hover-bg: var(--color-500) !important;
     --hover-text: white !important;
-}
-
-/* wrapper */
-.auth-theme-switcher {
-    @apply fixed top-0 z-50 flex w-full justify-end p-4;
-}
-
-.auth-theme-switcher__box {
-    @apply rounded-lg bg-gray-50 dark:bg-gray-950;
 }
 
 .theme-switcher {
@@ -408,4 +390,14 @@ table.fi-ta-table th {
 
 .fi-topbar {
     box-shadow: none !important;
+}
+
+.fi-auth-layout .fi-simple-header {
+    align-items: center;
+}
+
+/* Added this to fix the login page font changing issue till the fix is not done officially */
+:root {
+    --font-sans: "Space Grotesk", sans-serif;
+    --default-font-family: var(--font-sans);
 }

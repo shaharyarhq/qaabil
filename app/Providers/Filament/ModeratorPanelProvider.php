@@ -8,11 +8,15 @@ use App\Exceptions\SocialiteEmailAlreadyExistsException;
 use App\Exceptions\SocialiteUnableToCreateUserException;
 use App\Filament\Moderator\Pages\Login;
 use App\Filament\Moderator\Pages\Register;
+use App\Filament\Plugins\CoreSettingsPlugin;
 use App\Filament\Support\PanelConfiguration;
 use App\Filament\Widgets\AccountWidget;
 use App\Http\Middleware\EnsureModeratorIsApproved;
 use App\Livewire\CustomPersonalInfo;
 use App\Models\User;
+use Caresome\FilamentAuthDesigner\AuthDesignerPlugin;
+use Caresome\FilamentAuthDesigner\Data\AuthPageConfig;
+use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
 use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 use DutchCodingCompany\FilamentSocialite\Provider;
 use Exception;
@@ -30,6 +34,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\View\View;
@@ -40,9 +45,9 @@ class ModeratorPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return PanelConfiguration::make($panel)
+        return $panel
             ->id(EnumsPanel::MODERATOR->value)
-            ->path('moderator')
+            ->path(EnumsPanel::MODERATOR->value)
             ->login(Login::class)
             ->registration(Register::class)
             ->passwordReset()
@@ -78,12 +83,39 @@ class ModeratorPanelProvider extends PanelProvider
                 Authenticate::class,
                 EnsureModeratorIsApproved::class,
             ])
+            ->plugin(new CoreSettingsPlugin())
             ->plugins([
-                BreezyCore::make()
-                    ->myProfileComponents([
-                        'personal_info' => CustomPersonalInfo::class,
-                    ])
-                    ->myProfile(hasAvatars: true),
+                AuthDesignerPlugin::make()
+                    ->login(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                            ->usingPage(Login::class)
+                    )
+                    ->registration(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                            ->usingPage(Register::class)
+                    )
+                    ->emailVerification(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                    )
+                    ->passwordReset(
+                        fn(AuthPageConfig $config) => $config
+                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
+                            ->mediaPosition(MediaPosition::Cover)
+                            ->blur(2)
+                            ->themeToggle(top: '1rem', left: '1rem')
+                    ),
                 FilamentSocialitePlugin::make()
                     ->slug('moderator')
                     ->registration()

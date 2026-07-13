@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Andreia\FilamentUiSwitcher\Models\Traits\HasUiPreferences;
 use App\Enums\Panel as EnumsPanel;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
 use App\Notifications\BadgeEarnedNotification;
+use App\Notifications\CustomVerifyEmail;
 use DutchCodingCompany\FilamentSocialite\Models\SocialiteUser;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -76,6 +77,14 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, MustVerif
             'ui_preferences' => 'array',
         ];
     }
+
+    // public function sendEmailVerificationNotification(): void
+    // {
+    //     dd();
+    //     $this->notify(new CustomVerifyEmail);
+    // }
+
+    // public function notify() {}
 
     public function socialiteUser(): HasOne
     {

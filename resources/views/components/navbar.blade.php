@@ -3,12 +3,28 @@
 
     @php
         $links = [
-            ['route' => 'home', 'label' => getHomePageSettings()->route['label']],
-            ['route' => 'courses.index', 'label' => 'Courses', 'pattern' => 'courses.*'],
-            ['route' => 'pricing', 'label' => getPricingPageSettings()->route['label']],
-            ['route' => 'academy', 'label' => getAcademyPageSettings()->route['label']],
-            ['route' => 'contact', 'label' => getContactPageSettings()->route['label']],
-            // ['route' => 'about', 'label' => 'Why Qaabil'],
+            [
+                'route' => 'home',
+                'label' => getHomePageSettings()->route['label'],
+            ],
+            [
+                'route' => 'courses.index',
+                'label' => 'Courses',
+                'pattern' => '
+            courses.*',
+            ],
+            [
+                'route' => 'pricing',
+                'label' => getPricingPageSettings()->route['label'],
+            ],
+            [
+                'route' => 'academy',
+                'label' => getAcademyPageSettings()->route['label'],
+            ],
+            [
+                'route' => 'contact',
+                'label' => getContactPageSettings()->route['label'],
+            ],
         ];
 
         $authHomeUrl = null;
@@ -27,7 +43,7 @@
 
         {{-- Logo --}}
         <a {{ spa() }} href="/" class="shrink-0">
-            <img src="{{ Storage::disk('public')->url(getSiteSettings()['logo']) }}" alt="Qaabil"
+            <img src="{{ asset('storage/' . getSiteSettings()['logo']) }}" alt="Qaabil"
                 class="h-10 sm:h-12 lg:h-14 w-auto object-contain">
         </a>
 
@@ -38,9 +54,11 @@
                     $pattern = $link['pattern'] ?? $link['route'];
                     $active = request()->routeIs($pattern);
                 @endphp
-                <a {{ spa() }} href="{{ route($link['route']) }}"
-                    class="text-[.95rem] font-semibold px-4 py-[.6rem] rounded-lg no-underline transition-colors whitespace-nowrap
-                           {{ $active ? 'bg-[#eff6ff] text-[#1b3a6b]' : 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' }}">
+                <a {{ spa() }} href="{{ route($link['route']) }}" @class([
+                    'text-[.95rem] font-semibold px-4 py-[.6rem] rounded-lg no-underline transition-colors whitespace-nowrap',
+                    'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !$active,
+                    'bg-[#eff6ff] text-[#1b3a6b]' => $active,
+                ])>
                     {{ $link['label'] }}
                 </a>
             @endforeach
@@ -53,9 +71,11 @@
                     $pattern = $link['pattern'] ?? $link['route'];
                     $active = request()->routeIs($pattern);
                 @endphp
-                <a {{ spa() }} href="{{ route($link['route']) }}"
-                    class="text-[.78rem] font-semibold px-2 py-2 rounded-lg no-underline transition-colors whitespace-nowrap
-                           {{ $active ? 'bg-[#eff6ff] text-[#1b3a6b]' : 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' }}">
+                <a {{ spa() }} href="{{ route($link['route']) }}" @class([
+                    'text-[.78rem] font-semibold px-2 py-2 rounded-lg no-underline transition-colors whitespace-nowrap',
+                    'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !$active,
+                    'bg-[#eff6ff] text-[#1b3a6b]' => $active,
+                ])>
                     {{ $link['label'] }}
                 </a>
             @endforeach
@@ -136,8 +156,11 @@
                     $active = request()->routeIs($pattern);
                 @endphp
                 <a {{ spa() }} href="{{ route($link['route']) }}" @click="open = false"
-                    class="text-[1rem] font-semibold px-4 py-3.5 rounded-lg no-underline transition-colors
-                           {{ $active ? 'bg-[#eff6ff] text-[#1b3a6b]' : 'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' }}">
+                    @class([
+                        'text-[1rem] font-semibold px-4 py-3.5 rounded-lg no-underline transition-colors',
+                        'text-[#475569] hover:bg-[#eff6ff] hover:text-[#1b3a6b]' => !$active,
+                        'bg-[#eff6ff] text-[#1b3a6b]' => $active,
+                    ])>
                     {{ $link['label'] }}
                 </a>
             @endforeach

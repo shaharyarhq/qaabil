@@ -45,11 +45,13 @@ class StudentPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $panelId = EnumsPanel::MEMBER->value;
+
         return $panel
-            ->id(EnumsPanel::MEMBER->value)
-            ->path('member')
-            ->login(Login::class)
-            ->registration(Register::class)
+            ->id($panelId)
+            ->path($panelId)
+            // ->login(Login::class)
+            // ->registration(Register::class)
             ->passwordReset()
             ->emailVerification()
             ->emailChangeVerification()
@@ -87,32 +89,32 @@ class StudentPanelProvider extends PanelProvider
                 AuthDesignerPlugin::make()
                     ->login(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
-                            ->mediaPosition(MediaPosition::Cover)
-                            ->blur(2)
+                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
+                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
+                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
                             ->themeToggle(top: '1rem', left: '1rem')
                             ->usingPage(Login::class)
                     )
                     ->registration(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
-                            ->mediaPosition(MediaPosition::Cover)
-                            ->blur(2)
+                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
+                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
+                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
                             ->themeToggle(top: '1rem', left: '1rem')
                             ->usingPage(Register::class)
                     )
                     ->emailVerification(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
-                            ->mediaPosition(MediaPosition::Cover)
-                            ->blur(2)
+                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
+                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
+                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
                             ->themeToggle(top: '1rem', left: '1rem')
                     )
                     ->passwordReset(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
-                            ->mediaPosition(MediaPosition::Cover)
-                            ->blur(2)
+                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
+                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
+                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
                             ->themeToggle(top: '1rem', left: '1rem')
                     ),
                 FilamentSocialitePlugin::make()

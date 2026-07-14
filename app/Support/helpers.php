@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\Course;
+use App\Settings\HomePageSettings;
 use App\Settings\AcademyPageSettings;
 use App\Settings\ApplicationSettings;
 use App\Settings\ContactPageSettings;
-use App\Settings\HomePageSettings;
 use App\Settings\PricingPageSettings;
+use App\Settings\PrivacyPolicyPageSettings;
+use App\Settings\TermsAndConditionsPageSettings;
 
 if (! function_exists('app_date_format')) {
     function app_date_format()
@@ -61,4 +63,14 @@ function getApplicationSettings()
 function getSiteSettings()
 {
     return getApplicationSettings()->site_settings;
+}
+
+function getPrivacyPolicyPageSettings()
+{
+    return app(PrivacyPolicyPageSettings::class);
+}
+
+function getTermsAndConditionsPageSettings()
+{
+    return app(TermsAndConditionsPageSettings::class);
 }

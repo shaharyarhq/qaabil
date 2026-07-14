@@ -7,24 +7,19 @@ use App\Settings\HomePageSettings;
 use App\Settings\PricingPageSettings;
 use Illuminate\Support\Facades\Route;
 
-$homePageSettings = app(HomePageSettings::class);
-$academyPageSettings = app(AcademyPageSettings::class);
-$contactPageSettings = app(ContactPageSettings::class);
-$pricingPageSettings = app(PricingPageSettings::class);
+Route::livewire(getHomePageSettings()->route['url'], 'pages::index')->name('home');
 
-Route::livewire($homePageSettings->route['url'], 'pages::index')->name('home');
+Route::livewire(getContactPageSettings()->route['url'], 'pages::contact')->name('contact');
 
-Route::livewire($contactPageSettings->route['url'], 'pages::contact')->name('contact');
+// Route::livewire('/about', 'pages::about')->name('about');
 
-Route::livewire('/about', 'pages::about')->name('about');
+Route::livewire(getPrivacyPolicyPageSettings()->route['url'], 'pages::privacy-policy')->name('policy');
 
-// Route::livewire('/', 'pages::privacy-policy')->name('policy');
+Route::livewire(getTermsAndConditionsPageSettings()->route['url'], 'pages::terms-and-conditions')->name('terms');
 
-// Route::livewire('/', 'pages::terms-and-conditions')->name('terms');
+Route::livewire(getAcademyPageSettings()->route['url'], 'pages::academy')->name('academy');
 
-Route::livewire($academyPageSettings->route['url'], 'pages::academy')->name('academy');
-
-Route::livewire($pricingPageSettings->route['url'], 'pages::pricing')->name('pricing');
+Route::livewire(getPricingPageSettings()->route['url'], 'pages::pricing')->name('pricing');
 
 Route::livewire('/courses', 'pages::courses.index')->name('courses.index');
 

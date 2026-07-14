@@ -31,10 +31,12 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $panelId = EnumsPanel::ADMIN->value;
+
         return $panel
             ->default()
-            ->id(EnumsPanel::ADMIN->value)
-            ->path(EnumsPanel::ADMIN->value)
+            ->id($panelId)
+            ->path($panelId)
             ->login()
             // ->profile(Profile::class)
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
@@ -66,9 +68,9 @@ class AdminPanelProvider extends PanelProvider
                 AuthDesignerPlugin::make()
                     ->login(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/images/homepage/hero-slides/hero-1.jpg'))
-                            ->mediaPosition(MediaPosition::Cover)
-                            ->blur(2)
+                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
+                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
+                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
                             ->themeToggle(top: '1rem', left: '1rem')
                     )
             ]);

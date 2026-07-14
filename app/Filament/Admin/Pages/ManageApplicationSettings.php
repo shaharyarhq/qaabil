@@ -44,7 +44,7 @@ class ManageApplicationSettings extends SettingsPage
                             ->schema([
                                 FileUpload::make("site_settings.{$panel}_auth_background")
                                     ->label('Auth Background')
-                                    ->acceptedFileTypes(['image/*', 'video/*'])
+                                    ->acceptedFileTypes(['image/*'])
                                     ->label('Site Logo')
                                     ->directory("images/site_settings/{$panel}/auth_background")
                                     ->disk('public')

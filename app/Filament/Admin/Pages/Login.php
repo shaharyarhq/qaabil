@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Moderator\Pages;
+namespace App\Filament\Admin\Pages;
 
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Section;
@@ -13,7 +13,7 @@ class Login extends BaseLogin
 
     public function getHeading(): string|Htmlable
     {
-        return __('Moderator Login');
+        return __('Admin Login');
     }
 
     public function form(Schema $schema): Schema

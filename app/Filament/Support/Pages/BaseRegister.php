@@ -5,6 +5,7 @@ namespace App\Filament\Support\Pages;
 use Filament\Schemas\Schema;
 use Illuminate\Support\HtmlString;
 use Filament\Forms\Components\Checkbox;
+use Filament\Schemas\Components\Section;
 use Caresome\FilamentAuthDesigner\Pages\Auth\Register;
 
 class BaseRegister extends Register
@@ -18,7 +19,7 @@ class BaseRegister extends Register
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
                 Checkbox::make('terms_and_conditions')
-                    ->label(new HtmlString('I agree to the <a href="' . route('home') . '" target="_blank" class="text-primary-600 underline">terms and conditions</a>'))
+                    ->label(new HtmlString('I agree to the <a href="' . getTermsAndConditionsPageSettings()->route['url'] . '" target="_blank" class="text-primary-600 underline">terms and conditions</a>'))
                     ->required()
                     ->accepted()
                     ->validationMessages([

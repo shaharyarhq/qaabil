@@ -22,6 +22,7 @@ use Filament\Http\Middleware\Authenticate;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Filament\Plugins\CoreSettingsPlugin;
 use App\Filament\Support\PanelConfiguration;
+use App\Filament\Support\Pages\RequestPasswordReset;
 use Filament\FontProviders\GoogleFontProvider;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -32,6 +33,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Caresome\FilamentAuthDesigner\Data\AuthPageConfig;
 use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Support\Pages\EmailVerificationPrompt;
 use App\Exceptions\SocialiteEmailAlreadyExistsException;
 use App\Exceptions\SocialiteUnableToCreateUserException;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -87,35 +89,27 @@ class StudentPanelProvider extends PanelProvider
             ->plugin(new CoreSettingsPlugin())
             ->plugins([
                 AuthDesignerPlugin::make()
-                    ->login(
-                        fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
+                    ->defaults(
+                        fn($config) => $config
+                            ->media(getPanelAuthBackgroundUrl($panelId))
                             ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
                             ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
                             ->themeToggle(top: '1rem', left: '1rem')
+                    )
+                    ->login(
+                        fn(AuthPageConfig $config) => $config
                             ->usingPage(Login::class)
                     )
                     ->registration(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
-                            ->themeToggle(top: '1rem', left: '1rem')
                             ->usingPage(Register::class)
                     )
                     ->emailVerification(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
-                            ->themeToggle(top: '1rem', left: '1rem')
+                            ->usingPage(EmailVerificationPrompt::class)
                     )
                     ->passwordReset(
-                        fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
-                            ->themeToggle(top: '1rem', left: '1rem')
+                        fn(AuthPageConfig $config) => $config->usingPage(RequestPasswordReset::class)
                     ),
                 FilamentSocialitePlugin::make()
                     ->slug('member')

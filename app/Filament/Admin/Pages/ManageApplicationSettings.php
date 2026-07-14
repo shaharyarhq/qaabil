@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Forms\Components\BaseFileUpload;
+use Filament\Schemas\Components\Utilities\Get;
 use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
 
 class ManageApplicationSettings extends SettingsPage
@@ -42,10 +44,20 @@ class ManageApplicationSettings extends SettingsPage
                             ->columnSpanFull()
                             ->columns(2)
                             ->schema([
+                                Select::make("site_settings.{$panel}_auth_background_type")
+                                    ->searchable(false)
+                                    ->live()
+                                    ->options([
+                                        'image' => 'Image',
+                                        'video' => 'Video',
+                                    ]),
+                                Select::make("site_settings.{$panel}_auth_background_position")
+                                    ->label('Auth Background Position')
+                                    ->options(MediaPosition::class)
+                                    ->searchable(false),
                                 FileUpload::make("site_settings.{$panel}_auth_background")
                                     ->label('Auth Background')
                                     ->acceptedFileTypes(['image/*'])
-                                    ->label('Site Logo')
                                     ->directory("images/site_settings/{$panel}/auth_background")
                                     ->disk('public')
                                     ->visibility('public')
@@ -55,7 +67,28 @@ class ManageApplicationSettings extends SettingsPage
                                     ->preserveFilenames()
                                     ->nullable()
                                     ->removeUploadedFileButtonPosition('right')
+                                    ->visible(fn(Get $get) => $get("site_settings.{$panel}_auth_background_type") === 'image')
+                                    ->required()
                                     ->imageEditor()
+                                    ->columnSpanFull()
+                                    ->downloadable()
+                                    // ->columnSpanFull()
+                                    ->openable(),
+                                FileUpload::make("site_settings.{$panel}_auth_background_video")
+                                    ->label('Auth Background Video')
+                                    ->acceptedFileTypes(['video/*'])
+                                    ->directory("images/site_settings/{$panel}/auth_background_video")
+                                    ->disk('public')
+                                    ->visibility('public')
+                                    ->deleteUploadedFileUsing(function ($file) {
+                                        Storage::disk('public')->delete($file);
+                                    })
+                                    ->nullable()
+                                    ->removeUploadedFileButtonPosition('right')
+                                    // ->imageEditor()
+                                    ->previewable()
+                                    ->visible(fn(Get $get) => $get("site_settings.{$panel}_auth_background_type") === 'video')
+                                    ->required()
                                     ->columnSpanFull()
                                     ->downloadable()
                                     // ->columnSpanFull()
@@ -64,14 +97,8 @@ class ManageApplicationSettings extends SettingsPage
                                     ->label('Auth Background Blur')
                                     ->range(minValue: 0, maxValue: 10)
                                     ->tooltips()
-                                    ->decimalPlaces(0)
-                                    // ->vertical()
-                                    ->columnSpanFull(),
-                                Select::make("site_settings.{$panel}_auth_background_position")
-                                    ->label('Auth Background Position')
-                                    ->options(MediaPosition::class)
-                                    ->searchable(false)
-
+                                    ->vertical()
+                                    ->decimalPlaces(0),
                             ])
                     ])
             ];

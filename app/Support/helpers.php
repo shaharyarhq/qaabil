@@ -74,3 +74,14 @@ function getTermsAndConditionsPageSettings()
 {
     return app(TermsAndConditionsPageSettings::class);
 }
+
+function getPanelAuthBackgroundUrl(string $panelId): ?string
+{
+    $settings = getSiteSettings();
+
+    $path = $settings["{$panelId}_auth_background_video"]
+        ?? $settings["{$panelId}_auth_background"]
+        ?? null;
+
+    return $path ? asset('storage/' . $path) : null;
+}

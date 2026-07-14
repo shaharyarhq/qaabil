@@ -2,44 +2,46 @@
 
 namespace App\Providers\Filament;
 
-use App\Enums\Panel as EnumsPanel;
+use Exception;
+use Filament\Panel;
+use App\Models\User;
 use App\Enums\UserRole;
-use App\Exceptions\SocialiteEmailAlreadyExistsException;
-use App\Exceptions\SocialiteUnableToCreateUserException;
+use Illuminate\View\View;
+use Filament\PanelProvider;
+use Illuminate\Support\Str;
+use Filament\Pages\Dashboard;
+use App\Enums\Panel as EnumsPanel;
+use Illuminate\Support\Facades\DB;
+use Filament\View\PanelsRenderHook;
+use App\Livewire\CustomPersonalInfo;
 use App\Filament\Moderator\Pages\Login;
+use App\Filament\Widgets\AccountWidget;
+use Illuminate\Support\Facades\Storage;
 use App\Filament\Moderator\Pages\Register;
+use Filament\Http\Middleware\Authenticate;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Filament\Plugins\CoreSettingsPlugin;
 use App\Filament\Support\PanelConfiguration;
-use App\Filament\Widgets\AccountWidget;
+use App\Filament\Support\Pages\RequestPasswordReset;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Filament\Http\Middleware\AuthenticateSession;
 use App\Http\Middleware\EnsureModeratorIsApproved;
-use App\Livewire\CustomPersonalInfo;
-use App\Models\User;
+use DutchCodingCompany\FilamentSocialite\Provider;
 use Caresome\FilamentAuthDesigner\AuthDesignerPlugin;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Caresome\FilamentAuthDesigner\Data\AuthPageConfig;
 use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
-use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
-use DutchCodingCompany\FilamentSocialite\Provider;
-use Exception;
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Support\Pages\EmailVerificationPrompt;
+use App\Exceptions\SocialiteEmailAlreadyExistsException;
+use App\Exceptions\SocialiteUnableToCreateUserException;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
-use Filament\Panel;
-use Filament\PanelProvider;
-use Filament\View\PanelsRenderHook;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Illuminate\View\View;
-use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
+use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 
 class ModeratorPanelProvider extends PanelProvider
 {
@@ -88,35 +90,27 @@ class ModeratorPanelProvider extends PanelProvider
             ->plugin(new CoreSettingsPlugin())
             ->plugins([
                 AuthDesignerPlugin::make()
-                    ->login(
-                        fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
+                    ->defaults(
+                        fn($config) => $config
+                            ->media(getPanelAuthBackgroundUrl($panelId))
                             ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
                             ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
                             ->themeToggle(top: '1rem', left: '1rem')
+                    )
+                    ->login(
+                        fn(AuthPageConfig $config) => $config
                             ->usingPage(Login::class)
                     )
                     ->registration(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
-                            ->themeToggle(top: '1rem', left: '1rem')
                             ->usingPage(Register::class)
                     )
                     ->emailVerification(
                         fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
-                            ->themeToggle(top: '1rem', left: '1rem')
+                            ->usingPage(EmailVerificationPrompt::class)
                     )
                     ->passwordReset(
-                        fn(AuthPageConfig $config) => $config
-                            ->media(asset('storage/' . getSiteSettings()["{$panelId}_auth_background"]))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
-                            ->themeToggle(top: '1rem', left: '1rem')
+                        fn(AuthPageConfig $config) => $config->usingPage(RequestPasswordReset::class)
                     ),
                 FilamentSocialitePlugin::make()
                     ->slug('moderator')

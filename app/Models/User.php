@@ -47,6 +47,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, MustVerif
         'avatar_url',
         'email',
         'password',
+        'cv_path'
     ];
 
     protected $attributes = [

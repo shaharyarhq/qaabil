@@ -2,28 +2,30 @@
 
 namespace App\Providers;
 
-use App\Filament\Support\View\LucideLoadingIndicator;
-use App\Http\Response\LoginResponse;
 use App\Models\User;
-use App\Notifications\CustomVerifyEmail;
-use App\Services\VideoAccessService;
-use Codebyray\ReviewRateable\Models\Review;
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
-use Filament\Auth\Http\Responses\LoginResponse as BaseLoginResponse;
-use Filament\Auth\Notifications\VerifyEmail;
+use App\Http\Response\LoginResponse;
+use App\Services\VideoAccessService;
 use Filament\Forms\Components\Select;
-use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
-use Filament\Notifications\Notification;
-use Filament\Support\Contracts\LoadingIndicator;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\ColumnManagerLayout;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
+use App\Notifications\CustomVerifyEmail;
+use Filament\Navigation\NavigationGroup;
+use Filament\Notifications\Notification;
+use Filament\Tables\Filters\SelectFilter;
+use Codebyray\ReviewRateable\Models\Review;
+use Filament\Auth\Notifications\VerifyEmail;
+use Filament\Tables\Enums\ColumnManagerLayout;
+use Filament\Support\Contracts\LoadingIndicator;
+use App\Filament\Support\View\LucideLoadingIndicator;
+use App\Filament\Support\Pages\EmailVerificationPrompt;
+use Filament\Auth\Pages\EmailVerification\EmailVerificationPrompt as BaseEmailVerificationPrompt;
+use Filament\Auth\Http\Responses\LoginResponse as BaseLoginResponse;
 
 class AppServiceProvider extends ServiceProvider
 {

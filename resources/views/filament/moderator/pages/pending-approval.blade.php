@@ -18,7 +18,9 @@
 
             <div class="space-y-2">
                 <p class="text-lg text-gray-600 dark:text-gray-400">
-                    Your moderator account is currently under review. To proceed with your approval, kindly send your CV or resume to admin@qaabil.academy
+                    Your moderator account is currently under review. Our team will verify your submitted CV / Resume
+                    and get back to you shortly. For further queries, contact <a href="mailto:admin@qaabil.academy"
+                        class="text-primary-600 underline">admin@qaabil.academy</a>.
                 </p>
 
                 <div

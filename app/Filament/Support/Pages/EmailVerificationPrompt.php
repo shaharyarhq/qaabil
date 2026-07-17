@@ -14,13 +14,16 @@ class EmailVerificationPrompt extends EmailVerification
     public function content(Schema $schema): Schema
     {
         $parentSchema = parent::content($schema);
-        $parentComponents = $parentSchema->getComponents();
+        $schemaComponents = $parentSchema->getComponents();
 
-        return $parentSchema->components([
-            Section::make()
-                ->schema([
-                    ...$parentComponents,
-                ])
-        ]);
+        $hasBackground = (bool) getPanelAuthBackgroundUrl(filament()->getCurrentPanel()->getId());
+
+        if (!$hasBackground) {
+            $schemaComponents = [
+                Section::make()->schema($schemaComponents),
+            ];
+        }
+
+        return $parentSchema->components($schemaComponents);
     }
 }

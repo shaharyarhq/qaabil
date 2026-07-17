@@ -4,8 +4,8 @@ namespace App\Filament\Moderator\Pages;
 
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Section;
+use App\Filament\Support\Pages\BaseLogin;
 use Illuminate\Contracts\Support\Htmlable;
-use Caresome\FilamentAuthDesigner\Pages\Auth\Login as BaseLogin;
 
 class Login extends BaseLogin
 {
@@ -14,18 +14,5 @@ class Login extends BaseLogin
     public function getHeading(): string|Htmlable
     {
         return __('Moderator Login');
-    }
-
-    public function form(Schema $schema): Schema
-    {
-        return $schema
-            ->components([
-                Section::make()
-                    ->schema([
-                        $this->getEmailFormComponent(),
-                        $this->getPasswordFormComponent(),
-                        $this->getRememberFormComponent(),
-                    ]),
-            ]);
     }
 }

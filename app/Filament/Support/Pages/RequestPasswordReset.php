@@ -10,15 +10,17 @@ class RequestPasswordReset extends ResetPasswordRequestPage
 {
     public function content(Schema $schema): Schema
     {
-        $schema = parent::content($schema);
-        $schemaComponents = $schema->getComponents();
+        $parentSchema = parent::content($schema);
+        $schemaComponents = $parentSchema->getComponents();
 
-        return $schema
-            ->components([
-                Section::make()
-                    ->schema([
-                        ...$schemaComponents
-                    ]),
-            ]);
+        $hasBackground = (bool) getPanelAuthBackgroundUrl(filament()->getCurrentPanel()->getId());
+
+        if (!$hasBackground) {
+            $schemaComponents = [
+                Section::make()->schema($schemaComponents),
+            ];
+        }
+
+        return $parentSchema->components($schemaComponents);
     }
 }

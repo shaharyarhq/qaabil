@@ -64,7 +64,6 @@ class ManageApplicationSettings extends SettingsPage
                                     ->deleteUploadedFileUsing(function ($file) {
                                         Storage::disk('public')->delete($file);
                                     })
-                                    ->preserveFilenames()
                                     ->nullable()
                                     ->removeUploadedFileButtonPosition('right')
                                     ->visible(fn(Get $get) => $get("site_settings.{$panel}_auth_background_type") === 'image')

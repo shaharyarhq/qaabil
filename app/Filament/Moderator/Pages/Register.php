@@ -15,6 +15,7 @@ use Filament\Forms\Components\FileUpload;
 use Illuminate\Contracts\Support\Htmlable;
 use App\Filament\Support\Pages\BaseRegister;
 use Filament\Schemas\Components\Wizard\Step;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class Register extends BaseRegister
 {
@@ -37,16 +38,13 @@ class Register extends BaseRegister
 
     public function form(Schema $schema): Schema
     {
-        $schema = parent::form($schema);
-        $schemaComponents = $schema->getComponents();
+        $schemaComponents = parent::getFormComponents();
 
         return $schema
             ->components([
                 Wizard::make([
                     Step::make('Account')
-                        ->schema([
-                            ...$schemaComponents
-                        ]),
+                        ->schema($schemaComponents),
                     Step::make('CV / Resume')
                         ->schema([
                             FileUpload::make('cv_path')
@@ -57,12 +55,18 @@ class Register extends BaseRegister
                                     'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                                 ])
                                 ->directory('attachments/user_registrations/cvs')
-                                ->disk('public')
-                                ->visibility('public')
+                                ->disk('local')
+                                ->visibility('private')
                                 ->deleteUploadedFileUsing(function ($file) {
-                                    Storage::disk('public')->delete($file);
+                                    Storage::disk('local')->delete($file);
                                 })
-                                ->preserveFilenames()
+                                // ->preserveFilenames()
+                                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file, $livewire) {
+                                    $name = $livewire->data['name'];
+                                    $extension = $file->getClientOriginalExtension();
+
+                                    return 'cv_' . str($name)->slug() . '.' . $extension;
+                                })
                                 ->required()
                                 ->removeUploadedFileButtonPosition('right')
                                 ->required()

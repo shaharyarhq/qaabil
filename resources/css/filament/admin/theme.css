@@ -401,3 +401,7 @@ table.fi-ta-table th {
     --font-sans: "Space Grotesk", sans-serif;
     --default-font-family: var(--font-sans);
 }
+
+.fi-sidebar-resize-handle::after {
+    content: none !important;
+}

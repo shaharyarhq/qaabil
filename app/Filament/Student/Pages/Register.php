@@ -31,18 +31,4 @@ class Register extends BaseRegister
     {
         return __('Member Registration');
     }
-
-    public function form(Schema $schema): Schema
-    {
-        $schema = parent::form($schema);
-        $schemaComponents = $schema->getComponents();
-
-        return $schema
-            ->components([
-                Section::make()
-                    ->schema([
-                        ...$schemaComponents
-                    ])
-            ]);
-    }
 }

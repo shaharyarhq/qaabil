@@ -542,7 +542,7 @@
                                                         </template>
                                                     </div>
                                                     {{-- Take Quiz button --}}
-                                                    <a target="_blank" href="{{ $obj->quiz_link }}"
+                                                    <a target="_blank" href="{{ App\Filament\Student\Pages\TakeQuiz::getUrl(['quiz' => $obj->quiz->id], panel: App\Enums\Panel::MEMBER->value) }}"
                                                         class="inline-flex items-center gap-1.5 text-[.75rem] font-bold text-white rounded-[10px] px-3.5 py-2 transition-all duration-200 hover:opacity-90 active:scale-95 shrink-0"
                                                         style="background:#1b3a6b;">
                                                         <svg width="13" height="13" fill="none"

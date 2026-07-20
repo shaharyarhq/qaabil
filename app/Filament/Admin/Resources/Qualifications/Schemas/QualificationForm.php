@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Filament\Admin\Resources\Courses\Resources\Sections\Schemas;
+namespace App\Filament\Admin\Resources\Qualifications\Schemas;
 
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
-class SectionForm
+class QualificationForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -17,12 +18,11 @@ class SectionForm
                     ->columns(2)
                     ->schema([
                         TextInput::make('name')
+                            ->maxLength(255)
                             ->required(),
-                        // TextInput::make('quiz_link')
-                        //     ->placeholder('https://www.example.com/quiz')
-                        //     ->url()
-                        //     ->required()
-                        //     ->rules(['required', 'url']),
+                        Textarea::make('description')
+                            ->columnSpanFull()
+                            ->nullable(),
                     ]),
             ]);
     }

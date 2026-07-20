@@ -55,7 +55,7 @@ class StudentPanelProvider extends PanelProvider
             // ->login(Login::class)
             // ->registration(Register::class)
             ->passwordReset()
-            ->emailVerification()
+            // ->emailVerification()
             ->emailChangeVerification()
             // ->profile(Profile::class)
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\Filament\Student\Resources')
@@ -104,10 +104,10 @@ class StudentPanelProvider extends PanelProvider
                         fn(AuthPageConfig $config) => $config
                             ->usingPage(Register::class)
                     )
-                    ->emailVerification(
-                        fn(AuthPageConfig $config) => $config
-                            ->usingPage(EmailVerificationPrompt::class)
-                    )
+                    // ->emailVerification(
+                    //     fn(AuthPageConfig $config) => $config
+                    //         ->usingPage(EmailVerificationPrompt::class)
+                    // )
                     ->passwordReset(
                         fn(AuthPageConfig $config) => $config->usingPage(RequestPasswordReset::class)
                     ),

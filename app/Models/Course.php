@@ -15,8 +15,13 @@ class Course extends Model
         'description',
         'is_disabled',
         'quiz_link',
+        'qualification_id'
     ];
 
+    public function qualification()
+    {
+        return $this->belongsTo(Qualification::class);
+    }
 
     public function sections()
     {

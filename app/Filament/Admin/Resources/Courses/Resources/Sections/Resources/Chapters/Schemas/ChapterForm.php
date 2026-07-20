@@ -18,11 +18,11 @@ class ChapterForm
                     ->schema([
                         TextInput::make('name')
                             ->required(),
-                        TextInput::make('quiz_link')
-                            ->placeholder('https://www.example.com/quiz')
-                            ->url()
-                            ->required()
-                            ->rules(['required', 'url']),
+                        // TextInput::make('quiz_link')
+                        //     ->placeholder('https://www.example.com/quiz')
+                        //     ->url()
+                        //     ->required()
+                        //     ->rules(['required', 'url']),
                     ])
             ]);
     }

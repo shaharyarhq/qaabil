@@ -49,6 +49,7 @@ class QuestionForm
                                 QuestionType::MultipleChoice,
                             ]))
                             ->columnSpanFull()
+                            ->reorderable()
                             ->grid([
                                 'default' => 1,
                                 'md' => 2,

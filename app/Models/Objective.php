@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Quiz;
+use App\Models\Quiz\Quiz;
 use App\Models\Video;
 use App\Models\Chapter;
 use App\Models\UserObjectiveProgress;
@@ -34,5 +34,10 @@ class Objective extends Model
     public function quiz()
     {
         return $this->hasOne(Quiz::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
     }
 }

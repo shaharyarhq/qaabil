@@ -1,10 +1,6 @@
 <?php
 
 use App\Http\Middleware\CheckVideoAccess;
-use App\Settings\AcademyPageSettings;
-use App\Settings\ContactPageSettings;
-use App\Settings\HomePageSettings;
-use App\Settings\PricingPageSettings;
 use Illuminate\Support\Facades\Route;
 
 Route::livewire(getHomePageSettings()->route['url'], 'pages::index')->name('home');

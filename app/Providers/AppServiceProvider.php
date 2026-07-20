@@ -49,9 +49,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Review::resolveRelationUsing('user', function ($review) {
-            return $review->belongsTo(User::class, 'user_id');
-        });
+        // Review::resolveRelationUsing('user', function ($review) {
+        //     return $review->belongsTo(User::class, 'user_id');
+        // }); Removed cause this was merged with my PR
 
         Table::configureUsing(function (Table $table): void {
             $table

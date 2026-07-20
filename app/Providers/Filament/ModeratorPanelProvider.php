@@ -93,8 +93,8 @@ class ModeratorPanelProvider extends PanelProvider
                     ->defaults(
                         fn($config) => $config
                             ->media(getPanelAuthBackgroundUrl($panelId))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"]) ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"])
+                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"] ?? '') ?? MediaPosition::Cover)
+                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"] ?? false)
                             ->themeToggle(top: '1rem', left: '1rem')
                     )
                     ->login(

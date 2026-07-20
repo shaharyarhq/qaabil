@@ -2,24 +2,21 @@
 
 namespace App\Filament\Admin\Resources\Objectives\Schemas;
 
-use App\Enums\QuizType;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
+use App\Filament\Admin\Resources\Questions\Tables\QuestionsTable;
+use Filament\Actions\Action;
+use Filament\Forms\Components\ModalTableSelect;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
-use Filament\Schemas\Components\Tabs;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Textarea;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Tabs\Tab;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\CheckboxList;
 use Filament\Schemas\Components\EmptyState;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Illuminate\Database\Eloquent\Model;
 
 class ObjectiveForm
 {
@@ -87,33 +84,26 @@ class ObjectiveForm
                                             ->description('Assign questions to this quiz.')
                                             ->icon(Heroicon::AcademicCap)
                                             ->columnSpanFull()
+                                            ->contained(false)
                                             ->visible(fn(?Model $record) => !($record?->questions()->exists())),
-                                        CheckboxList::make('questions')
-                                            ->relationship(
-                                                name: 'questions',
-                                                titleAttribute: 'question',
-                                                modifyQueryUsing: fn(Builder $query, ?Model $record) =>
-                                                $query->where('objective_id', $record?->objective_id),
-                                            )
-                                            ->columnSpanFull()
+                                        Group::make([
+                                            ModalTableSelect::make('questions')
+                                                ->relationship(name: 'questions', titleAttribute: 'question')
+                                                ->multiple()
+                                                ->tableConfiguration(QuestionsTable::class)
+                                                ->tableArguments(fn($livewire) => [
+                                                    'objective_id' => $livewire->getRecord()?->id,
+                                                ])
+                                                ->extraFieldWrapperAttributes(['class' => 'flex justify-center'])
+                                                ->hiddenLabel()
+                                                ->selectAction(
+                                                    fn(Action $action) => $action
+                                                        ->label('Select Questions')
+                                                )
+                                                ->columnSpanFull(),
+                                        ])
                                             ->columns(1)
-                                            ->bulkToggleable(),
-                                        // Repeater::make('questions')
-                                        //     ->relationship('questions')
-                                        //     ->columnSpanFull()
-                                        //     ->columns(2)
-                                        //     ->reorderable()
-                                        //     ->schema([
-                                        //         Select::make('type')
-                                        //             ->enum(QuizType::class)
-                                        //             ->options(QuizType::class)
-                                        //             ->live()
-                                        //             ->required(),
-
-                                        //         Textarea::make('question')
-                                        //             ->required(),
-                                        //     ])
-
+                                            ->columnSpanFull(),
                                     ])
                             ])
                     ]),

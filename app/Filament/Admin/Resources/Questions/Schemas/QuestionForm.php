@@ -34,6 +34,7 @@ class QuestionForm
                         ToggleButtons::make('type')
                             ->options(QuestionType::class)
                             ->live()
+                            ->required()
                             ->inline(),
 
                         Textarea::make('question')

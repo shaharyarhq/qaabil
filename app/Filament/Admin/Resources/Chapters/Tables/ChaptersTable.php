@@ -8,6 +8,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -44,7 +45,7 @@ class ChaptersTable
                 SelectFilter::make('course')
                     ->relationship('section.course', 'name'),
                 SelectFilter::make('section')
-                    ->relationship('section', 'name'),
+                    ->relationship('section', 'name', fn($query, Get $get) => $query->when($get('course'), fn($q) => $q->where('course_id', $get('course')))),
             ])
             ->recordActions([
                 // ViewAction::make(),

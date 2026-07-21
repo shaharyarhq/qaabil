@@ -2,21 +2,22 @@
 
 namespace App\Filament\Student\Pages;
 
-use App\Enums\QuestionType;
-use App\Models\Quiz\Quiz;
-use App\Models\Quiz\QuizAttempt;
-use Filament\Actions\Action;
-use Filament\Forms\Components\CheckboxList;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Wizard;
-use Filament\Schemas\Components\Wizard\Step;
+use App\Models\Quiz\Quiz;
+use App\Enums\QuestionType;
+use Filament\Actions\Action;
 use Filament\Schemas\Schema;
+use App\Models\Quiz\QuizAttempt;
+use Filament\Forms\Components\Radio;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserObjectiveProgress;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Schemas\Components\Wizard;
+use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Schemas\Components\Wizard\Step;
+use Filament\Forms\Concerns\InteractsWithForms;
 
 class TakeQuiz extends Page implements HasForms
 {
@@ -98,17 +99,6 @@ class TakeQuiz extends Page implements HasForms
             ->statePath('data');
     }
 
-    // protected function getHeaderActions(): array
-    // {
-    //     return [
-    //         Action::make('submitQuiz')
-    //             ->label('Submit Quiz')
-    //             ->color('success')
-    //             ->requiresConfirmation()
-    //             ->action('submitQuiz'),
-    //     ];
-    // }
-
     public function submitQuiz(): void
     {
         $data = $this->form->getState();
@@ -116,7 +106,6 @@ class TakeQuiz extends Page implements HasForms
 
         foreach ($this->quiz->questions as $question) {
             $selected = $data['answers'][$question->id] ?? null;
-
             $selectedIds = collect(is_array($selected) ? $selected : [$selected])
                 ->filter()
                 ->map(fn($v) => (int) $v)
@@ -133,32 +122,42 @@ class TakeQuiz extends Page implements HasForms
 
             $isCorrect = $selectedIds === $correctIds;
 
-            // QuizAnswer::create([
-            //     'quiz_attempt_id' => $this->attempt->id,
-            //     'question_id' => $question->id,
-            //     'selected_option_ids' => $selectedIds,
-            //     'is_correct' => $isCorrect,
-            // ]);
-
             if ($isCorrect) {
                 $correctCount++;
             }
         }
 
         $total = $this->quiz->questions->count();
+        $percentage = $total > 0 ? round(($correctCount / $total) * 100, 2) : 0;
 
         $this->attempt->update([
             'status' => 'graded',
             'correct_count' => $correctCount,
-            'percentage' => $total > 0 ? round(($correctCount / $total) * 100, 2) : 0,
+            'percentage' => $percentage,
             'submitted_at' => now(),
         ]);
 
+        $this->updateObjectiveProgress($percentage);
+
         Notification::make()
-            ->title("Scored {$correctCount}/{$total} ")
+            ->title("Scored {$correctCount}/{$total}")
             ->success()
             ->send();
 
-        $this->redirect(static::getUrl(['quiz' => $this->quiz->id]));
+        $this->redirect(route('courses.view', $this->quiz->objective->chapter->section->course));
+    }
+
+    protected function updateObjectiveProgress(float $percentage): void
+    {
+        $status = match (true) {
+            $percentage >= 90 => 'mastery',
+            $percentage >= 60 => 'practice',
+            default => 'behind',
+        };
+
+        UserObjectiveProgress::updateOrCreate(
+            ['user_id' => Auth::id(), 'objective_id' => $this->quiz->objective_id],
+            ['status' => $status]
+        );
     }
 }

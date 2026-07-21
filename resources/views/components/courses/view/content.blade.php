@@ -517,7 +517,7 @@
                                                         }
                                                     }">
                                                     {{-- Progress radio toggles --}}
-                                                    <div class="flex items-center gap-2">
+                                                    <div class="flex items-center gap-2 disabled">
                                                         <span
                                                             class="text-[.65rem] font-bold text-[#1b3a6b] uppercase tracking-wider">Progress:</span>
                                                         <template
@@ -527,8 +527,8 @@
             { key: 'mastery',  label: 'Mastery Reached',     active: 'bg-emerald-50 text-emerald-600 border-emerald-300', idle: 'text-[#1b3a6b] border-[rgba(27,58,107,.25)]' }
         ]"
                                                             :key="opt.key">
-                                                            <button type="button" @click="handle(opt.key)"
-                                                                :disabled="!isAuth"
+                                                            <button type="button" {{-- @click="handle(opt.key)" --}} disabled
+                                                                {{-- :disabled="!isAuth" --}}
                                                                 :class="!isAuth
                                                                     ?
                                                                     'opacity-40 cursor-not-allowed bg-slate-50 text-[#94a3b8] border-[#e2e8f0]' :
@@ -542,7 +542,8 @@
                                                         </template>
                                                     </div>
                                                     {{-- Take Quiz button --}}
-                                                    <a target="_blank" href="{{ App\Filament\Student\Pages\TakeQuiz::getUrl(['quiz' => $obj->quiz->id], panel: App\Enums\Panel::MEMBER->value) }}"
+                                                    <a target="_blank"
+                                                        href="{{ App\Filament\Student\Pages\TakeQuiz::getUrl(['quiz' => $obj->quiz->id], panel: App\Enums\Panel::MEMBER->value) }}"
                                                         class="inline-flex items-center gap-1.5 text-[.75rem] font-bold text-white rounded-[10px] px-3.5 py-2 transition-all duration-200 hover:opacity-90 active:scale-95 shrink-0"
                                                         style="background:#1b3a6b;">
                                                         <svg width="13" height="13" fill="none"

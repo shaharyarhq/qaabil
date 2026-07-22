@@ -1,4 +1,4 @@
-<div x-data="courseSearch()" @keydown.escape.window="closeAll()">
+<div x-data="courseSearch()" @keydown.escape.window="closeAll()" x-init="initFromHash()">
 
     <x-courses.view.hero :course="$course"></x-courses.view.hero>
 
@@ -146,7 +146,8 @@
                             type: 'objective',
                             label: @js($obj->name),
                             sub: '{{ $chapter->name }}',
-                            href: '#{{ Str::slug($obj->name) }}',
+                            /* scoped to chapter+section so ids never collide across the course */
+                            href: '#{{ Str::slug($section->name) }}-{{ Str::slug($chapter->name) }}-{{ Str::slug($obj->name) }}',
                         });
                     @endforeach
                 @endforeach
@@ -155,14 +156,16 @@
             return {
                 jumpOpen: false,
                 jumpQuery: '',
-                jumpResults: items,
+                jumpResults: [],
                 activeIdx: 0,
                 allItems: items,
 
                 openJump() {
                     this.jumpOpen = true;
                     this.jumpQuery = '';
-                    this.jumpResults = this.allItems;
+                    /* Default view: sections + chapters only — objectives flood the list, so they
+                       only appear once the person actually searches for something. */
+                    this.jumpResults = this.allItems.filter(i => i.type !== 'objective');
                     this.activeIdx = 0;
                     this.$nextTick(() => this.$refs.jumpInput?.focus());
                 },
@@ -171,10 +174,13 @@
                     this.jumpOpen = false;
                 },
 
-                jumpTo(item) {
-                    const id = item.href.slice(1);
-                    this.closeAll();
+                initFromHash() {
+                    if (!window.location.hash) return;
+                    const id = window.location.hash.slice(1);
+                    setTimeout(() => this.revealAndScroll(id), 150);
+                },
 
+                revealAndScroll(id) {
                     const doFlash = () => {
                         const el = document.getElementById(id);
                         if (!el) return;
@@ -182,7 +188,6 @@
                             behavior: 'smooth',
                             block: 'start'
                         });
-                        // force reflow so animation restarts if triggered twice
                         el.classList.remove('jump-flash');
                         void el.offsetWidth;
                         el.classList.add('jump-flash');
@@ -195,32 +200,48 @@
                         return;
                     }
 
-                    // 1. Open the parent section if collapsed
                     const sectionItem = target.closest('.section-item');
                     const sectionToggle = sectionItem?.querySelector(':scope > .section-toggle');
                     if (sectionToggle && sectionToggle.getAttribute('aria-expanded') !== 'true') {
                         toggleSection(sectionToggle);
                     }
 
-                    // 2. Open the parent chapter if collapsed (only relevant for objectives)
                     const chapterItem = target.closest('.chapter-item');
                     const chapterToggle = chapterItem?.querySelector(':scope > .chapter-toggle');
                     if (chapterToggle && chapterToggle.getAttribute('aria-expanded') !== 'true') {
                         toggleChapter(chapterToggle);
                     }
 
-                    // 3. Wait for CSS grid transition (320ms) then scroll + flash
                     setTimeout(doFlash, 340);
+                },
+
+                jumpTo(item) {
+                    const id = item.href.slice(1);
+                    this.closeAll();
+                    /* keep the URL shareable/bookmarkable without a full page reload */
+                    history.pushState(null, '', item.href);
+                    this.revealAndScroll(id);
                 },
 
                 filterJump() {
                     const q = this.jumpQuery.toLowerCase().trim();
-                    this.jumpResults = q ?
-                        this.allItems.filter(i =>
+                    if (!q) {
+                        this.jumpResults = this.allItems.filter(i => i.type !== 'objective');
+                    } else {
+                        this.jumpResults = this.allItems.filter(i =>
                             i.label.toLowerCase().includes(q) ||
-                            i.sub.toLowerCase().includes(q)) :
-                        this.allItems;
+                            i.sub.toLowerCase().includes(q));
+                    }
                     this.activeIdx = 0;
+                },
+
+                scrollActiveIntoView() {
+                    this.$nextTick(() => {
+                        const active = this.$refs.jumpList?.querySelector('[data-active="true"]');
+                        active?.scrollIntoView({
+                            block: 'nearest'
+                        });
+                    });
                 },
 
                 handleKey(e) {
@@ -235,9 +256,11 @@
                     if (e.key === 'ArrowDown') {
                         e.preventDefault();
                         this.activeIdx = Math.min(this.activeIdx + 1, this.jumpResults.length - 1);
+                        this.scrollActiveIntoView();
                     } else if (e.key === 'ArrowUp') {
                         e.preventDefault();
                         this.activeIdx = Math.max(this.activeIdx - 1, 0);
+                        this.scrollActiveIntoView();
                     } else if (e.key === 'Enter') {
                         const item = this.jumpResults[this.activeIdx];
                         if (item) this.jumpTo(item);

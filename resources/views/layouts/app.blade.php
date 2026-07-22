@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo/favicon2.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#1E3A5F">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo/favicon2.png') }}">
+
     <title>{{ $title ?? config('app.name') }}</title>
 
     <!-- Open Graph / WhatsApp Preview -->

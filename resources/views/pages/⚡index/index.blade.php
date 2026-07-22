@@ -1,7 +1,7 @@
 <div>
 
     @php
-        $settings = app(\App\Settings\HomePageSettings::class);
+        $settings = getHomePageSettings();
         $heroSlides = $settings->hero_slides;
     @endphp
     <!-- ── Hero Slider ───────────────────────────────────── -->
@@ -86,7 +86,7 @@
     <main class="max-w-7xl mx-auto px-6 py-14 pb-28">
 
         <!-- section header -->
-        <div class="flex items-end justify-between mb-10">
+        {{-- <div class="flex items-end justify-between mb-10">
             <div>
                 <div
                     class="inline-flex items-center gap-2 text-[.72rem] font-extrabold uppercase tracking-widest text-[#1b3a6b] mb-2">
@@ -99,21 +99,20 @@
                         style="font-size:1.1em">today</span>
                 </h2>
             </div>
-        </div>
+        </div> --}}
 
-        @php
+        {{-- @php
             $bands = ['band-1', 'band-2', 'band-3', 'band-4', 'band-5'];
             $courses = $courses->values();
-        @endphp
+        @endphp --}}
 
+        {{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr"> --}}
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-
-            @foreach ($courses as $i => $course)
+        {{-- @foreach ($courses as $i => $course)
                 <livewire:courses.course-card :course="$course" :i="$i" :key="$course->id" />
-            @endforeach
+            @endforeach --}}
 
-            {{-- CTA dark card
+        {{-- CTA dark card
             <div
                 class="card-dark fade-up d6 relative bg-[#1b3a6b] rounded-[20px] overflow-hidden p-8 flex flex-col justify-between transition-all duration-[.22s] ease hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.5)]">
                 <div class="relative z-10">
@@ -142,8 +141,61 @@
                 </div>
             </div> --}}
 
-        </div>
+        {{-- </div> --}}
 
+        <!-- ── Qualifications ─────────────────────────────────── -->
+        <div class="max-w-7xl mx-auto px-6 mb-14">
+
+            <div class="mb-10">
+                <div
+                    class="inline-flex items-center gap-2 text-[.72rem] font-extrabold uppercase tracking-widest text-[#1b3a6b] mb-2">
+                    <span class="inline-block w-4.5 h-0.75 rounded-sm bg-[#f59e0b]"></span>
+                    Browse by
+                </div>
+                <h2 class="text-[2rem] font-extrabold text-[#0f172a] tracking-tight leading-snug">
+                    Choose your
+                    <span class="font-['Instrument_Serif',serif] font-normal italic text-[#1b3a6b]"
+                        style="font-size:1.1em">qualification</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($qualifications as $qualification)
+                    <a href="{{ route('courses.index', ['qualification' => $qualification->id]) }}"
+                        class="group relative bg-white rounded-[20px] p-7 border border-[#e2e8f0] transition-all duration-[.22s] ease hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.15)] hover:border-[#1b3a6b]/20">
+
+                        <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-colors"
+                            style="background:rgba(27,58,107,.08)">
+                            <svg class="w-5 h-5 text-[#1b3a6b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 14l6.16-3.42A12.083 12.083 0 0121 17.5c-2.24 1.5-5.06 2.5-9 2.5s-6.76-1-9-2.5a12.083 12.083 0 012.84-6.92L12 14z" />
+                            </svg>
+                        </div>
+
+                        <h3
+                            class="text-[1.1rem] font-extrabold text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#1b3a6b] transition-colors">
+                            {{ $qualification->name }}
+                        </h3>
+
+                        <p class="text-[.8rem] leading-relaxed text-[#64748b] mb-4 line-clamp-2">
+                            {{ $qualification->description }}
+                        </p>
+
+                        <div class="flex items-center gap-1.5 text-[.72rem] font-bold text-[#f59e0b]">
+                            {{ $qualification->courses_count }}
+                            {{ Str::plural('course', $qualification->courses_count) }}
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+
+        </div>
 
         {{-- Manifesto --}}
         <div class="manifesto relative mt-16 bg-[#1b3a6b] rounded-3xl overflow-hidden px-8 md:px-16 py-14 text-center">

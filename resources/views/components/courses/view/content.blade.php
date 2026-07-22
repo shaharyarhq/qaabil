@@ -50,7 +50,12 @@
                         class="px-1.5 py-0.5 rounded bg-[#f1f5f9] border border-[#e2e8f0] text-[.65rem] font-bold">Esc</kbd>
                 </button>
             </div>
-            <div class="max-h-90 overflow-y-auto">
+            <div x-ref="jumpList" class="max-h-90 overflow-y-auto">
+                <template x-if="jumpQuery.trim() === ''">
+                    <div class="px-4 pt-3 pb-1 text-[.65rem] font-extrabold uppercase tracking-widest text-[#94a3b8]">
+                        Sections & chapters
+                    </div>
+                </template>
                 <template x-if="jumpResults.length === 0">
                     <div class="px-5 py-8 text-center text-sm text-[#94a3b8] font-['Instrument_Serif',serif] italic">
                         Nothing found for "<span x-text="jumpQuery"></span>"
@@ -58,6 +63,7 @@
                 </template>
                 <template x-for="(item, idx) in jumpResults" :key="item.id">
                     <a :href="item.href" @click.prevent="jumpTo(item)"
+                        :data-active="idx === activeIdx ? 'true' : 'false'"
                         :class="idx === activeIdx ? 'bg-[#eff6ff]' : 'hover:bg-[#f8fafd]'"
                         class="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors no-underline group"
                         @mouseenter="activeIdx = idx">
@@ -88,6 +94,17 @@
                 <span><kbd class="font-bold">↑↓</kbd> navigate</span>
                 <span><kbd class="font-bold">↵</kbd> jump</span>
                 <span><kbd class="font-bold">Esc</kbd> close</span>
+                <span class="ml-auto flex items-center gap-3">
+                    <span class="flex items-center gap-1"><span
+                            class="w-2.5 h-2.5 rounded-full bg-[#eff6ff] border border-[rgba(27,58,107,.3)] inline-block"></span>
+                        Section</span>
+                    <span class="flex items-center gap-1"><span
+                            class="w-2.5 h-2.5 rounded-full bg-[#fffbeb] border border-[rgba(245,158,11,.4)] inline-block"></span>
+                        Chapter</span>
+                    <span class="flex items-center gap-1"><span
+                            class="w-2.5 h-2.5 rounded-full bg-[#f0fdf4] border border-[rgba(5,150,105,.3)] inline-block"></span>
+                        Objective</span>
+                </span>
             </div>
         </div>
     </div>
@@ -177,7 +194,7 @@
                                 <div class="chapter-body">
                                     <div class="chapter-body-inner">
                                         @forelse ($chapter->objectives as $obj)
-                                            <div id="{{ Str::slug($obj->name) }}"
+                                            <div id="{{ Str::slug($section->name) }}-{{ Str::slug($chapter->name) }}-{{ Str::slug($obj->name) }}"
                                                 class="border-t-2 transition-colors hover:bg-[rgba(239,246,255,.6)] flex flex-col scroll-mt-24"
                                                 style="border-color:rgba(27,58,107,.15)" x-data="{
                                                     status: '{{ $objectiveProgress[$obj->id] ?? '' }}',
@@ -190,7 +207,8 @@
                                                     }
                                                 }">
 
-                                                <div class="w-full flex justify-between">
+                                                <div
+                                                    class="w-full flex flex-col sm:flex-row sm:items-start sm:justify-between">
                                                     <div class="flex items-start gap-3 px-5 py-4">
                                                         <div :style="{
                                                             background: status === 'behind' ? '#ef4444' :
@@ -220,12 +238,14 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div class="flex items-center gap-2 px-5 py-4 shrink-0"
+
+                                                    <div class="flex items-center gap-2 px-5 pb-4 sm:py-4 shrink-0"
                                                         x-data="{
                                                             language: '',
                                                             focus: '',
                                                             creator: '',
                                                             sort: 'newest',
+                                                            filtersOpen: false,
                                                             redirect() {
                                                                 const url = new URL('{{ route('objectives.view', $obj) }}');
                                                                 if (this.language) url.searchParams.set('language', this.language);
@@ -233,74 +253,214 @@
                                                                 if (this.creator) url.searchParams.set('creator', this.creator);
                                                                 if (this.sort !== 'newest') url.searchParams.set('sort', this.sort);
                                                                 window.open(url.toString(), '_blank');
+                                                                filtersOpen = false;
+                                                            },
+                                                            get activeCount() {
+                                                                let c = 0;
+                                                                if (this.language) c++;
+                                                                if (this.focus) c++;
+                                                                if (this.sort !== 'newest') c++;
+                                                                return c;
                                                             }
                                                         }">
 
-                                                        {{-- Language --}}
-                                                        <div class="relative shrink-0">
-                                                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none"
-                                                                width="13" height="13" fill="none"
-                                                                viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2.5">
-                                                                <path stroke-linecap="round"
-                                                                    d="M3 6h18M6 12h12M9 18h6" />
-                                                            </svg>
-                                                            <select x-model="language" @change="redirect()"
-                                                                class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s]">
-                                                                <option value="">All languages</option>
-                                                                @foreach ($this->availableLanguages as $code)
-                                                                    <option value="{{ $code }}">
-                                                                        {{ config('app.languages.' . $code, $code) }}
+                                                        {{-- ── Desktop: filters (click-to-apply, matches mobile behavior) ── --}}
+                                                        <div class="hidden sm:flex items-center gap-2">
+                                                            {{-- Language --}}
+                                                            <div class="relative shrink-0">
+                                                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none"
+                                                                    width="13" height="13" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2.5">
+                                                                    <path stroke-linecap="round"
+                                                                        d="M3 6h18M6 12h12M9 18h6" />
+                                                                </svg>
+                                                                <select x-model="language"
+                                                                    class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s]">
+                                                                    <option value="">All languages</option>
+                                                                    @foreach ($this->availableLanguages as $code)
+                                                                        <option value="{{ $code }}">
+                                                                            {{ config('app.languages.' . $code, $code) }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+                                                            {{-- Focus --}}
+                                                            <div class="relative shrink-0">
+                                                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none"
+                                                                    width="13" height="13" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2.5">
+                                                                    <path stroke-linecap="round"
+                                                                        d="M3 6h18M6 12h12M9 18h6" />
+                                                                </svg>
+                                                                <select x-model="focus"
+                                                                    class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s]">
+                                                                    <option value="">All focus types</option>
+                                                                    <option
+                                                                        value="{{ \App\Enums\VideoFocus::LessonFocused->value }}">
+                                                                        Lesson Focused</option>
+                                                                    <option
+                                                                        value="{{ \App\Enums\VideoFocus::QuestionFocused->value }}">
+                                                                        Question Focused</option>
+                                                                </select>
+                                                            </div>
+
+                                                            {{-- Sort --}}
+                                                            <div class="relative shrink-0">
+                                                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none"
+                                                                    width="13" height="13" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2.5">
+                                                                    <path stroke-linecap="round"
+                                                                        d="M3 6h18M6 12h12M9 18h6" />
+                                                                </svg>
+                                                                <select x-model="sort"
+                                                                    class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s]">
+                                                                    <option value="newest">Newest first</option>
+                                                                    <option value="oldest">Oldest first</option>
+                                                                    <option value="rating-high">Highest rating first
                                                                     </option>
-                                                                @endforeach
-                                                            </select>
+                                                                    <option value="rating-low">Lowest rating first
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+
+                                                            {{-- Apply button — filters only fire once this is clicked --}}
+                                                            <button type="button" @click="redirect()"
+                                                                class="relative inline-flex items-center gap-1.5 text-[.775rem] font-bold text-white rounded-lg px-3.5 py-3 transition-all hover:opacity-90 active:scale-95"
+                                                                style="background:#1b3a6b;">
+                                                                <span
+                                                                    x-text="activeCount > 0 ? 'Apply filters' : 'All videos'"></span>
+                                                                <span x-show="activeCount > 0" x-text="activeCount"
+                                                                    style="display:none"
+                                                                    class="min-w-4 h-4 px-1 rounded-full bg-[#f59e0b] text-[#1b3a6b] text-[.6rem] font-extrabold flex items-center justify-center"></span>
+                                                            </button>
                                                         </div>
 
-                                                        {{-- Focus --}}
-                                                        <div class="relative shrink-0">
-                                                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none"
-                                                                width="13" height="13" fill="none"
-                                                                viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2.5">
-                                                                <path stroke-linecap="round"
-                                                                    d="M3 6h18M6 12h12M9 18h6" />
-                                                            </svg>
-                                                            <select x-model="focus" @change="redirect()"
-                                                                class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s]">
-                                                                <option value="">All focus types</option>
-                                                                <option
-                                                                    value="{{ \App\Enums\VideoFocus::LessonFocused->value }}">
-                                                                    Lesson Focused</option>
-                                                                <option
-                                                                    value="{{ \App\Enums\VideoFocus::QuestionFocused->value }}">
-                                                                    Question Focused</option>
-                                                            </select>
+                                                        {{-- ── Mobile: filter trigger + view-all link ── --}}
+                                                        <div class="flex sm:hidden items-center gap-3 w-full">
+                                                            <button type="button" @click="filtersOpen = true"
+                                                                class="relative inline-flex items-center gap-1.5 text-[.75rem] font-bold text-[#1b3a6b] bg-white border border-[#e2e8f0] rounded-lg px-3 py-2 transition-colors hover:border-[rgba(27,58,107,.3)]">
+                                                                <svg width="13" height="13" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2.5">
+                                                                    <path stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        d="M3 5h18M6 10h12M10 15h4" />
+                                                                </svg>
+                                                                Filters
+                                                                <span x-show="activeCount > 0" x-text="activeCount"
+                                                                    style="display:none"
+                                                                    class="ml-0.5 min-w-4 h-4 px-1 rounded-full bg-[#f59e0b] text-white text-[.6rem] font-extrabold flex items-center justify-center"></span>
+                                                            </button>
+
+                                                            <a wire:navigate
+                                                                href="{{ route('objectives.view', $obj) }}"
+                                                                class="text-[.75rem] font-bold text-[#1b3a6b] no-underline">
+                                                                All videos
+                                                            </a>
+                                                            <span class="text-[#f59e0b] text-[.65rem]">✦</span>
                                                         </div>
 
-                                                        {{-- Sort --}}
-                                                        <div class="relative shrink-0">
-                                                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none"
-                                                                width="13" height="13" fill="none"
-                                                                viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2.5">
-                                                                <path stroke-linecap="round"
-                                                                    d="M3 6h18M6 12h12M9 18h6" />
-                                                            </svg>
-                                                            <select x-model="sort" @change="redirect()"
-                                                                class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s]">
-                                                                <option value="newest">Newest first</option>
-                                                                <option value="oldest">Oldest first</option>
-                                                                <option value="rating-high">Highest rating first
-                                                                </option>
-                                                                <option value="rating-low">Lowest rating first</option>
-                                                            </select>
-                                                        </div>
+                                                        {{-- ── Mobile: filter slideover (bottom sheet) ── --}}
+                                                        <div x-show="filtersOpen"
+                                                            x-transition:enter="transition ease-out duration-150"
+                                                            x-transition:enter-start="opacity-0"
+                                                            x-transition:enter-end="opacity-100"
+                                                            x-transition:leave="transition ease-in duration-100"
+                                                            x-transition:leave-start="opacity-100"
+                                                            x-transition:leave-end="opacity-0"
+                                                            @keydown.window.escape="filtersOpen = false"
+                                                            class="fixed inset-0 z-50 sm:hidden" style="display:none">
 
-                                                        <a wire:navigate href="{{ route('objectives.view', $obj) }}"
-                                                            class="text-[.775rem] font-bold text-[#1b3a6b] no-underline transition-colors hover:text-[#d97706]">
-                                                            All videos
-                                                        </a>
-                                                        <span class="text-[#f59e0b] text-[.65rem]">✦</span>
+                                                            <div class="absolute inset-0 bg-[#0f172a]/40 backdrop-blur-sm"
+                                                                @click="filtersOpen = false"></div>
+
+                                                            <div x-show="filtersOpen"
+                                                                x-transition:enter="transition ease-out duration-250"
+                                                                x-transition:enter-start="translate-y-full"
+                                                                x-transition:enter-end="translate-y-0"
+                                                                x-transition:leave="transition ease-in duration-200"
+                                                                x-transition:leave-start="translate-y-0"
+                                                                x-transition:leave-end="translate-y-full"
+                                                                class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl overflow-hidden"
+                                                                style="box-shadow:0 -8px 40px rgba(15,23,42,.2)">
+
+                                                                <div
+                                                                    class="w-10 h-1 rounded-full bg-[#e2e8f0] mx-auto mt-3">
+                                                                </div>
+
+                                                                <div
+                                                                    class="flex items-start justify-between px-5 pt-4 pb-2 gap-3">
+                                                                    <div class="min-w-0">
+                                                                        <h3
+                                                                            class="text-[.95rem] font-extrabold text-[#0f172a]">
+                                                                            Filter videos</h3>
+                                                                        <p
+                                                                            class="text-[.75rem] text-[#94a3b8] truncate mt-0.5">
+                                                                            {{ $obj->name }}</p>
+                                                                    </div>
+                                                                    <button @click="filtersOpen = false"
+                                                                        class="shrink-0 w-7 h-7 rounded-full bg-[#f1f5f9] border border-[#e2e8f0] text-[#94a3b8] flex items-center justify-center text-xs">✕</button>
+                                                                </div>
+
+                                                                <div class="px-5 pb-6 pt-2 flex flex-col gap-4">
+                                                                    <div>
+                                                                        <label
+                                                                            class="block text-[.7rem] font-bold text-[#94a3b8] uppercase tracking-wider mb-1.5">Language</label>
+                                                                        <select x-model="language"
+                                                                            class="w-full text-[.85rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-xl px-3.5 py-3">
+                                                                            <option value="">All languages
+                                                                            </option>
+                                                                            @foreach ($this->availableLanguages as $code)
+                                                                                <option value="{{ $code }}">
+                                                                                    {{ config('app.languages.' . $code, $code) }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <label
+                                                                            class="block text-[.7rem] font-bold text-[#94a3b8] uppercase tracking-wider mb-1.5">Focus</label>
+                                                                        <select x-model="focus"
+                                                                            class="w-full text-[.85rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-xl px-3.5 py-3">
+                                                                            <option value="">All focus types
+                                                                            </option>
+                                                                            <option
+                                                                                value="{{ \App\Enums\VideoFocus::LessonFocused->value }}">
+                                                                                Lesson Focused</option>
+                                                                            <option
+                                                                                value="{{ \App\Enums\VideoFocus::QuestionFocused->value }}">
+                                                                                Question Focused</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <label
+                                                                            class="block text-[.7rem] font-bold text-[#94a3b8] uppercase tracking-wider mb-1.5">Sort</label>
+                                                                        <select x-model="sort"
+                                                                            class="w-full text-[.85rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-xl px-3.5 py-3">
+                                                                            <option value="newest">Newest first
+                                                                            </option>
+                                                                            <option value="oldest">Oldest first
+                                                                            </option>
+                                                                            <option value="rating-high">Highest rating
+                                                                                first</option>
+                                                                            <option value="rating-low">Lowest rating
+                                                                                first</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <button @click="redirect()"
+                                                                        class="mt-1 w-full py-3 rounded-xl bg-[#1b3a6b] text-white text-[.85rem] font-extrabold">
+                                                                        View videos
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -380,7 +540,7 @@
 
                                                                     <a wire:navigate
                                                                         href="{{ route('videos.view', [$video]) }}"
-                                                                        class="flex-shrink-0 rounded-xl overflow-hidden relative group cursor-pointer transition-transform duration-200 hover:-translate-y-0.5"
+                                                                        class="shrink-0 rounded-xl overflow-hidden relative group cursor-pointer transition-transform duration-200 hover:-translate-y-0.5"
                                                                         style="width:220px;background:#0f172a;border:1px solid rgba(27,58,107,.2);">
                                                                         @if ($thumbnail)
                                                                             <img src="{{ $thumbnail }}"
@@ -641,14 +801,18 @@
         </div>
     @endif
 
+    @php
+        $settings = getHomePageSettings();
+    @endphp
+
     {{-- Manifesto --}}
-    <div class="manifesto mt-6 bg-[#1b3a6b] rounded-3xl relative overflow-hidden px-8 md:px-16 py-14 text-center">
+    <div class="manifesto relative mt-16 bg-[#1b3a6b] rounded-3xl overflow-hidden px-8 md:px-16 py-14 text-center">
         <div class="relative z-10">
-            <p class="font-['Instrument_Serif',serif] italic text-white leading-relaxed max-w-140 mx-auto"
-                style="font-size:clamp(1.4rem,2.5vw,1.9rem)">
-                " upload an approved video <span class="text-[#f59e0b]"> ✦ </span> unlock any chapter "
+            <p class="font-['Instrument_Serif',serif] italic text-white leading-[1.4] max-w-160 mx-auto"
+                style="font-size:clamp(1.6rem,3vw,2.25rem)">
+                {!! str($settings->manifesto_quote) !!}
             </p>
-            <div class="w-10 h-0.5 rounded mx-auto my-4 bg-[rgba(245,158,11,.4)]"></div>
+            <div class="w-12 h-0.5 rounded mx-auto my-5" style="background:rgba(245,158,11,.4)"></div>
             <p class="text-sm text-white/45 max-w-115 mx-auto leading-relaxed">
                 Submit a video solution to any objective. Once approved by a maintainer, you unlock the full course.
             </p>

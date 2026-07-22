@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        {{-- ── Search + Sort ── --}}
+        {{-- ── Search + Qualification + Sort ── --}}
         <div class="mb-3 flex items-center gap-3">
 
             {{-- Search --}}
@@ -43,6 +43,23 @@
                         ✕
                     </button>
                 @endif
+            </div>
+
+            {{-- Qualification filter --}}
+            <div class="relative shrink-0">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none" width="13"
+                    height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 14l6.16-3.42A12.083 12.083 0 0121 17.5c-2.24 1.5-5.06 2.5-9 2.5s-6.76-1-9-2.5a12.083 12.083 0 012.84-6.92L12 14z" />
+                </svg>
+                <select wire:model.live="qualification"
+                    class="sort-select text-[.8rem] font-bold text-[#0f172a] bg-white border border-[#e2e8f0] rounded-[14px] pl-8 pr-7 py-3 cursor-pointer transition-all duration-[.18s] hover:border-[rgba(27,58,107,.3)]">
+                    <option value="">All qualifications</option>
+                    @foreach ($this->qualifications() as $q)
+                        <option value="{{ $q->id }}">{{ $q->name }} ({{ $q->courses_count }})</option>
+                    @endforeach
+                </select>
             </div>
 
             {{-- Sort --}}
@@ -69,7 +86,7 @@
                 'name-asc' => 'Name A → Z',
                 'name-desc' => 'Name Z → A',
             ];
-            $hasActiveFilters = $search || $sort !== 'newest';
+            $hasActiveFilters = $search || $sort !== 'newest' || $qualification;
         @endphp
 
         @if ($hasActiveFilters)
@@ -91,6 +108,24 @@
                         <button wire:click="$set('search', '')"
                             class="ml-0.5 w-4 h-4 rounded flex items-center justify-center text-[#1b3a6b]/50 hover:text-[#1b3a6b] hover:bg-[rgba(27,58,107,.1)] transition-colors text-[10px]"
                             aria-label="Remove search filter">✕</button>
+                    </span>
+                @endif
+
+                {{-- Qualification badge --}}
+                @if ($qualification)
+                    @php
+                        $qualName = $this->qualifications()->firstWhere('id', (int) $qualification)?->name;
+                    @endphp
+                    <span
+                        class="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-lg bg-[#f0fdf4] border border-[rgba(22,163,74,.2)] text-[.75rem] font-semibold text-[#15803d]">
+                        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2.5" class="opacity-50">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                        </svg>
+                        {{ $qualName }}
+                        <button wire:click="$set('qualification', '')"
+                            class="ml-0.5 w-4 h-4 rounded flex items-center justify-center text-[#15803d]/50 hover:text-[#15803d] hover:bg-[rgba(22,163,74,.1)] transition-colors text-[10px]"
+                            aria-label="Remove qualification filter">✕</button>
                     </span>
                 @endif
 
@@ -122,7 +157,7 @@
         {{-- ── Course grid ── --}}
         @if ($this->courses()->isNotEmpty())
             <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr"
-                wire:loading.class="loading" wire:target="search, sort">
+                wire:loading.class="loading" wire:target="search, sort, qualification">
 
                 @foreach ($this->courses() as $i => $course)
                     <livewire:courses.course-card :course="$course" :i="$i" :key="$course->id" />
@@ -177,20 +212,20 @@
             </div>
         @endif
 
+        @php
+            $settings = getHomePageSettings();
+        @endphp
+
         {{-- Manifesto --}}
         <div class="manifesto relative mt-16 bg-[#1b3a6b] rounded-3xl overflow-hidden px-8 md:px-16 py-14 text-center">
             <div class="relative z-10">
-                <p class="font-['Instrument_Serif',serif] italic text-white leading-relaxed max-w-150 mx-auto"
-                    style="font-size:clamp(1.5rem,2.5vw,2rem)">
-                    " upload an approved video
-                    <span class="text-[#f59e0b]"> ✦ </span>
-                    unlock any chapter "
+                <p class="font-['Instrument_Serif',serif] italic text-white leading-[1.4] max-w-160 mx-auto"
+                    style="font-size:clamp(1.6rem,3vw,2.25rem)">
+                    {!! str($settings->manifesto_quote) !!}
                 </p>
-                <div class="w-10 h-0.5 rounded mx-auto my-4.5" style="background:rgba(245,158,11,.4)"></div>
-                <p class="text-[.85rem] text-white/45 max-w-125 mx-auto leading-relaxed">
-                    Every course contains sections and chapters with clear objectives. Students submit video solutions.
-                    Maintainers review and accept. One approved video unlocks the rest —
-                    crowdsourced, peer-validated, forever free.
+                <div class="w-12 h-0.5 rounded mx-auto my-5" style="background:rgba(245,158,11,.4)"></div>
+                <p class="text-[.85rem] text-white/45 max-w-130 mx-auto leading-[1.75]">
+                    {{ str($settings->manifesto_description)->sanitizeHtml()->stripTags() }}
                 </p>
             </div>
         </div>

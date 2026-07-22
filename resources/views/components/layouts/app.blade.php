@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo/favicon.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#1E3A5F">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo/icon-192.png') }}">
+
     <title>{{ $title ?? config('app.name') }}</title>
 
     <!-- Open Graph / WhatsApp Preview -->
@@ -67,13 +72,13 @@
     style="font-family:'Plus Jakarta Sans',system-ui,sans-serif">
     {{-- <x-navbar></x-navbar> --}}
 
-        {{ $slot }}
+    {{ $slot }}
 
-        {{-- <x-footer></x-footer> --}}
+    {{-- <x-footer></x-footer> --}}
 
-        {{-- <x-pwa.scripts></x-pwa.scripts> --}}
+    {{-- <x-pwa.scripts></x-pwa.scripts> --}}
 
-        @livewireScripts
+    @livewireScripts
 </body>
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/@bprogress/core/dist/index.css" />
 <script type="module">

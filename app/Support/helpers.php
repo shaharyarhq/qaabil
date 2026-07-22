@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Course;
+use App\Models\Qualification;
 use App\Settings\HomePageSettings;
 use App\Settings\AcademyPageSettings;
 use App\Settings\ApplicationSettings;
@@ -33,6 +34,11 @@ if (! function_exists('spa')) {
 function getCourseQuery()
 {
     return Course::query()->where('is_disabled', false);
+}
+
+function getQualificationQuery()
+{
+    return Qualification::query();
 }
 
 function getHomePageSettings()

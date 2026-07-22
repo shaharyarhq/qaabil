@@ -173,32 +173,32 @@
 
     <script>
         // ── Billing toggle ──────────────────────────
-        let annual = false;
+        // let annual = false;
 
-        function flipBilling() {
-            annual = !annual;
-            const tog = document.getElementById('tog');
-            const lblM = document.getElementById('lbl-m');
-            const lblA = document.getElementById('lbl-a');
+        // function flipBilling() {
+        //     annual = !annual;
+        //     const tog = document.getElementById('tog');
+        //     const lblM = document.getElementById('lbl-m');
+        //     const lblA = document.getElementById('lbl-a');
 
-            tog.classList.toggle('on', annual);
-            lblM.style.fontWeight = annual ? '500' : '800';
-            lblM.style.color = annual ? '#94a3b8' : '#0f172a';
-            lblA.style.fontWeight = annual ? '800' : '500';
-            lblA.style.color = annual ? '#0f172a' : '#94a3b8';
+        //     tog.classList.toggle('on', annual);
+        //     lblM.style.fontWeight = annual ? '500' : '800';
+        //     lblM.style.color = annual ? '#94a3b8' : '#0f172a';
+        //     lblA.style.fontWeight = annual ? '800' : '500';
+        //     lblA.style.color = annual ? '#0f172a' : '#94a3b8';
 
-            document.querySelectorAll('.price-num').forEach(el => {
-                el.classList.add('out');
-                setTimeout(() => {
-                    el.textContent = annual ? el.dataset.a : el.dataset.m;
-                    el.classList.remove('out');
-                }, 180);
-            });
+        //     document.querySelectorAll('.price-num').forEach(el => {
+        //         el.classList.add('out');
+        //         setTimeout(() => {
+        //             el.textContent = annual ? el.dataset.a : el.dataset.m;
+        //             el.classList.remove('out');
+        //         }, 180);
+        //     });
 
-            document.querySelectorAll('.price-cycle').forEach(el => {
-                el.textContent = annual ? 'Billed annually · cancel anytime' : 'Billed monthly · cancel anytime';
-            });
-        }
+        //     document.querySelectorAll('.price-cycle').forEach(el => {
+        //         el.textContent = annual ? 'Billed annually · cancel anytime' : 'Billed monthly · cancel anytime';
+        //     });
+        // }
 
         // ── FAQ accordion ───────────────────────────
         function toggleFaq(btn) {

@@ -11,10 +11,12 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Forms\Components\Repeater\TableColumn;
 
 class QuestionForm
@@ -27,8 +29,39 @@ class QuestionForm
                     ->columnSpanFull()
                     ->columns(2)
                     ->schema([
+                        Select::make('course_id')
+                            ->label('Course')
+                            ->relationship('course', 'name')
+                            ->afterStateUpdatedJs('$set(`section_id`, null)')
+                            ->saved(false)
+                            ->required(),
+
+                        Select::make('section_id')
+                            ->label('Section')
+                            ->relationship('section', 'name', fn($query, Get $get) => $query->where('course_id', $get('course_id')))
+                            ->afterStateUpdatedJs('$set(`chapter_id`, null)')
+                            ->saved(false)
+                            ->required(),
+
+                        Select::make('chapter_id')
+                            ->label('Chapter')
+                            ->relationship('chapter', 'name', fn($query, Get $get) => $query->where('section_id', $get('section_id')))
+                            ->afterStateUpdatedJs('$set(`objective_id`, null)')
+                            ->saved(false)
+                            ->required(),
+
                         Select::make('objective_id')
-                            ->relationship('objective', 'name')
+                            ->relationship(
+                                'objective',
+                                'name',
+                                fn($query, Get $get) => $query->where('chapter_id', $get('chapter_id'))
+                            )
+                            ->afterStateHydrated(function (Get $get, Set $set, ?Model $record) {
+                                if (!$record) return;
+                                $set('chapter_id', $record->chapter_id);
+                                $set('section_id', $record->chapter->section_id);
+                                $set('course_id', $record->chapter->section->course_id);
+                            })
                             ->required(),
 
                         ToggleButtons::make('type')

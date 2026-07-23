@@ -15,8 +15,8 @@
         // $dot = '#ef4444';
         // }
     @endphp
-    
-    <a wire:navigate href="{{ route('courses.view', $course) }}" wire:key="course-{{ $course->id }}"
+
+    <a target="_blank" href="{{ route('courses.view', $course) }}" wire:key="course-{{ $course->id }}"
         class="card group fade-up d{{ ($i % 5) + 1 }} min-h-80 flex flex-col bg-white border border-[#e2e8f0] rounded-[20px] overflow-hidden no-underline transition-all duration-[.22s] ease hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(27,58,107,.13)] hover:border-[rgba(27,58,107,.22)]">
 
         <div class="h-[5px] bg-[#1b3a6b] shrink-0" style="view-transition-name: course-bar-{{ $course->id }};">

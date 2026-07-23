@@ -32,11 +32,11 @@ class CoreSettingsPlugin implements Plugin
             ->font('Space Grotesk', provider: GoogleFontProvider::class)
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->profile()
-            // ->homeUrl(
-            //     // fn() => getHomePageSettings()->route['url']
-            // )
+            ->homeUrl(
+                fn() => getHomePageSettings()->route['url']
+            )
             ->spaUrlExceptions([
-                // getHomePageSettings()->route['url'],
+                getHomePageSettings()->route['url'],
             ])
             ->globalSearch(false)
             ->spa()

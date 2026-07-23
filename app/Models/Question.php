@@ -13,7 +13,8 @@ class Question extends Model
         'type',
         'question',
         'objective_id',
-        'accepted_answers'
+        'accepted_answers',
+        'hint'
     ];
 
     protected $casts = [

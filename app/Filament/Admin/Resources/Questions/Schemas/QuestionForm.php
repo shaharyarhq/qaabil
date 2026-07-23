@@ -41,6 +41,10 @@ class QuestionForm
                             ->columnSpanFull()
                             ->required(),
 
+                        Textarea::make('hint')
+                            ->columnSpanFull()
+                            ->nullable(),
+
                         Repeater::make('options')
                             ->relationship('options')
                             ->visible(fn(Get $get) => in_array($get('type'), [

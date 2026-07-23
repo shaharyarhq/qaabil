@@ -2,22 +2,25 @@
 
 namespace App\Filament\Student\Pages;
 
-use Filament\Pages\Page;
-use App\Models\Quiz\Quiz;
 use App\Enums\QuestionType;
-use Filament\Actions\Action;
-use Filament\Schemas\Schema;
+use App\Models\Quiz\Quiz;
 use App\Models\Quiz\QuizAttempt;
-use Filament\Forms\Components\Radio;
-use Illuminate\Support\Facades\Auth;
 use App\Models\UserObjectiveProgress;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Schemas\Components\Wizard;
-use Filament\Notifications\Notification;
-use Filament\Schemas\Components\Section;
+use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
-use Filament\Schemas\Components\Wizard\Step;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Notifications\Notification;
+use Filament\Pages\Page;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Wizard;
+use Filament\Schemas\Components\Wizard\Step;
+use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
+use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Auth;
 
 class TakeQuiz extends Page implements HasForms
 {
@@ -83,6 +86,21 @@ class TakeQuiz extends Page implements HasForms
                                     ->label('Question ' . ($index + 1))
                                     ->schema([
                                         $field
+                                            ->hintAction(
+                                                Action::make('hint')
+                                                    ->visible(fn() => !!$question->hint)
+                                                    ->modalSubmitAction(false)
+                                                    ->icon(Heroicon::QuestionMarkCircle)
+                                                    ->modalCancelActionLabel('Close')
+                                                    ->modalWidth(Width::Medium)
+                                                    ->schema([
+                                                        TextEntry::make("hint_{$question->id}")
+                                                        ->hiddenLabel()
+                                                            ->state(
+                                                                $question->hint
+                                                            )
+                                                    ])
+                                            )
                                             ->label($question->question)
                                             ->options($question->options->pluck('option_text', 'id'))
                                     ]);

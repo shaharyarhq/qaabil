@@ -65,19 +65,20 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugin(new CoreSettingsPlugin())
-            ->plugins([
-                AuthDesignerPlugin::make()
-                    ->defaults(
-                        fn($config) => $config
-                            ->media(getPanelAuthBackgroundUrl($panelId))
-                            ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"] ?? '') ?? MediaPosition::Cover)
-                            ->blur(getSiteSettings()["{$panelId}_auth_background_blur"] ?? false)
-                            ->themeToggle(top: '1rem', left: '1rem')
-                    )
-                    ->login(
-                        fn(AuthPageConfig $config) => $config
-                            ->usingPage(Login::class),
-                    )
-            ]);
+            // ->plugins([
+            //     AuthDesignerPlugin::make()
+            //         ->defaults(
+            //             fn($config) => $config
+            //                 ->media(getPanelAuthBackgroundUrl($panelId))
+            //                 ->mediaPosition(MediaPosition::tryFrom(getSiteSettings()["{$panelId}_auth_background_position"] ?? '') ?? MediaPosition::Cover)
+            //                 ->blur(getSiteSettings()["{$panelId}_auth_background_blur"] ?? false)
+            //                 ->themeToggle(top: '1rem', left: '1rem')
+            //         )
+            //         ->login(
+            //             fn(AuthPageConfig $config) => $config
+            //                 ->usingPage(Login::class),
+            //         )
+            // ])
+            ;
     }
 }

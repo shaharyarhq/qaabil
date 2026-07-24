@@ -31,21 +31,21 @@ class QuestionForm
                     ->schema([
                         Select::make('course_id')
                             ->label('Course')
-                            ->relationship('course', 'name')
+                            ->relationship('objective.chapter.section.course', 'name')
                             ->afterStateUpdatedJs('$set(`section_id`, null)')
                             ->saved(false)
                             ->required(),
 
                         Select::make('section_id')
                             ->label('Section')
-                            ->relationship('section', 'name', fn($query, Get $get) => $query->where('course_id', $get('course_id')))
+                            ->relationship('objective.chapter.section', 'name', fn($query, Get $get) => $query->where('course_id', $get('course_id')))
                             ->afterStateUpdatedJs('$set(`chapter_id`, null)')
                             ->saved(false)
                             ->required(),
 
                         Select::make('chapter_id')
                             ->label('Chapter')
-                            ->relationship('chapter', 'name', fn($query, Get $get) => $query->where('section_id', $get('section_id')))
+                            ->relationship('objective.chapter', 'name', fn($query, Get $get) => $query->where('section_id', $get('section_id')))
                             ->afterStateUpdatedJs('$set(`objective_id`, null)')
                             ->saved(false)
                             ->required(),
@@ -58,9 +58,9 @@ class QuestionForm
                             )
                             ->afterStateHydrated(function (Get $get, Set $set, ?Model $record) {
                                 if (!$record) return;
-                                $set('chapter_id', $record->chapter_id);
-                                $set('section_id', $record->chapter->section_id);
-                                $set('course_id', $record->chapter->section->course_id);
+                                $set('chapter_id', $record->objective->chapter_id);
+                                $set('section_id', $record->objective->chapter->section_id);
+                                $set('course_id', $record->objective->chapter->section->course_id);
                             })
                             ->required(),
 
